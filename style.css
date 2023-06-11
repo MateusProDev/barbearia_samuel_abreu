@@ -309,6 +309,23 @@ section h2 {
     font-size: 12px;
 }
 
+.container_proprietario {
+  text-align: justify;
+}
+
+.container_proprietario h3{
+  padding-top: 30px;
+}
+
+.container_proprietario a{
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.container_proprietario img{
+  width: 100%;
+}
+
 /* Rodapé */
 
 footer{
