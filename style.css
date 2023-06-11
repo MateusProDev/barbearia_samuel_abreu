@@ -289,19 +289,42 @@ address a{
 section h2 {
     font-size: 12px;
 }
+
+/* banner informativo */
 .container_proprietario {
   text-align: justify;
-}
-.container_proprietario h3{
-  padding-top: 30px;
 }
 .container_proprietario a{
   font-size: 14px;
   text-decoration: none;
 }
-.container_proprietario img{
-  width: 100%;
+
+#banner {
+  height: 400px;
+  display: flex;
+  position: relative;
+  overflow: scroll;
+  margin: 20px;
 }
+
+.banner_rolagem img{
+  margin: 10px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.405);
+}
+
+.banner_image {
+  position: relative;
+  top: 0;
+  animation: bannerAnimation 10s linear infinite;
+}
+
+
+@keyframes bannerAnimation {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
+
+
 /* Rodapé */
 footer{
     margin: 0;
