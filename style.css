@@ -1,0 +1,345 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  header {
+    background-color: #333;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.281);
+  }
+  
+  .logo img {
+    height: 60px;
+  }
+  
+  .barbearia {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .barbearia .line {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    margin-left: 20px;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .nav-links a:hover {
+    color: darkgoldenrod;;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  
+    .barbearia {
+      display: block;
+    }
+  
+    .barbearia.active .line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+  
+    .barbearia.active .line:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .barbearia.active .line:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -8px);
+    }
+  
+    .nav-links.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      padding: 20px;
+    }
+  
+    .nav-links.active li {
+      margin-bottom: 10px;
+    }
+  }
+  
+/* COMEÇO DO CONTEUDO */
+
+.container_logo{
+    width: 100%;
+    text-align: center;
+    height: 750px;
+    background-color: #aaaaaa4f;
+}
+
+.container_logo img{
+    width: 100% auto;
+    margin-top: 40px;
+}
+
+.frases_beatriz_mello{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 18px;
+    margin-top: -20px;
+    padding: 30px;
+    color:  rgba(120, 86, 0, 0.582);
+    text-shadow: 2px 2px 3px  rgb(255, 255, 255);
+}
+
+.container_historia{
+    width: auto;
+    height: auto;
+    margin-top: -180px;
+    background-color: #333;
+    background-image: url('barbearia.jpeg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50px;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.399);
+    padding: 20px;
+    color: #fff;
+}
+
+.container_historia h1{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    margin-top: -1px;
+    text-align: center;
+    padding: 20px;
+    color:  darkgoldenrod;
+    text-shadow: 3px 3px 3px  rgb(255, 255, 255);
+}
+
+.container_historia p{
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+    padding: 0px 20px;
+    text-shadow: 2px 2px 4px  black;
+}
+
+@media screen and (max-width: 469px) {
+.container_cortes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  margin-top: 40px;
+}
+
+
+.box_cortes {
+  width: 47%;
+  height: 190px;
+  border-radius: 20px;
+  margin: 5px;
+  background-color: #333;
+  position: relative;
+  overflow: hidden;
+}
+.box_cortes img{
+  width: 100%;
+  
+}
+
+.box_shadow{
+  box-shadow: 8px 8px 8px  rgba(0, 0, 0, 0.406);
+}
+
+.img_corte_americado img{
+  margin-top: -45px;
+  
+}
+.fade_Degrade_alto img{
+  margin-top: -45px;
+}
+.box_texto{
+  background-color: #f9f9f900;
+}
+.box_texto h2{
+  font-size: 12px;
+  margin: 30px 10px 0 10px;
+  color: darkgoldenrod;
+}
+.box_texto p{
+  font-size: 11px;
+  text-align: justify;
+  margin: 20px 10px 0 10px;
+}
+
+.left {
+  animation: slideInLeft 1s forwards;
+}
+
+.right {
+  animation: slideInRight 1s forwards;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+}
+
+@media screen and (min-width: 470px) {
+  .container_cortes {
+    justify-content: flex-start;
+    padding: 10px;
+  }
+  
+  .box_cortes {
+    width: 50%;
+    box-sizing: 20px;
+  }
+  
+  .right {
+    animation: slideInRight 1s forwards;
+    animation-delay: 0.2s;
+  }
+  
+  .left {
+    animation: slideInLeft 1s forwards;
+    animation-delay: 0.2s;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container_cortes {
+    justify-content: flex-start;
+    padding: 10px;
+  }
+  
+  .box_cortes {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 10px;
+  }
+  
+  .right {
+    animation: slideInRight 1s forwards;
+    animation-delay: 0.2s;
+  }
+  
+  .left {
+    animation: slideInLeft 1s forwards;
+    animation-delay: 0.2s;
+  }
+}
+
+.container_contatos{
+    width: auto;
+    height: 240px;
+    background-color: #aaaaaa4f;
+    padding: 20px;
+    margin-top: -5px;
+}
+
+.giticon ul  {
+    width: auto;
+    color: #fff;
+    display: flex;
+    margin-left: -78px;
+}
+
+.giticon li {
+    display: flex;
+    margin: 0 10px 0 0;
+}
+
+.giticon img {
+    width: 40px;
+    margin: -10px 10px 20px -10px;
+}
+
+.giticon img:hover {
+  cursor: pointer;
+}
+
+section {
+    margin: 20px;
+}
+
+address {
+    font-size: 14px;
+}
+address a{
+    text-decoration: none;
+    color: #8c9058;
+}
+
+section h2 {
+    font-size: 12px;
+}
+
+/* Rodapé */
+
+footer{
+    margin: 0;
+    padding: 5px 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #333;
+    margin-top: -35px;
+}
+
+footer p{
+    font-size: 12px;
+    color: darkgoldenrod;
+}
+
+.menu_rodape nav{
+    display: flex;
+}
+
+.menu_rodape nav a{
+    width: auto;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13px;
+    display: flex;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 7px;
+    margin-left: -15px;
+}
+
+.menu_rodape nav a:hover{
+    color: #adadad;
+}

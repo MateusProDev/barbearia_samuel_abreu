@@ -1,0 +1,23 @@
+.menu_rodape nav a:hover{
+    color: darkgoldenrod;
+}
+
+.container_conteudo {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.container_conteudo h1{
+    font-size: 20px;
+    color: darkgoldenrod;
+}
+.container_conteudo p{
+    text-align: justify;
+}
+
+.container_contatos .giticon img{
+    margin-left: 0px;
+}
+.conteudo_main #contatos{
+    margin-top: -20px;
+}
