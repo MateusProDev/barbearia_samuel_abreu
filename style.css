@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  width: 390px;
 }
   
 header {
@@ -138,12 +137,11 @@ header {
 
 @media screen and (max-width: 469px) {
 .container_cortes_box{
-  width: 100%;
   padding: 10px;
-  background-color: #6c6c6c2c;
 }
 
 .container_cortes {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -221,7 +219,7 @@ header {
     padding: 10px;
   }
   .box_cortes {
-    width: 50%;
+    width: 100%;
     box-sizing: 20px;
   }
   .right {
