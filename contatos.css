@@ -31,3 +31,29 @@
 .conteudo_main #contatos{
     margin-top: -20px;
 }
+
+/* botao whatssap */
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: rgb(1, 171, 1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-button img {
+  width: 40px;
+  height: 40px;
+}
+
+.whatsapp-button:hover {
+  background-color: rgb(0, 144, 0);
+}
