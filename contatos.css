@@ -3,16 +3,26 @@
 }
 
 .container_conteudo {
+    width: auto;
+    height: 450px;
     padding: 10px 20px;
-    margin-bottom: 20px;
+    margin-top: -2px;
+    background-image: url('corte\ de\ barba.txt');
+    background-size: cover;
+    background-position: center;
+    color: aliceblue;
+    text-shadow: 2px 2px 2px rgb(0, 0, 0); 
+    margin-bottom: 5px;
+    box-shadow: inset 0 0 200px 10px black;
 }
 
 .container_conteudo h1{
-    font-size: 20px;
+    font-size: 28px;
     color: darkgoldenrod;
 }
 .container_conteudo p{
     text-align: justify;
+    font-size: 20px;
 }
 
 .container_contatos .giticon img{
