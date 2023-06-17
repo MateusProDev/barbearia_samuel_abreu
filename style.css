@@ -47,7 +47,7 @@ header {
 }
   
 .nav-links a:hover {
-  color: darkgoldenrod;;
+  color: darkgoldenrod;
 }
   
 @media screen and (max-width: 768px) {
@@ -88,11 +88,12 @@ header {
 }
   
 /* COMEÇO DO CONTEUDO */
+
 .container_logo{
     width: 100%;
+    height: 820px;
+    margin-bottom: -220px;
     text-align: center;
-    height: 750px;
-    background-color: #aaaaaa4f;
 }
 .container_logo img{
     width: 100% auto;
@@ -100,33 +101,42 @@ header {
 }
 .frases_beatriz_mello{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 18px;
-    margin-top: -20px;
-    padding: 30px;
+    font-size: 17px;
+    margin-top: -10px;
+    padding: 40px 40px 0 40px;
     color:  rgba(120, 86, 0, 0.582);
-    text-shadow: 2px 2px 3px  rgb(255, 255, 255);
+    text-shadow: 2px 2px 3px  rgba(208, 208, 208, 0.45);
 }
 .container_historia{
     width: auto;
     height: auto;
-    margin-top: -180px;
-    background-color: #333;
+    margin: 0 20px 0 20px;
     background-image: url('barbearia.jpeg');
     background-size: cover;
     background-position: center;
-    border-radius: 50px;
-    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.399);
+    border-radius: 40px;
     padding: 20px;
-    color: #fff;
+    color: #ffffffbb;
+    box-shadow: inset 0px 200px 80px 10px;  
+}
+
+.container_logo_barbearia::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: inset 0 0 20px 10px rgba(0, 0, 0, 0.5); /* Adiciona a sombra sobre a imagem */
+  z-index: -1; /* Coloca a sombra atrás do conteúdo */
 }
 .container_historia h1{
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
-    margin-top: -1px;
     text-align: center;
     padding: 20px;
-    color:  darkgoldenrod;
-    text-shadow: 3px 3px 3px  rgb(255, 255, 255);
+    color:  rgb(0, 17, 67);
+    text-shadow: 3px 2px 5px rgba(0, 0, 0, 0.411);
 }
 .container_historia p{
     font-family: 'Times New Roman', Times, serif;
@@ -252,6 +262,9 @@ header {
     animation-delay: 0.2s;
   }
 }
+
+/* contatos */
+
 .container_contatos{
     width: auto;
     height: 240px;
@@ -299,18 +312,39 @@ section h2 {
   text-decoration: none;
 }
 
-#banner {
-  height: 400px;
-  display: flex;
-  position: relative;
-  overflow: scroll;
-  margin: 20px;
+.carrossel {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 
-.banner_rolagem img{
-  margin: 10px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.405);
+.carrossel-inner {
+  display: flex;
+  animation: scrollCarrossel 8s infinite ; /* Define a animação de rolagem infinita */
 }
+
+.banner_rolate {
+  width: 400px;
+  height: 400px;
+  margin: 10px;
+  box-shadow: 4px 3px 8px #333;
+  flex: 0 0 100%;
+}
+
+.banner_rolate img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes scrollCarrossel {
+  0% {
+    transform: translateX(0); /* Inicia a partir da posição inicial */
+  }
+  100% {
+    transform: translateX(-100%); /* Move para a esquerda */
+  }
+}
+
 
 .banner_image {
   position: relative;
@@ -324,22 +358,42 @@ section h2 {
   100% { left: -100%; }
 }
 
+/* horario */
+
+.horarios{
+  background-color: #333;
+  margin: 0;
+  padding: 10px 20px 10px 20px;
+  color: #fff;
+  text-shadow: 3px 3px 5px black;
+  line-height: 1.5;
+}
+.horarios h3{
+  color: darkgoldenrod;
+}
+
+.horarios img{
+  width: 100%;
+}
 
 /* Rodapé */
+
 footer{
-    margin: 0;
+    margin-top: -1px;
     padding: 5px 20px;
     text-align: center;
     color: #fff;
     background-color: #333;
-    margin-top: -35px;
+
 }
 footer p{
     font-size: 12px;
     color: darkgoldenrod;
 }
 h2 {
-  text-align: center;
+  font-size: 18px;
+  text-align: left;
+  margin-left: 10px;
 }
 form {
   max-width: 400px;
@@ -349,10 +403,31 @@ form {
   border-radius: 5px;
 }
 input[type="text"],
-input[type="email"],
-button[type="submit"] {
+input[type="email"]
+ {
   display: block;
   width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.comentario_form{
+  display: block;
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.botao_form{
+  display: block;
+  width: 80%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -387,4 +462,30 @@ button[type="submit"]:hover {
 }
 .menu_rodape nav a:hover{
     color: #adadad;
+}
+
+/* botao whatssap */
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: rgb(1, 171, 1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-button img {
+  width: 40px;
+  height: 40px;
+}
+
+.whatsapp-button:hover {
+  background-color: rgb(0, 144, 0);
 }
