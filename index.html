@@ -26,20 +26,25 @@
       </header>
       <script src="script.js"></script>
     <main>
-        <div class="container_logo">
-            <img src="logo_barbearia.png" alt="logo-banner">
-            <div class="frases_beatriz_mello">
-                <cite>
-                    <p>Arranje um bom barbeiro e tenha um melhor amigo para a vida toda.</p>
-                    <p>99% dos seus problemas podem ser resolvidos indo ao barbeiro.</p>
-                    <strong> Beatriz Mello </strong>
-                </cite>
+        <div class="container_logo_barbearia">
+            <div class="container_logo">
+                <img src="logo_barbearia.png" alt="logo-banner">
+                <div class="frases_beatriz_mello">
+                    <cite>
+                        <p>Arranje um bom barbeiro e tenha um melhor amigo para a vida toda.</p>
+                        <p>99% dos seus problemas podem ser resolvidos indo ao barbeiro.</p>
+                        <strong> Beatriz Mello </strong>
+                    </cite>
+                </div>
             </div>
         </div>
         <div id="histo" class="container_historia">
             <h1>HISTORIA DA BARBEARIA</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo cupiditate, totam similique facere ipsum quo necessitatibus sequi dicta. Omnis quo delectus sed quidem. Distinctio ab ipsum corporis, voluptate deserunt quisquam!</p>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis tempore nam optio! Tempore, eligendi voluptatem veritatis natus maxime earum laudantium incidunt ad id, nesciunt dicta quas labore animi temporibus libero!</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt, est earum? Labore id in quasi fugit non culpa iure vero repellendus velit, quia minima veritatis rerum enim. Aliquam, eius necessitatibus.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt, est earum? Labore id in quasi fugit non culpa iure vero repellendus velit, quia minima veritatis rerum enim. Aliquam, eius necessitatibus.</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt, est earum? Labore id in quasi fugit non culpa iure vero repellendus velit, quia minima veritatis rerum enim. Aliquam, eius necessitatibus.</p>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt, est earum? Labore id in quasi fugit non culpa iure vero repellendus velit, quia minima veritatis rerum enim. Aliquam, eius necessitatibus.</p>
         </div>
         <div class="container_cortes_box">
@@ -85,10 +90,15 @@
         <section class="container_proprietario">
             <h3>NOSSA MISSÃO</h3>
             <p><cite>O cabeleireiro é quem tem o dom de fazer arte com tesouras, máquinas e navalhas; O trabalho do cabeleireiro é revelar a beleza e o seu cliente é sua obra de arte.</cite><a href="https://www.bing.com/ck/a?!&&p=294d7084c1f640b8JmltdHM9MTY4NjQ0MTYwMCZpZ3VpZD0wNzRjMjllMy0xZTZjLTZhYTMtMTZhOC0zYWM1MWY3ODZiOTkmaW5zaWQ9NTUyNQ&ptn=3&hsh=3&fclid=074c29e3-1e6c-6aa3-16a8-3ac51f786b99&psq=MIissao+do+cabeleleiro+frase&u=a1aHR0cHM6Ly93d3cuNDJmcmFzZXMuY29tLmJyL2ZyYXNlcy1kZS1jYWJlbGVpcmVpcm8vIzp-OnRleHQ9TyUyMGNhYmVsZWlyZWlybyUyMCVDMyVBOSUyMHF1ZW0lMjB0ZW0lMjBvJTIwZG9tJTIwZGUsbyUyMHNldSUyMGNsaWVudGUlMjAlQzMlQTklMjBzdWElMjBvYnJhJTIwZGUlMjBhcnRlLg&ntb=1" target="_self" rel="noopener noreferrer"> Beatriz Mello </cite></a></p>
-            <div id="banner" class="banner_rolagem">
-                <img src="proprietario.jpeg" alt="Imagem 1" class="banner_image">
-                <img src="barbearia.jpeg" alt="Imagem 1" class="banner_image">
-                <img src="proprietario 2.jpeg" alt="Imagem 2" class="banner_image">
+            <div class="carrossel">
+                <div class="carrossel-inner">
+                  <div class="banner_rolate">
+                    <img src="proprietario.jpeg" alt="Banner 1">
+                  </div>
+                  <div class="banner_rolate">
+                    <img src="barbearia.jpeg" alt="Banner 2">
+                  </div>
+                </div>
             </div>
         <script src="script.js"></script>
         </section>
@@ -110,20 +120,33 @@
                 <p>Rua Marieta Barreira 810, Sabiaguaba</p>
             </address>
         </div>
+        <div class="horarios">
+            <h3>HORARIOS</h3>
+            <p>
+                Segunda: 08:00 - 18:50 <br>
+                Terça: 08:00 - 18:50 <br>
+                Quarta: 08:00 - 18:50 <br>
+                Quinta: 08:00 - 17:50 <br> 
+                Sexta: 08:00 - 18:50 <br>
+                Sabado: 08:00 - 18:00 <br>
+                Domingo: Fechado <br>
+            </p>
+        </div>
     </main>
     <footer>
         <div>
-            <h2>Formulário de Contato</h2>
             <form action="https://getform.io/f/c205ae9b-7265-4d0f-8edd-1c7e6c8f1336" method="POST">
-                <input type="text" name="name" placeholder="nome">
-                <input type="email" name="email" placeholder="email">
-                <button type="submit">Enviar</button>
-              </form>
+            <h2>Formulário de Contato</h2>
+              <input type="text" name="name" placeholder="Nome">
+              <input type="email" name="email" placeholder="Email">
+              <textarea class="comentario_form" name="comment" placeholder="Digite seu comentário"></textarea>
+              <button class="botao_form" type="submit">Enviar</button>
+            </form>
             <div id="success-message" class="hidden">
-                <p>E-mail enviado com sucesso!</p>
+              <p>E-mail enviado com sucesso!</p>
             </div>
-        <script src="script.js"></script>
-        </div>
+            <script src="script.js"></script>
+          </div>          
         <hr>
         <div class="menu_rodape">
             <nav>
@@ -136,5 +159,8 @@
         
         <p>Barbearia Samuel Abreu &copy 2023 | Todos os direiros reservados</p>
     </footer>
+    <a href="https://wa.link/19u2v4" target="_blank" class="whatsapp-button">
+        <img src="icon_whatssap.png" alt="WhatsApp">
+      </a>
 </body>
 </html>
