@@ -36,18 +36,23 @@ header {
   padding: 0;
 }
 
-.nav-links li {
-  margin-left: 20px;
-}
 
 .nav-links a {
-  color: #fff;
+  color: #000000;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 22px;
+  text-shadow: 1px 3px 3px #000000c2;
 }
   
 .nav-links a:hover {
   color: rgb(255, 255, 255);
+}
+
+.nav-links hr{
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
   
 @media screen and (max-width: 768px) {
@@ -72,18 +77,22 @@ header {
 }
 
 .nav-links.active {
+  width: 89.5%;
+  height: 35%;
   display: flex;
   flex-direction: column;
   position: absolute;
   top: 82px;
   left: 0;
-  width: 89.5%;
-  background-color: #333;
+  background-color: #f7f7f7da;
   padding: 20px;
+  text-align: center;
+
 }
 
 .nav-links.active li {
   margin-bottom: 10px;
+  font-size: 50px;
 }
 }
   
@@ -220,9 +229,9 @@ header {
   background-color: #f9f9f900;
 }
 .box_texto h2{
-  font-size: 12px;
+  font-size: 18px;
   margin: 30px 10px 0 10px;
-  color: darkgoldenrod;
+  color: rgb(26, 26, 26);
 }
 .box_texto p{
   font-size: 11px;
@@ -297,21 +306,6 @@ header {
   }
 }
 
-/* seção que abre */
-#botao {
-  background-color:darkgoldenrod;
-  color: white;
-  padding: 10px 0 10px 20px;
-  cursor: pointer;
-}
-
-
-.botao_redes button{
-  padding: 5px;
-  border-radius: 20px;
-  background-color: #d8d8d8;
-}
-
 /* contatos */
 
 .container_contatos{
@@ -345,7 +339,7 @@ address {
 }
 address a{
     text-decoration: none;
-    color: #8c9058;
+    color: #e9e9e9;
 }
 section h2 {
     font-size: 12px;
@@ -420,13 +414,13 @@ section h2 {
 .horarios{
   background-color: #333;
   margin: 0;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 20px 10px 30px;
   color: #fff;
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
   line-height: 1.5;
 }
 .horarios h3{
-  color: darkgoldenrod;
+  color: rgb(218, 218, 218);
 }
 
 .horarios img{
@@ -445,7 +439,7 @@ footer{
 }
 footer p{
     font-size: 12px;
-    color: darkgoldenrod;
+    color: rgb(255, 255, 255);
 }
 h2 {
   font-size: 18px;
@@ -505,6 +499,7 @@ button[type="submit"]:hover {
 .hidden {
   display: none;
 }
+
 .menu_rodape nav{
     display: flex;
 }
@@ -519,6 +514,21 @@ button[type="submit"]:hover {
 }
 .menu_rodape nav a:hover{
     color: #adadad;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icons .icon  {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.social-icons .icon:last-child {
+  margin-right: 0;
 }
 
 /* botao whatssap */
