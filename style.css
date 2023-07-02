@@ -101,7 +101,7 @@ header {
 .container_logo{
     width: 100%;
     height: 550px;
-    padding-top: 40px;
+    padding: 40px 0;
     text-align: center;
     color: #fff;
     background-image: url(barbearia.jpeg);
@@ -134,7 +134,7 @@ header {
 }
 .container_logo p{
   width: 75%;
-  margin:  30px auto 30px auto;
+  margin:  30px auto 0px auto;
 }
 
 /* seção 2 */
