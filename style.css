@@ -10,11 +10,11 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.281);
 }
 
 .logo img {
-  width: 60px;
+  width: 50px;
+  padding-top: 5px;
 }
 
 .barbearia {
@@ -25,7 +25,7 @@ header {
 .barbearia .line {
   width: 25px;
   height: 3px;
-  background-color:darkgoldenrod;
+  background-color:rgb(255, 255, 255);
   margin: 5px;
 }
 
@@ -47,7 +47,7 @@ header {
 }
   
 .nav-links a:hover {
-  color: darkgoldenrod;
+  color: rgb(255, 255, 255);
 }
   
 @media screen and (max-width: 768px) {
@@ -91,59 +91,41 @@ header {
 
 .container_logo{
     width: 100%;
-    height: 820px;
-    margin-bottom: -220px;
+    height: 550px;
+    padding-top: 40px;
     text-align: center;
-}
-.container_logo img{
-    width: 100% auto;
-    margin-top: 40px;
-}
-.frases_beatriz_mello{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 17px;
-    margin-top: -10px;
-    padding: 40px 40px 0 40px;
-    color:  rgba(120, 86, 0, 0.582);
-    text-shadow: 2px 2px 3px  rgba(208, 208, 208, 0.45);
-}
-.container_historia{
-    width: auto;
-    height: auto;
-    margin: 0 20px 0 20px;
-    background-image: url('barbearia.jpeg');
+    color: #fff;
+    background-image: url(barbearia.jpeg);
     background-size: cover;
-    background-position: center;
-    border-radius: 40px;
-    padding: 20px;
-    color: #000000bb;
-    box-shadow: inset 0px 0px 200px 100px;  
-}
-
-.container_logo_barbearia::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  box-shadow: inset 0 0 100px 10px rgba(0, 0, 0, 0.5); /* Adiciona a sombra sobre a imagem */
+    box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.733); /* Adiciona a sombra sobre a imagem */
   z-index: -1; /* Coloca a sombra atrás do conteúdo */
 }
-.container_historia h1{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 20px;
-    text-align: center;
-    padding: 20px;
-    color: darkgoldenrod;
-    text-shadow: 3px 2px 5px rgba(0, 0, 0, 0.411);
+.container_logo img{
+    width: 70%;
 }
-.container_historia p{
-    font-family: 'Times New Roman', Times, serif;
-    text-align: justify;
-    padding: 0px 20px;
-    color: #fff;
-    text-shadow: 2px 2px 4px  rgb(74, 74, 74);
+.container_logo button{
+  width: 70%;
+  font-size: 14px;
+  font-family: 'Times New Roman', Times, serif;
+  border: none;
+  border-radius: 15px;
+  max-width: fit-content;
+  padding: 10px 15px;
+  margin: 20px auto 0 auto;
+  background-color: #aaa;
+  color: #fff;
+  text-shadow: 2px 2px 3px #00000054;
+}
+.container_logo button:hover{
+  box-shadow: 2px 5px 5px #ffffff;
+  transition: 0.1s ease-in;
+}
+.container_logo strong:hover{
+  color: #00c70a;
+}
+.container_logo p{
+  width: 75%;
+  margin:  30px auto 0 auto;
 }
 
 /* seção 2 */
