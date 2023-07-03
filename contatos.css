@@ -4,28 +4,39 @@
 
 .container_conteudo {
     width: auto;
-    height: 450px;
+    height: 280px;
     padding: 10px 30px 0 30px;
     background-image: url('barbearia.jpeg');
     background-size: cover;
     background-position: center;
     color: aliceblue;
     text-shadow: 2px 2px 2px rgb(0, 0, 0); 
-    box-shadow: inset 0 0 200px 10px black;
+    box-shadow: inset 0 0 200px 120px rgba(0, 0, 0, 0.938);
 }
 
 .container_conteudo h1{
-    font-size: 28px;
+    font-size: 20px;
     color: rgb(236, 236, 236);
 }
 .container_conteudo p{
     text-align: justify;
-    font-size: 20px;
+    font-size: 16px;
 }
 
-.container_contatos .giticon img{
-    margin-left: 0px;
-}
 .conteudo_main #contatos{
-    margin-top: -20px;
+    margin: -20px 0;
+}
+.giticon figure{
+    margin: 0;
+}
+
+.giticon figure ul{
+    margin: 0;
+    padding: 0;
+}
+.giticon figure ul li{
+    margin: 10px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 }
