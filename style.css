@@ -106,7 +106,7 @@ header {
     color: #fff;
     background-image: url(barbearia.jpeg);
     background-size: cover;
-    box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.733); /* Adiciona a sombra sobre a imagem */
+    box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.89); /* Adiciona a sombra sobre a imagem */
   z-index: -1; /* Coloca a sombra atrás do conteúdo */
 }
 .container_logo img{
@@ -131,10 +131,6 @@ header {
 }
 .container_logo strong:hover{
   color: #00c70a;
-}
-.container_logo p{
-  width: 75%;
-  margin:  30px auto 0px auto;
 }
 
 /* seção 2 */
@@ -313,6 +309,11 @@ header {
     height: auto;
     background-color: #aaaaaa4f;
     padding: 20px;
+    text-align: center;
+}
+#contatos{
+  padding: 20px 0;
+  text-align: center;
 }
 .giticon ul  {
     width: auto;
