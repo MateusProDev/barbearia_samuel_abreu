@@ -112,6 +112,10 @@ header {
 .container_logo img{
     width: 70%;
 }
+.container_logo p{
+  width: 70%;
+  margin: 30px auto 20px auto;
+}
 .container_logo button{
   width: 70%;
   font-size: 14px;
