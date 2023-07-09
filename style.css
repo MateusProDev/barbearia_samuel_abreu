@@ -77,14 +77,14 @@ header {
 }
 
 .nav-links.active {
-  width: 89.5%;
+  width: 100%;
   height: 35%;
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 82px;
+  top: 80px;
   left: 0;
-  background-color: #f7f7f7da;
+  background-color: #f7f7f7ea;
   padding: 20px;
   text-align: center;
 
@@ -100,7 +100,7 @@ header {
 
 .container_logo{
     width: 100%;
-    height: 490px;
+    height: auto;
     padding: 40px 0;
     text-align: center;
     color: #fff;
@@ -206,7 +206,6 @@ header {
   justify-content: center;
   align-items: center;
   height: auto;
-  margin-top: 40px;
 }
 .box_cortes {
   width: 47%;
@@ -424,7 +423,7 @@ section h2 {
 .horarios{
   background-color: #333;
   margin: 0;
-  padding: 10px 20px 10px 30px;
+  padding: 20px 20px 10px 30px;
   color: #fff;
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
   line-height: 1.5;
@@ -530,6 +529,7 @@ button[type="submit"]:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 5px 0 20px 0;
 }
 
 .social-icons .icon  {
