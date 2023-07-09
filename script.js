@@ -14,11 +14,11 @@ window.onload = function() {
   var rightBoxes = document.querySelectorAll('.box_cortes.right');
 
   for (var i = 0; i < leftBoxes.length; i++) {
-    leftBoxes[i].style.animationDelay = i * 0.7 + 's';
+    leftBoxes[i].style.animationDelay = i * 0.2 + 's';
   }
 
   for (var j = 0; j < rightBoxes.length; j++) {
-    rightBoxes[j].style.animationDelay = j * 0.7 + 's';
+    rightBoxes[j].style.animationDelay = j * 0.2 + 's';
   }
 };
 
@@ -52,9 +52,36 @@ document.getElementById("contact-form").addEventListener("submit", function(even
     });
 });
 
+// função secao que abre
 
+function exibirConteudo() {
+  var conteudo = document.getElementById("conteudo");
+  if (conteudo.style.display === "none") {
+    conteudo.style.display = "block";
+  } else {
+    conteudo.style.display = "none";
+  }
+}
 
+// ANIMAÇÃO DO BTN_REDES
 
+function mostrarEspaco() {
+  var espaco = document.getElementById("espaco");
+  if (espaco.style.display === "none") {
+      espaco.style.display = "block";
+  } else {
+      espaco.style.display = "none";
+  }
+}
 
-
+// animação do carrossel
+var carrossel = document.getElementById('myCarousel');
+          
+  carrossel.addEventListener('click', function() {
+    if (carrossel.classList.contains('paused')) {
+      carrossel.classList.remove('paused');
+    } else {
+      carrossel.classList.add('paused');
+    }
+  });
 
