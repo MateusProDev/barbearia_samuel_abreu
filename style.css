@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f0f0f0;
+  box-sizing: border-box;
 }
   
 header {
@@ -11,6 +12,11 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
+}
+main{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .logo img {
@@ -94,7 +100,7 @@ header {
   margin-bottom: 10px;
   font-size: 50px;
 }
-}
+
 .container_logo{
   width: 100%;
   height: auto;
@@ -138,6 +144,56 @@ transition: 0.1s ease-in;
 }
 .container_logo strong:hover{
 color: #00c70a;
+}
+.container_proprietario {
+  text-align: justify;
+}
+#tema_proprietario{
+  margin-left: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+}
+#linha_proprietario{
+  width: 157px;
+  margin-left: 0;
+}
+.container_proprietario a{
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.carrossel {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.carrossel-inner {
+  display: flex;
+  animation: scrollCarrossel 8s infinite ; /* Define a animação de rolagem infinita */
+}
+
+.banner_rolate {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  box-shadow: 4px 3px 8px #333;
+  flex: 0 0 100%;
+}
+
+.banner_rolate img {
+  width: 200px;
+  height: 150px;
+}
+
+@keyframes scrollCarrossel {
+  0% {
+    transform: translateX(0); /* Inicia a partir da posição inicial */
+  }
+  100% {
+    transform: translateX(-100%); /* Move para a esquerda */
+  }
+}
 }
 
 @media screen and (min-width: 768px) {
@@ -192,8 +248,143 @@ color: #00c70a;
 .container_logo strong:hover{
   color: #00c70a;
 }
+
+.container_cortes_box{
+  padding: 10px;
 }
+
+#tema_cortes{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+  margin: 30px 20px 0 20px;
+}
+
+#linha_cortes{
+  width: 195px;
+  margin-left: 20px;
+}
+.container_cortes {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+.box_cortes {
+  width: 47%;
+  border-radius: 20px;
+  margin: 5px;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+.box_cortes img{
+  width: 100%;
+  margin-bottom: -5px;
+}
+.box_shadow{
+  box-shadow: 8px 8px 8px  rgba(0, 0, 0, 0.406);
+}
+.img_corte_americado img{
+  margin-top: -45px;
   
+}
+.fade_Degrade_alto img{
+  margin-top: -45px;
+}
+.box_texto{
+  background-color: #f9f9f900;
+}
+.box_texto h2{
+  font-size: 18px;
+  margin: 30px 10px 0 10px;
+  color: rgb(26, 26, 26);
+}
+.box_texto p{
+  font-size: 11px;
+  text-align: justify;
+  margin: 20px 10px 0 10px;
+}
+
+.left {
+  animation: slideInLeft 2s forwards;
+}
+
+.right {
+  animation: slideInRight 2s forwards;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+  .container_proprietario {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+
+  }
+  #tema_proprietario{
+    margin-left: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+  }
+  #linha_proprietario{
+    width: 157px;
+    margin-left: 0;
+  }
+  .container_proprietario a{
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .caroussel {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  .carousel-item img{
+    width: 400px;
+    height: 600px;
+  }
+  .banner_rolate {
+    width: 100%;
+    height: 200px;
+    margin: 10px;
+    box-shadow: 4px 3px 8px #333;
+    flex: 0 0 100%;
+  }
+  
+  .banner_rolate img {
+    width: 200px;
+    height: 150px;
+  }
+  
+  @keyframes scrollCarrossel {
+    0% {
+      transform: translateX(0); /* Inicia a partir da posição inicial */
+    }
+    100% {
+      transform: translateX(-100%); /* Move para a esquerda */
+    }
+  }
+}
 /* COMEÇO DO CONTEUDO */
 
 
@@ -410,55 +601,7 @@ section h2 {
 }
 
 /* banner informativo */
-.container_proprietario {
-  text-align: justify;
-}
-#tema_proprietario{
-  margin-left: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 18px;
-}
-#linha_proprietario{
-  width: 157px;
-  margin-left: 0;
-}
-.container_proprietario a{
-  font-size: 14px;
-  text-decoration: none;
-}
 
-.carrossel {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
-
-.carrossel-inner {
-  display: flex;
-  animation: scrollCarrossel 8s infinite ; /* Define a animação de rolagem infinita */
-}
-
-.banner_rolate {
-  width: 400px;
-  height: 400px;
-  margin: 10px;
-  box-shadow: 4px 3px 8px #333;
-  flex: 0 0 100%;
-}
-
-.banner_rolate img {
-  width: 100%;
-  height: 100%;
-}
-
-@keyframes scrollCarrossel {
-  0% {
-    transform: translateX(0); /* Inicia a partir da posição inicial */
-  }
-  100% {
-    transform: translateX(-100%); /* Move para a esquerda */
-  }
-}
 
 
 .banner_image {
