@@ -189,6 +189,35 @@ color: #00c70a;
     transform: translateX(-100%); /* Move para a esquerda */
   }
 }
+/* horario */
+
+.horarios{
+  background-color: #333;
+  margin-right: auto;
+  padding: 20px 20px 10px 30px;
+  color: #fff;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
+  line-height: 1.5;
+}
+.horarios h3{
+  color: rgb(218, 218, 218);
+}
+
+.horarios img{
+  width: 100%;
+}
+footer{
+  margin-top: -20px;
+  padding: 5px 20px;
+  text-align: left;
+  color: #fff;
+  background-color: #333;
+
+}
+footer p{
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+}
 }
 
 @media screen and (min-width: 768px) {
@@ -387,6 +416,40 @@ color: #00c70a;
     margin-left: auto;
     margin-right: auto;
   }
+  /* horario */
+
+.horarios{
+  background-color: #333;
+  margin: 0;
+  text-align: left;
+  color: #fff;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
+  line-height: 1.5;
+}
+.horarios h3{
+  color: rgb(218, 218, 218);
+}
+
+.horarios img{
+  width: 100%;
+}
+footer{
+  margin-top: 20px;
+  padding: 5px 20px;
+  color: #fff;
+  background-color: #333;
+  text-align: center;
+}
+.container_horario_form {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 40px 0;
+}
+
+footer p{
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+}
 }
 
 /* COMEÇO DO CONTEUDO */
@@ -620,38 +683,10 @@ section h2 {
   100% { left: -100%; }
 }
 
-/* horario */
 
-.horarios{
-  background-color: #333;
-  margin: 0;
-  padding: 20px 20px 10px 30px;
-  color: #fff;
-  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
-  line-height: 1.5;
-}
-.horarios h3{
-  color: rgb(218, 218, 218);
-}
-
-.horarios img{
-  width: 100%;
-}
 
 /* Rodapé */
 
-footer{
-    margin-top: -20px;
-    padding: 5px 20px;
-    text-align: center;
-    color: #fff;
-    background-color: #333;
-
-}
-footer p{
-    font-size: 12px;
-    color: rgb(255, 255, 255);
-}
 h2 {
   font-size: 18px;
   text-align: left;
@@ -659,16 +694,16 @@ h2 {
 }
 form {
   max-width: 400px;
-  margin: 20px auto;
+  margin: 0px auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  background-color: #cccccc0c;
   border-radius: 5px;
 }
 input[type="text"],
 input[type="email"]
  {
   display: block;
-  width: 90%;
+  width: 100%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -678,7 +713,7 @@ input[type="email"]
 }
 .comentario_form{
   display: block;
-  width: 90%;
+  width: 100%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -713,6 +748,7 @@ button[type="submit"]:hover {
 
 .menu_rodape nav{
     display: flex;
+    justify-content: center;
 }
 .menu_rodape nav a{
     font-family: 'Times New Roman', Times, serif;
