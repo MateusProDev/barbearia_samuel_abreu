@@ -762,6 +762,9 @@ button[type="submit"]:hover {
 .menu_rodape nav a:hover{
     color: #adadad;
 }
+#p_autor{
+  text-align: center;
+}
 
 .social-icons {
   display: flex;
