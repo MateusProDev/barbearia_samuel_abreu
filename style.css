@@ -13,11 +13,6 @@ header {
   align-items: center;
   padding: 0 50px;
 }
-main{
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .logo img {
   width: 80px;
@@ -358,10 +353,13 @@ color: #00c70a;
     height: auto;
     overflow: hidden;
   }
-  
+  .carousel-inner {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .carousel-item img{
-    width: 400px;
-    height: 600px;
+    height: auto;
   }
   .banner_rolate {
     width: 100%;
@@ -384,7 +382,13 @@ color: #00c70a;
       transform: translateX(-100%); /* Move para a esquerda */
     }
   }
+  main{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
+
 /* COMEÇO DO CONTEUDO */
 
 
