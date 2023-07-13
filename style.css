@@ -50,14 +50,14 @@ header {
     height: 800px;
     display: none;
   }
-  .nav-links a {
+.nav-links a {
     color: #ffffff;
     text-decoration: none;
     font-size: 16px;
     text-shadow: 1px 1px 2px #000000;
   }
   
-  .barbearia {
+.barbearia {
     display: block;
   }
   
@@ -65,15 +65,15 @@ header {
     transform: rotate(45deg) translate(5px, 5px);
   }
   
-  .barbearia.active .line:nth-child(2) {
+.barbearia.active .line:nth-child(2) {
     opacity: 0;
   }
   
-  .barbearia.active .line:nth-child(3) {
+.barbearia.active .line:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -8px);
   }
   
-  .nav-links.active {
+.nav-links.active {
     width: 102%;
     height: 100%;
     display: flex;
@@ -87,7 +87,7 @@ header {
     animation: aparecer 1s forwards;
   }
   
-  @keyframes aparecer {
+@keyframes aparecer {
     0% {
       transform: translateX(100%); /* Inicia a partir da posição inicial */
   
@@ -97,19 +97,19 @@ header {
       
     }
   }
-  .nav-links.active li {
+.nav-links.active li {
     margin-bottom: 20px;
     font-size: 50px;
     
   }
-  .nav-links hr{
+.nav-links hr{
     color: #ffffff;
     display: flex;
     margin: 0;
     padding: 0;
   }
   
-  .container_logo{
+.container_logo{
     width: 100%;
     height: auto;
     padding: 40px 0;
@@ -120,18 +120,15 @@ header {
     box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.89); /* Adiciona a sombra sobre a imagem */
   z-index: -1; /* Coloca a sombra atrás do conteúdo */
   }
-  .container_logo img{
+.container_logo img{
     width: 70%;
   }
-  .container_logo p{
+.container_logo p{
   width: 70%;
   margin: 30px auto 20px auto;
   font-family:  Georgia, 'Times New Roman', Times, serif;
   }
-  .container_logo button{
-  width: 70%;
-  font-size: 14px;
-  font-family: 'Times New Roman', Times, serif;
+.container_logo button{
   border: none;
   border-radius: 10px;
   max-width: fit-content;
@@ -140,48 +137,47 @@ header {
   background-color: #aaa;
   color: #fff;
   text-shadow: 1px 2px 1px #00000038;
-  }
-  .container_logo button{
-  font-family: fantasy, sans-serif;
+  box-sizing: border-box;
+  font-family: fantasy;
   font-size: 16px;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   }
-  .container_logo button:hover{
+.container_logo button:hover{
   box-shadow: 2px 5px 5px #ffffff;
   transition: 0.1s ease-in;
   }
   .container_logo strong:hover{
   color: #00c70a;
   }
-  .container_proprietario {
+.container_proprietario {
     text-align: justify;
   }
-  #tema_proprietario{
+#tema_proprietario{
     margin-left: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 18px;
   }
-  #linha_proprietario{
+#linha_proprietario{
     width: 157px;
     margin-left: 0;
   }
-  .container_proprietario a{
+.container_proprietario a{
     font-size: 14px;
     text-decoration: none;
   }
   
-  .carrossel {
+.carrossel {
     width: 100%;
     height: auto;
     overflow: hidden;
   }
   
-  .carrossel-inner {
+.carrossel-inner {
     display: flex;
     animation: scrollCarrossel 8s infinite ; /* Define a animação de rolagem infinita */
   }
   
-  .banner_rolate {
+.banner_rolate {
     width: 200px;
     height: 200px;
     margin: 10px;
@@ -189,12 +185,12 @@ header {
     flex: 0 0 100%;
   }
   
-  .banner_rolate img {
+.banner_rolate img {
     width: 200px;
     height: 150px;
   }
   
-  @keyframes scrollCarrossel {
+@keyframes scrollCarrossel {
     0% {
       transform: translateX(0); /* Inicia a partir da posição inicial */
     }
@@ -204,7 +200,7 @@ header {
   }
   /* horario */
   
-  .horarios{
+.horarios{
     background-color: #333;
     margin-right: auto;
     padding: 20px 10px;
@@ -212,14 +208,14 @@ header {
     text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
     line-height: 1.5;
   }
-  .horarios h3{
+.horarios h3{
     color: rgb(218, 218, 218);
   }
   
-  .horarios img{
+.horarios img{
     width: 100%;
   }
-  footer{
+footer{
     margin-top: -20px;
     padding: 5px 20px;
     text-align: left;
@@ -227,12 +223,12 @@ header {
     background-color: #333;
   
   }
-  footer p{
+footer p{
     font-size: 12px;
     color: rgb(255, 255, 255);
   }
-  }
-  .container_cortes_box{
+}
+.container_cortes_box{
   padding: 10px;
 }
 .menu_rodape nav{
