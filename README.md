@@ -24,7 +24,7 @@ Como base da construção deste projeto, usamos alguma  liguagens para proporcio
 - HTML,
 - CSS,
 - Javascript,
-- Framework: Boostrap (no banner responsivo e dinamico).
+- Framework: Bootstrap (no banner responsivo e dinamico).
 
 ## Instalação
 
