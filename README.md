@@ -36,7 +36,7 @@ Exemplo de instalação:
 
 ## Licença
 
-1. Pode replicar o códigos em seus projetos.
+1. Pode replicar oo códigos em seus projetos.
 2. Referente as imagens todos os direito reservados exclusivamente ao proprietário: Samuel Abreu. 
 
 
