@@ -128,8 +128,7 @@ header {
   margin: 30px auto 20px auto;
   font-family:  Georgia, 'Times New Roman', Times, serif;
   }
-.container_logo button{
-  border: none;
+.container_logo button{ 
   border-radius: 10px;
   max-width: fit-content;
   padding: 10px 15px;
@@ -138,8 +137,7 @@ header {
   color: #fff;
   text-shadow: 1px 2px 1px #00000038;
   box-sizing: border-box;
-  font-family: fantasy;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 2px;
   }
 .container_logo button:hover{
