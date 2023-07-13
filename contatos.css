@@ -1,10 +1,17 @@
+
+.container_contatos{
+    height: 700px;
+}
+.rodape_footer{
+    margin-top: -20px;
+}
 .menu_rodape nav a:hover{
     color: rgb(231, 231, 231);
 }
 
 .container_conteudo {
     width: auto;
-    height: 280px;
+    height: 500px;
     padding: 10px 30px 0 30px;
     background-image: url('barbearia.jpeg');
     background-size: cover;
