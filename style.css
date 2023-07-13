@@ -207,7 +207,7 @@ color: #00c70a;
 .horarios{
   background-color: #333;
   margin-right: auto;
-  padding: 20px 20px 10px 30px;
+  padding: 20px 10px;
   color: #fff;
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.442);
   line-height: 1.5;
@@ -458,7 +458,14 @@ footer p{
   line-height: 1.5;
 }
 .horarios h3{
-  color: rgb(218, 218, 218);
+  font-size: 26px;
+  color: rgb(180, 180, 180);
+}
+.horarios p{
+  font-size: 16px;
+}
+.horarios p:hover{
+  color: #00c70a;
 }
 
 .horarios img{
@@ -693,11 +700,12 @@ section h2 {
 
 
 /* Rodapé */
-
+.form_box{
+  width: 400px;
+}
 h2 {
   font-size: 18px;
   text-align: left;
-  margin-left: 10px;
 }
 form {
   max-width: 400px;
@@ -755,6 +763,7 @@ button[type="submit"]:hover {
 
 .menu_rodape nav{
     display: flex;
+    margin: 20px 0 0 -20px;
     justify-content: center;
 }
 .menu_rodape nav a{
