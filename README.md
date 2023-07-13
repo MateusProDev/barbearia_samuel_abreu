@@ -1,6 +1,6 @@
 # Barbearia Samuel Abreu
 
-![Logo do Projeto](barbearia_samuel_abreu/img/logo baber branco.png)
+![Logo do Projeto](img/logo baber branco.png)
 
 Breve descrição do projeto, destacando seus principais recursos e objetivos.
 
