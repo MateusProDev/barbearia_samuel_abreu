@@ -1,6 +1,6 @@
 # Barbearia Samuel Abreu
 
-[Inserir logo ou imagem representativa do projeto]
+![Logo do Projeto](barbearia_samuel_abreu/img/logo baber branco.png)
 
 Breve descrição do projeto, destacando seus principais recursos e objetivos.
 
