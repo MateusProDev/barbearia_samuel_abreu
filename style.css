@@ -89,7 +89,6 @@ header {
 @keyframes aparecer {
   0% {
     transform: translateX(-100%); /* Inicia a partir da posição inicial */
-    scale: 0.1;
 
   }
   100% {
@@ -98,7 +97,7 @@ header {
   }
 }
 .nav-links.active li {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-size: 50px;
   
 }
