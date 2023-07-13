@@ -15,11 +15,16 @@ Breve descrição do projeto, destacando seus principais recursos e objetivos.
 
 ## Visão Geral
 
-[Inserir uma visão geral mais detalhada do projeto. Explique o problema que ele resolve, a motivação por trás dele e como ele pode ser útil.]
+Esse site foi criado a pedido do cliente, em resolver sua necessidade de ter uma vitrine de seus serviços como para trazer maior altoridade para o seu negócio.
 
 ## Recursos
 
-- [Destacar os principais recursos e funcionalidades do projeto.]
+Como base da construção deste projeto, usamos alguma  liguagens para proporcionar ao cliente uma intuitiva e agradável navegação:
+
+- HTML,
+- CSS,
+- Javascript,
+- Framework: Boostrap (no banner responsivo e dinamico).
 
 ## Instalação
 
@@ -28,4 +33,11 @@ Breve descrição do projeto, destacando seus principais recursos e objetivos.
 Exemplo de instalação:
 
 1. Clone o repositório:
+
+## Licença
+
+1. Pode replicar o códigos em seus projetos.
+2. Referente as imagens todos os direito reservados exclusivamente ao proprietário: Samuel Abreu. 
+
+
 
