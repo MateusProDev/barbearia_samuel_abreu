@@ -15,7 +15,7 @@ Breve descrição do projeto, destacando seus principais recursos e objetivos.
 
 ## Visão Geral
 
-Esse site foi criado a pedido do cliente, em resolver sua necessidade de ter uma vitrine de seus serviços como para trazer maior altoridade para o seu negócio.
+Esse site foi criado à pedido do cliente, com a finalidade de suprir sua necessidade de ter uma vitrine de seus serviços, como também para trazer uma maior altoridade para o seu negócio.
 
 ## Recursos
 
