@@ -871,7 +871,10 @@ address a{
 section h2 {
     font-size: 12px;
 }
-
+#map {
+  height: 400px;
+  width: 100%;
+}
 /* banner informativo */
 
 .banner_image {
