@@ -115,7 +115,7 @@ header {
     padding: 40px 0;
     text-align: center;
     color: #fff;
-    background-image: url(barbearia.jpeg);
+    background-image: url(img/barbearia.jpeg);
     background-size: cover;
     box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.89); /* Adiciona a sombra sobre a imagem */
   z-index: -1; /* Coloca a sombra atrás do conteúdo */
@@ -387,7 +387,7 @@ justify-content: space-evenly;
     padding: 40px 0;
     text-align: center;
     color: #fff;
-    background-image: url(barbearia.jpeg);
+    background-image: url(img/barbearia.jpeg);
     background-size: cover;
     box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.89); /* Adiciona a sombra sobre a imagem */
   z-index: -1; /* Coloca a sombra atrás do conteúdo */
@@ -563,7 +563,7 @@ justify-content: space-evenly;
     padding: 40px 0;
     text-align: center;
     color: #fff;
-    background-image: url(barbearia.jpeg);
+    background-image: url(img/barbearia.jpeg);
     background-size: cover;
     box-shadow: inset 100px 100px 100px 1000px rgba(0, 0, 0, 0.89); /* Adiciona a sombra sobre a imagem */
   z-index: -1; /* Coloca a sombra atrás do conteúdo */
