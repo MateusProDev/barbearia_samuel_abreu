@@ -85,3 +85,24 @@ var carrossel = document.getElementById('myCarousel');
     }
   });
 
+  //interação do map 
+  function initMap() {
+    // Coordenadas do local que deseja mostrar no mapa
+    var location = { lat: -3.749831, lng: -38.442736 };
+
+    // Opções de configuração do mapa
+    var mapOptions = {
+      center: location,
+      zoom: 12
+    };
+
+    // Criação do mapa
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    // Marcador no mapa
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      title: 'Localização'
+    });
+  }
