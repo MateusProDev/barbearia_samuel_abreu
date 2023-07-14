@@ -74,35 +74,9 @@ function mostrarEspaco() {
   }
 }
 
-// animação do carrossel
-var carrossel = document.getElementById('myCarousel');
-          
-  carrossel.addEventListener('click', function() {
-    if (carrossel.classList.contains('paused')) {
-      carrossel.classList.remove('paused');
-    } else {
-      carrossel.classList.add('paused');
-    }
-  });
-
-  //interação do map 
-  function initMap() {
-    // Coordenadas do local que deseja mostrar no mapa
-    var location = { lat: -3.749831, lng: -38.442736 };
-
-    // Opções de configuração do mapa
-    var mapOptions = {
-      center: location,
-      zoom: 12
-    };
-
-    // Criação do mapa
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    // Marcador no mapa
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      title: 'Localização'
+// Substitua [URL_DO_MAPA] pela URL do seu site com o mapa incorporado
+var shareButton = document.querySelector('.share-button');
+    shareButton.addEventListener('click', function() {
+      var encodedText = encodeURIComponent('Confira a localização da barbearia no mapa: https://www.google.com/maps?q=BARBEARIA%20SAMUEL%20ABREU');
+      window.open('https://wa.me/?text=' + encodedText);
     });
-  }
