@@ -872,7 +872,7 @@ section h2 {
     font-size: 12px;
 }
 /* Estilos CSS personalizados para o mapa */
-.container_map{
+.container_map {
   padding: 20px 0;
   background-color: #333;
 }
@@ -900,7 +900,7 @@ section h2 {
   border-radius: 5px;
 }
 
-.map_button{
+.map_button {
   display: flex;
   justify-content: center;
 }
