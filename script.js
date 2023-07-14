@@ -77,6 +77,6 @@ function mostrarEspaco() {
 // Substitua [URL_DO_MAPA] pela URL do seu site com o mapa incorporado
 var shareButton = document.querySelector('.share-button');
     shareButton.addEventListener('click', function() {
-      var encodedText = encodeURIComponent('Confira a localização da barbearia no mapa: https://www.google.com/maps?q=BARBEARIA%20SAMUEL%20ABREU');
+      var encodedText = encodeURIComponent('Confira a localização da barbearia no mapa: https://goo.gl/maps/dWekBXEYvVYC72x7A');
       window.open('https://wa.me/?text=' + encodedText);
     });
