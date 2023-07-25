@@ -4,7 +4,7 @@ body {
   background-color: #f0f0f0;
   box-sizing: border-box;
 }
-  
+
 header {
   background-color: #f0f0f0;
   height: 80px;
@@ -45,7 +45,7 @@ header {
   color: rgb(255, 255, 255);
 }
 
-@media screen and (max-width: 469px) {
+@media screen and (min-width: 0px) {
   .nav-links {
     height: 800px;
     display: none;
@@ -137,8 +137,9 @@ header {
   color: #fff;
   text-shadow: 1px 2px 1px #00000038;
   box-sizing: border-box;
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-family: fantasy, sans-serif;
+  font-size: 16px;
+  letter-spacing: 1.5px;
   }
 .container_logo button:hover{
   box-shadow: 2px 5px 5px #ffffff;
@@ -159,7 +160,7 @@ header {
     width: 157px;
     margin-left: 0;
   }
-.container_proprietario a{
+.container_proprietario p{
     font-size: 14px;
     text-decoration: none;
   }
@@ -225,7 +226,7 @@ footer p{
     font-size: 12px;
     color: rgb(255, 255, 255);
   }
-}
+
 .container_cortes_box{
   padding: 10px;
 }
@@ -256,7 +257,7 @@ justify-content: space-evenly;
   height: auto;
 }
 .box_cortes {
-  width: 47%;
+  width: 46%;
   border-radius: 20px;
   margin: 5px;
   background-color: transparent;
@@ -316,8 +317,8 @@ justify-content: space-evenly;
     transform: translateX(0);
   }
 }
-
-@media screen and (min-width: 469px) and (max-width: 769px) {
+}
+@media screen and (min-width: 769px) {
   .nav-links {
     height: 800px;
     display: none;
@@ -399,11 +400,13 @@ justify-content: space-evenly;
   width: 70%;
   margin: 30px auto 20px auto;
   font-family:  Georgia, 'Times New Roman', Times, serif;
+  font-size: 22px;
   }
   .container_logo button{
   width: 70%;
-  font-size: 14px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: fantasy, sans-serif;
+  font-size: 16px;
+  letter-spacing: 1.5px;
   border: none;
   border-radius: 10px;
   max-width: fit-content;
@@ -458,6 +461,10 @@ justify-content: space-evenly;
     position: relative;
     overflow: hidden;
   }
+  #font_table{
+    font-size: 16px;
+  }
+ 
   .box_cortes img{
     width: 100%;
     margin-bottom: -5px;
@@ -577,11 +584,10 @@ justify-content: space-evenly;
   width: 70%;
   margin: 30px auto 20px auto;
   font-family:  Georgia, 'Times New Roman', Times, serif;
+  font-size: 26px;
 }
 .container_logo button{
   width: 70%;
-  font-size: 14px;
-  font-family: 'Times New Roman', Times, serif;
   border: none;
   border-radius: 10px;
   max-width: fit-content;
@@ -590,8 +596,6 @@ justify-content: space-evenly;
   background-color: #aaa;
   color: #fff;
   text-shadow: 1px 2px 1px #00000038;
-}
-.container_logo button{
   font-family: fantasy, sans-serif;
   font-size: 16px;
   letter-spacing: 1.5px;
@@ -635,6 +639,9 @@ justify-content: space-evenly;
   background-color: transparent;
   position: relative;
   overflow: hidden;
+}
+#font_table{
+  font-size: 18px;
 }
 .box_cortes img{
   width: 100%;
@@ -706,8 +713,8 @@ justify-content: space-evenly;
     width: 157px;
     margin-left: 0;
   }
-  .container_proprietario a{
-    font-size: 14px;
+  .container_proprietario p{
+    font-size: 22px;
     text-decoration: none;
   }
   
@@ -747,6 +754,7 @@ justify-content: space-evenly;
   }
 
 footer{
+  width: 100%;
   margin-top: 20px;
   padding: 5px 20px;
   color: #fff;
@@ -754,14 +762,19 @@ footer{
   text-align: center;
 }
 .container_horario_form {
+  width: 50%;
   display: flex;
   justify-content: space-evenly;
-  margin: 40px 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 footer p{
   font-size: 12px;
   color: rgb(218, 218, 218);
+}
+.map-container {
+  width: 50%;
 }
 }
 .horarios{
@@ -898,11 +911,10 @@ section h2 {
 }
 .map-container {
   position: relative;
-  width: 80%;
   background-color: #333;
   margin: 0 auto 20px auto;
   height: 0;
-  padding-bottom: 75%; /* Proporção de aspecto 4:3 (altere conforme necessário) */
+  padding-bottom: 200px; /* Proporção de aspecto 4:3 (altere conforme necessário) */
 }
 .map-container iframe {
   position: absolute;
