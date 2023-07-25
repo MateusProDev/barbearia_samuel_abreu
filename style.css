@@ -828,6 +828,27 @@ tr:nth-child(even) {
   margin-top: 10px;
 }
 
+/*animação 3d cortes box*/
+
+.product-box:hover {
+  transform: rotateY(20deg);
+}
+
+.product-box:active {
+  transform: scale(0.9);
+}
+/*cortes animação 3D*/
+.img_corte {
+  transition: transform 0.5s;
+}
+
+.box_cortes img:hover {
+  transform: scale(1.1);
+}
+
+.box_cortes img:active {
+  transform: scale(1.9);
+}
 /* contatos */
 .container_contatos{
     width: auto;
