@@ -5,6 +5,10 @@
 .rodape_footer{
     margin-top: -20px;
 }
+.menu_rodape a{
+    color: #fff;
+    text-decoration: none;
+}
 .menu_rodape nav a:hover{
     color: rgb(231, 231, 231);
 }
