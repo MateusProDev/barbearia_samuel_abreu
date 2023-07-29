@@ -690,9 +690,6 @@ tr:nth-child(even) {
 .giticon img {
     width: 40px;
 }
-.giticon img:hover {
-  cursor: pointer;
-}
 section {
     margin: 20px;
 }
@@ -843,6 +840,13 @@ button[type="submit"]:hover {
 }
 #p_autor{
   text-align: center;
+}
+#p_autor a{
+  color: #fff;
+  text-decoration: none;
+}
+#p_autor a:hover{
+  color:rgb(11, 143, 252);
 }
 
 .social-icons {
