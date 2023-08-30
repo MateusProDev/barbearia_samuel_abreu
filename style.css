@@ -221,8 +221,19 @@ color: #00c70a;
     transform: translateX(-100%); /* Move para a esquerda */
   }
 }
+footer{
+  margin-top: -20px;
+  padding: 5px 20px;
+  text-align: left;
+  color: #fff;
+  background-color: #333;
+
+}
+footer p{
+  font-size: 12px;
+  color: rgb(255, 255, 255);
+}
   /* horario */
-  
 .horarios{
   background-color: #333;
   margin-right: auto;
@@ -238,19 +249,19 @@ color: #00c70a;
 .horarios img{
   width: 100%;
 }
-footer{
-  margin-top: -20px;
-  padding: 5px 20px;
-  text-align: left;
-  color: #fff;
-  background-color: #333;
-
+/*parceria*/
+.container_parceria{
+  width: 80%;
+  margin: 20px auto 0 auto;
 }
-footer p{
-  font-size: 12px;
-  color: rgb(255, 255, 255);
+.container_parceria h2{
+  text-align: center;
+  font-size: 14px;
 }
-
+.container_parceria img{
+  width: 100%;
+  opacity: 0.8;
+}
 .container_cortes_box{
   padding: 10px;
 }
@@ -643,6 +654,19 @@ tr:nth-child(even) {
   margin-left: 20px;
 }
 
+/*parceria*/
+
+.container_parceria{
+  width: 50%;
+  margin: 20px auto 20px auto;
+}
+.container_parceria h2{
+  text-align: center;
+}
+.container_parceria img{
+  width: 100%;
+  opacity: 0.8;
+}
 /*animação 3d cortes box*/
 
 .product-box:hover {
@@ -889,4 +913,38 @@ button[type="submit"]:hover {
 
 .whatsapp-button:hover {
   background-color: rgb(0, 144, 0);
+}
+
+#notificacao {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  background-color: #f7f7f7;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+#notificacao p {
+  margin: 0;
+  padding: 0;
+}
+
+#notificacao button {
+  background-color: #ff6633;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#notificacao button:hover {
+  background-color: #ff4d1a;
 }
