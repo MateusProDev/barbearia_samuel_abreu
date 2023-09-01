@@ -1,0 +1,81 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #f4f4ff;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+.containerBox{
+    width: 300px;
+    height: 600px;
+    padding: 20px 20px 10px 20px;
+    background-color: #fff;
+    box-shadow: 4px 4px 4px 4px #3333333b;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.box{
+    padding-top: 20%;
+}
+.box h1, div{
+    text-align: center;
+}
+#logo{
+    width: 80px;
+    margin-top: 20px;
+}
+.button input{
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 40px  20px 10px 0;
+    border: none;
+    border-bottom: 1px solid #333;
+    background-color: transparent;
+    outline: none;
+}
+button{
+    width: 100%;
+    margin: 20px auto 0 auto;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    background-color: #1a1a1a;
+    border-radius: 20px;
+}
+button:hover{
+    background-color: #333;
+    cursor: pointer;
+}
+.loginCriar p{
+    margin-top: 90px;
+    font-size: 12px;
+}
+
+#spaceRetur{
+    width: 80%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    display: none;
+    position: absolute;
+    top: 450px;
+    margin-left: 15px;
+}
+.load {
+    border: 4px solid rgba(112, 112, 112, 0.3);
+    border-top: 4px solid #000; 
+    border-radius: 50%; 
+    width: 40px;
+    height: 40px; 
+    animation: spin 2s linear infinite; 
+    margin: 0 auto;
+}
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
