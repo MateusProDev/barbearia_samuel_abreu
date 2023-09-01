@@ -80,3 +80,11 @@ var shareButton = document.querySelector('.share-button');
       var encodedText = encodeURIComponent('Confira a localização da barbearia no mapa: https://goo.gl/maps/63dDmPkUGqpym9S97');
       window.open('https://wa.me/?text=' + encodedText);
     });
+
+//comentario
+const obt = document.querySelector('.container_map');
+
+function fazer(){
+  
+}
+
