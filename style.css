@@ -948,15 +948,12 @@ button[type="submit"]:hover {
   background-color: #ff4d1a;
 }
 .container_banderiras {
-  float: top;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 20px 50px;
 }
 
 .bandeira {
   max-width: 40px;
   height: auto;
-  margin-left: auto;
-  margin-right: auto;
 }
