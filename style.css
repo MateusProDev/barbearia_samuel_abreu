@@ -734,7 +734,7 @@ section h2 {
 .map-container {
   position: relative;
   background-color: #333;
-  margin: 0 auto 20px auto;
+  margin: 0 auto 2px auto;
   height: 0;
   padding-bottom: 200px; /* Proporção de aspecto 4:3 (altere conforme necessário) */
 }
@@ -751,7 +751,7 @@ section h2 {
   background-color: #25D366; /* Cor de fundo do botão de compartilhamento */
   color: #ffffff; /* Cor do texto do botão de compartilhamento */
   font-size: 10px;
-  padding: 2px 2px;
+  padding: 2px 5px;
   text-decoration: none;
   border-radius: 5px;
 }
@@ -952,7 +952,7 @@ button[type="submit"]:hover {
 .container_banderiras {
   justify-content: center;
   align-items: center;
-  margin: 20px 50px;
+  margin: 20px 0px 10px 60px;
 }
 
 .bandeira {
