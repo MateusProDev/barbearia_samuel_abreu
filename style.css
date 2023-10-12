@@ -14,7 +14,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #f0f0f0cb;
+  background-color: #f0f0f0f1;
   z-index: 999; /* Defina um valor alto para z-index */
 }
 
