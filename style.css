@@ -1,18 +1,23 @@
 body {
   margin: 0;
-  padding: 0;
+  margin-top: 80px;
   background-color: #f0f0f0;
   box-sizing: border-box;
 }
 
 header {
-  background-color: #f0f0f0;
+  position: fixed;
+  width: 100%;
   height: 80px;
+  margin-top: -80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  background-color: #f0f0f0cb;
+  z-index: 999; /* Defina um valor alto para z-index */
 }
+
 
 .logo img {
   width: 80px;
@@ -747,7 +752,8 @@ section h2 {
 }
 .share-button {
   position: absolute;
-  left: 20px;
+  left: 0;
+  bottom: -20px;
   background-color: #25D366; /* Cor de fundo do botão de compartilhamento */
   color: #ffffff; /* Cor do texto do botão de compartilhamento */
   font-size: 10px;
@@ -952,10 +958,41 @@ button[type="submit"]:hover {
 .container_banderiras {
   justify-content: center;
   align-items: center;
-  margin: 20px 0px 10px 60px;
+  margin: 20px 0px 10px 40px;
 }
 
 .bandeira {
   max-width: 30px;
   height: auto;
+}
+.container_horario_form {
+  text-align: center;
+}
+
+.modern-horario-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.modern-horario-table th {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.modern-horario-table td {
+  padding: 10px;
+}
+
+.modern-horario-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+.modern-horario-table tr:hover {
+  background-color: #ddd;
+  color: #000;
 }
