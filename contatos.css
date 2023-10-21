@@ -1,3 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
 .container_contatos{
     height: 700px;
 }
@@ -19,6 +25,7 @@
     background-image: url('img/barbearia.jpeg');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     color: aliceblue;
     text-shadow: 2px 2px 2px rgb(0, 0, 0); 
     box-shadow: inset 0 0 200px 120px rgba(0, 0, 0, 0.938);
@@ -27,6 +34,7 @@
 .container_conteudo h1{
     font-size: 20px;
     color: rgb(236, 236, 236);
+    margin: 20px 0;
 }
 .container_conteudo p{
     text-align: justify;
@@ -44,10 +52,17 @@
 .giticon figure ul{
     margin: 0;
     padding: 0;
+    
 }
 .giticon figure ul li{
     margin: 10px;
     display: flex;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
+}
+
+
+#p_autor{
+    margin-top: 20px;
 }
