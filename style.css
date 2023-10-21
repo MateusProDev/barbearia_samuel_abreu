@@ -126,16 +126,13 @@ width: 70%;
 margin: 30px auto 20px auto;
 font-family:  Georgia, 'Times New Roman', Times, serif;
 }
-.container_logo em{
-  color: #3b3b3b;
-  text-shadow: 1px 1px 0px #ffffff;
-}
+
 .container_logo button{ 
 border-radius: 10px;
 max-width: fit-content;
 padding: 10px 15px;
 margin: 20px auto 0 auto;
-background-color: #aaa;
+background-color: #aaaaaa;
 color: #fff;
 text-shadow: 1px 2px 1px #00000038;
 box-sizing: border-box;
@@ -144,12 +141,12 @@ font-size: 16px;
 letter-spacing: 1.5px;
 }
 .container_logo button:hover{
-box-shadow: 2px 5px 5px #ffffff;
-transition: 0.1s ease-in;
-}
-.container_logo strong:hover{
-color: #00c70a;
-}
+  box-shadow: 2px 5px 5px #ffffff75;
+  transition: 0.1s ease-in;
+  background-color: #00c70a;
+  border: none;
+  transform: scale(1.05);
+  }
 /* Estilos para a seção de produtos */
 .products-section {
   width: auto;
@@ -420,12 +417,13 @@ justify-content: space-evenly;
   letter-spacing: 1.5px;
 }
 .container_logo button:hover{
-  box-shadow: 2px 5px 5px #ffffff;
+  box-shadow: 2px 5px 5px #ffffff75;
   transition: 0.1s ease-in;
-}
-.container_logo strong:hover{
-  color: #00c70a;
-}
+  background-color: #00c70a;
+  border: none;
+  transform: scale(1.05);
+  }
+
 /* Estilos para a seção de produtos */
 .products-section {
   width: auto;
