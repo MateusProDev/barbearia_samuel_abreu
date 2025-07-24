@@ -144,7 +144,8 @@ class ContentSync {
             
             // Atualizar redes sociais
             if (data.instagram) {
-                const instaLinks = document.querySelectorAll('a[href*="instagram"]');
+                // Selecionar apenas links do Instagram da barbearia (não links pessoais)
+                const instaLinks = document.querySelectorAll('a[href*="instagram"]:not([href*="mateusprodev"])');
                 instaLinks.forEach(link => {
                     link.setAttribute('href', data.instagram);
                 });
