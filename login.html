@@ -1,29 +1,403 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
-    <title>ADM Barbearia samuel abreu</title>
+    <meta name="description" content="Área administrativa da Barbearia Samuel Abreu">
+    <link rel="stylesheet" href="style.css">
+    <title>Admin - Barbearia Samuel Abreu</title>
+    
+    <style>
+        /* Estilos específicos para a página de admin */
+        .admin-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2a1810 100%);
+            padding: 20px;
+        }
+        
+        .admin-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .admin-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
+        }
+        
+        .admin-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .admin-subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(245, 245, 245, 0.5);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-color);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .login-btn:hover::before {
+            left: 100%;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .back-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .back-link a:hover {
+            color: var(--accent-color);
+        }
+        
+        .error-message {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            color: #ff4444;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .success-message {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: #25D366;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            margin: 20px auto;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .admin-card {
+                padding: 40px 30px;
+                margin: 0 10px;
+            }
+            
+            .admin-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="containerBox">
-        <div class="box">
-            <h1>Bem Vindo!</h1>
-            <img id="logo" src="img/logo_baber_branco.png" alt="logo">
-            <div class="button">
-                <input type="text" id="nomeId" placeholder="nome"> <br>
-                <input type="password" id="senhaId" placeholder="senha"><br>
-                <button id="buttonId">Enviar</button>
-            </div>
-            <div class="loginCriar">
-                <p>Não tem uma conta? <a id="InscricaoId" href="#">Inscrição</a></p>
-            </div>
-            <div class="addSpan" id="spaceRetur">
-                <div class="load"></div>
+    <div class="admin-container">
+        <div class="admin-card">
+            <img src="img/logo_barber.png" alt="Logo Barbearia" class="admin-logo">
+            
+            <h1 class="admin-title">Área Administrativa</h1>
+            <p class="admin-subtitle">Acesso restrito aos administradores</p>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            <div class="loading" id="loadingSpinner"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="Digite seu usuário"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Digite sua senha"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    Entrar
+                </button>
+            </form>
+            
+            <div class="back-link">
+                <a href="index.html">← Voltar ao site</a>
             </div>
         </div>
     </div>
-    <script src="scriptLogin.js"></script>
+    
+    <script>
+        class AdminLogin {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.setupFormHandler();
+                this.setupKeyboardShortcuts();
+            }
+            
+            setupFormHandler() {
+                const form = document.getElementById('loginForm');
+                const loginBtn = document.getElementById('loginBtn');
+                const loadingSpinner = document.getElementById('loadingSpinner');
+                const errorMessage = document.getElementById('errorMessage');
+                const successMessage = document.getElementById('successMessage');
+                
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const username = document.getElementById('username').value.trim();
+                    const password = document.getElementById('password').value;
+                    
+                    // Validação básica
+                    if (!username || !password) {
+                        this.showError('Por favor, preencha todos os campos.');
+                        return;
+                    }
+                    
+                    // Loading state
+                    loginBtn.disabled = true;
+                    loginBtn.textContent = 'Verificando...';
+                    loadingSpinner.style.display = 'block';
+                    this.hideMessages();
+                    
+                    try {
+                        // Simular verificação (em produção, isso seria uma API real)
+                        await this.simulateLogin(username, password);
+                        
+                        // Credenciais corretas
+                        this.showSuccess('Login realizado com sucesso!');
+                        
+                        // Armazenar sessão
+                        this.storeSession(username);
+                        
+                        // Redirecionar após 1 segundo
+                        setTimeout(() => {
+                            window.location.href = 'admin-dashboard.html';
+                        }, 1000);
+                        
+                    } catch (error) {
+                        this.showError(error.message);
+                    } finally {
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = 'Entrar';
+                        loadingSpinner.style.display = 'none';
+                    }
+                });
+            }
+            
+            async simulateLogin(username, password) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        // Credenciais para demonstração
+                        const validCredentials = [
+                            { username: 'admin', password: 'barbearia2024' },
+                            { username: 'samuel', password: 'samuel123' },
+                            { username: 'kaio', password: 'kaio123' }
+                        ];
+                        
+                        const isValid = validCredentials.some(
+                            cred => cred.username === username && cred.password === password
+                        );
+                        
+                        if (isValid) {
+                            resolve();
+                        } else {
+                            reject(new Error('Usuário ou senha incorretos.'));
+                        }
+                    }, 1500); // Simular delay de rede
+                });
+            }
+            
+            storeSession(username) {
+                const sessionData = {
+                    username: username,
+                    loginTime: new Date().toISOString(),
+                    isAdmin: true
+                };
+                
+                localStorage.setItem('adminSession', JSON.stringify(sessionData));
+                sessionStorage.setItem('isLoggedIn', 'true');
+            }
+            
+            showError(message) {
+                const errorElement = document.getElementById('errorMessage');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                
+                // Auto-hide após 5 segundos
+                setTimeout(() => {
+                    errorElement.style.display = 'none';
+                }, 5000);
+            }
+            
+            showSuccess(message) {
+                const successElement = document.getElementById('successMessage');
+                successElement.textContent = message;
+                successElement.style.display = 'block';
+            }
+            
+            hideMessages() {
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'none';
+            }
+            
+            setupKeyboardShortcuts() {
+                document.addEventListener('keydown', (e) => {
+                    // Esc para limpar campos
+                    if (e.key === 'Escape') {
+                        document.getElementById('username').value = '';
+                        document.getElementById('password').value = '';
+                        this.hideMessages();
+                    }
+                });
+            }
+        }
+        
+        // Verificar se já está logado
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                window.location.href = 'admin-dashboard.html';
+                return;
+            }
+            
+            // Inicializar sistema de login
+            new AdminLogin();
+        });
+    </script>
 </body>
 </html>

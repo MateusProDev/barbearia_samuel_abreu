@@ -4,27 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Barbearia Samuel Abreu - 11 anos renovando autoestimas com profissionais qualificados. Cortes modernos, barba, pigmentação e muito mais.">
-    <meta name="keywords" content="barbearia, cortes de cabelo, barba, Fortaleza, Samuel Abreu, fade, degradê">
-    <link rel="stylesheet" href="style.css">
+    <meta name="keywords" content="barbearia, cortes de cabelo, barba, Fortaleza, Samuel Abreu, fade, degradê, barbeiro profissional">
+    <meta name="author" content="Barbearia Samuel Abreu">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Barbearia Samuel Abreu - Profissionalismo e Estilo">
+    <meta property="og:description" content="11 anos renovando autoestimas com profissionais qualificados. Cortes modernos, barba, pigmentação e muito mais.">
+    <meta property="og:image" content="img/logo_barber.png">
+    <meta property="og:url" content="https://barbearia-samuel-abreu.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo_barber.png">
+    <link rel="apple-touch-icon" href="img/logo_barber.png">
+    
+    <!-- Preconnect para fontes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css" media="all">
+    
     <title>Barbearia Samuel Abreu - Profissionalismo e Estilo</title>
 
-    <!-- Google Analytics -->
+    <!-- Google Analytics Otimizado -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-150XXE438D"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-150XXE438D');
+        gtag('config', 'G-150XXE438D', {
+            page_title: 'Barbearia Samuel Abreu',
+            page_location: window.location.href,
+            send_page_view: true
+        });
     </script>
+    
+    <!-- Preloader Styles -->
+    <style>
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .preloader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-top: 3px solid #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader-text {
+            color: #d4af37;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div>
+            <div class="loader"></div>
+        </div>
+    </div>
     <!-- Header Moderno -->
     <header>
         <div class="header-container">
             <div class="logo">
-                <a href="#home"><img src="img/logo_baber_branco.png" alt="Logo Barbearia Samuel Abreu"></a>
+                <a href="#home"><img src="img/logo_barber.png" alt="Logo Barbearia Samuel Abreu"></a>
             </div>
             <nav>
                 <div class="barbearia">
@@ -174,8 +247,95 @@
                 <a href="#servicos" class="btn">CONHEÇA NOSSOS SERVIÇOS</a>
             </div>
             
-            <div class="about-image fade-in">
-                <img src="img/proprietario.jpeg" alt="Samuel Abreu - Proprietário">
+            <div class="carousel-container fade-in">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide active">
+                            <img src="img/proprietario.jpeg" alt="Samuel Abreu - Proprietário">
+                            <div class="carousel-caption">
+                                <h4>Samuel Abreu</h4>
+                                <p>Proprietário e Barbeiro Master</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/barbearia.jpeg" alt="Interior da Barbearia">
+                            <div class="carousel-caption">
+                                <h4>Nossa Barbearia</h4>
+                                <p>Ambiente acolhedor e moderno</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/proprietario 2.jpeg" alt="Samuel Abreu Trabalhando">
+                            <div class="carousel-caption">
+                                <h4>Profissionalismo</h4>
+                                <p>11 anos de experiência</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/pro1.jpeg" alt="Ambiente da Barbearia">
+                            <div class="carousel-caption">
+                                <h4>Estrutura</h4>
+                                <p>Equipamentos modernos</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/pro2.jpeg" alt="Trabalho em Andamento">
+                            <div class="carousel-caption">
+                                <h4>Dedicação</h4>
+                                <p>Atenção aos detalhes</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/pro3.jpeg" alt="Cliente Satisfeito">
+                            <div class="carousel-caption">
+                                <h4>Resultados</h4>
+                                <p>Clientes satisfeitos</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/kaioUm.jpeg" alt="Kaio - Barbeiro">
+                            <div class="carousel-caption">
+                                <h4>Kaio</h4>
+                                <p>Barbeiro Profissional</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/kaioDois.jpeg" alt="Kaio Trabalhando">
+                            <div class="carousel-caption">
+                                <h4>Equipe Qualificada</h4>
+                                <p>Experiência e talento</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="img/samu.jpeg" alt="Samuel em Ação">
+                            <div class="carousel-caption">
+                                <h4>Mestre Samuel</h4>
+                                <p>Arte e precisão</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Controles do Carrossel -->
+                    <button class="carousel-btn carousel-btn-prev" id="prevBtn">
+                        <span>&#8249;</span>
+                    </button>
+                    <button class="carousel-btn carousel-btn-next" id="nextBtn">
+                        <span>&#8250;</span>
+                    </button>
+                    
+                    <!-- Indicadores -->
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <button class="indicator active" data-slide="0"></button>
+                        <button class="indicator" data-slide="1"></button>
+                        <button class="indicator" data-slide="2"></button>
+                        <button class="indicator" data-slide="3"></button>
+                        <button class="indicator" data-slide="4"></button>
+                        <button class="indicator" data-slide="5"></button>
+                        <button class="indicator" data-slide="6"></button>
+                        <button class="indicator" data-slide="7"></button>
+                        <button class="indicator" data-slide="8"></button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -269,5 +429,40 @@
 
     <!-- Scripts -->
     <script src="script.js"></script>
+    
+    <!-- Preloader Script -->
+    <script>
+        // Controle do Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            
+            // Garantir que o preloader seja exibido por pelo menos 1 segundo
+            setTimeout(() => {
+                preloader.classList.add('fade-out');
+                
+                // Remover o preloader do DOM após a animação
+                setTimeout(() => {
+                    if (preloader && preloader.parentNode) {
+                        preloader.parentNode.removeChild(preloader);
+                    }
+                }, 500);
+            }, 1000);
+        });
+        
+        // Analytics de performance
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_load_time', {
+                custom_parameter: 'barbearia_samuel_abreu'
+            });
+        }
+        
+        // Service Worker para cache (se disponível)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Registrar service worker apenas em produção
+                console.log('Service Worker disponível para implementação futura');
+            });
+        }
+    </script>
 </body>
 </html>

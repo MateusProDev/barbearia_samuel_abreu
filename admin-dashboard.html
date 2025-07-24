@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard administrativo da Barbearia Samuel Abreu">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard Admin - Barbearia Samuel Abreu</title>
+    
+    <style>
+        /* Estilos específicos para o dashboard */
+        .dashboard-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #1a1a1a 100%);
+            padding-top: 100px;
+        }
+        
+        .dashboard-header {
+            background: var(--card-bg);
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+        
+        .dashboard-nav {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+        }
+        
+        .nav-btn.logout {
+            background: linear-gradient(45deg, #ff4444, #cc3333);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: var(--transition);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .card-content {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--bg-color);
+            margin-right: 20px;
+        }
+        
+        .profile-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .profile-info p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .detail-value {
+            color: var(--text-color);
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            padding: 20px;
+            background: var(--card-bg);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            text-decoration: none;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .action-btn:hover {
+            border-color: var(--primary-color);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .action-btn i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding-top: 120px;
+            }
+            
+            .dashboard-header {
+                padding: 20px;
+            }
+            
+            .dashboard-title {
+                font-size: 2rem;
+            }
+            
+            .dashboard-nav {
+                gap: 10px;
+            }
+            
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo_barber.png" alt="Logo Barbearia Samuel Abreu"></a>
+            </div>
+            <nav>
+                <div class="barbearia">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">SITE</a></li>
+                    <li><a href="#perfil">PERFIL</a></li>
+                    <li><a href="#configuracoes">CONFIGURAÇÕES</a></li>
+                    <li><a href="#" onclick="logout()">SAIR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="section">
+            <!-- Header do Dashboard -->
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Dashboard Administrativo</h1>
+                <p class="dashboard-subtitle">Bem-vindo ao painel de controle da Barbearia Samuel Abreu</p>
+                
+                <div class="dashboard-nav">
+                    <a href="#perfil" class="nav-btn">👤 Perfil</a>
+                    <a href="#agendamentos" class="nav-btn">📅 Agendamentos</a>
+                    <a href="#clientes" class="nav-btn">👥 Clientes</a>
+                    <a href="#financeiro" class="nav-btn">💰 Financeiro</a>
+                    <a href="#configuracoes" class="nav-btn">⚙️ Configurações</a>
+                    <a href="#" onclick="logout()" class="nav-btn logout">🚪 Sair</a>
+                </div>
+            </div>
+
+            <!-- Estatísticas -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalClientes">127</div>
+                    <div class="stat-label">Clientes Ativos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="agendamentosHoje">8</div>
+                    <div class="stat-label">Agendamentos Hoje</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="receitaMes">R$ 3.240</div>
+                    <div class="stat-label">Receita do Mês</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avaliacaoMedia">4.9</div>
+                    <div class="stat-label">Avaliação Média</div>
+                </div>
+            </div>
+
+            <!-- Seção do Perfil -->
+            <section id="perfil" class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="userAvatar">S</div>
+                    <div class="profile-info">
+                        <h3 id="userName">Samuel Abreu</h3>
+                        <p id="userRole">Proprietário & Barbeiro Master</p>
+                    </div>
+                </div>
+                
+                <div class="profile-details">
+                    <div>
+                        <div class="detail-item">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value" id="userEmail">samuel@barbearia.com</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Telefone:</span>
+                            <span class="detail-value" id="userPhone">(85) 8505-3792</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Experiência:</span>
+                            <span class="detail-value">11 anos</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="detail-item">
+                            <span class="detail-label">Último Login:</span>
+                            <span class="detail-value" id="lastLogin">Hoje, 08:30</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value" style="color: #25D366;">Online</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Permissões:</span>
+                            <span class="detail-value">Administrador</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cards do Dashboard -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">📅</div>
+                        <h3 class="card-title">Agendamentos</h3>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Próximos:</strong> 3 agendamentos hoje</p>
+                        <p><strong>Semana:</strong> 24 agendamentos</p>
+                        <p><strong>Status:</strong> 2 confirmados, 1 pendente</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">👥</div>
+                        <h3 class="card-title">Clientes</h3>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Total:</strong> 127 clientes cadastrados</p>
+                        <p><strong>Novos:</strong> 5 este mês</p>
+                        <p><strong>Ativos:</strong> 89 clientes ativos</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">💰</div>
+                        <h3 class="card-title">Financeiro</h3>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Hoje:</strong> R$ 240,00</p>
+                        <p><strong>Semana:</strong> R$ 1.680,00</p>
+                        <p><strong>Mês:</strong> R$ 3.240,00</p>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">⭐</div>
+                        <h3 class="card-title">Avaliações</h3>
+                    </div>
+                    <div class="card-content">
+                        <p><strong>Média:</strong> 4.9/5.0 estrelas</p>
+                        <p><strong>Total:</strong> 89 avaliações</p>
+                        <p><strong>Recentes:</strong> 5 estrelas (último)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ações Rápidas -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Ações Rápidas</h3>
+                </div>
+                <div class="quick-actions">
+                    <a href="#" class="action-btn" onclick="newAppointment()">
+                        <i>📅</i>
+                        Novo Agendamento
+                    </a>
+                    <a href="#" class="action-btn" onclick="addClient()">
+                        <i>👤</i>
+                        Cadastrar Cliente
+                    </a>
+                    <a href="#" class="action-btn" onclick="viewReports()">
+                        <i>📊</i>
+                        Relatórios
+                    </a>
+                    <a href="#" class="action-btn" onclick="manageServices()">
+                        <i>✂️</i>
+                        Gerenciar Serviços
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AdminDashboard {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.checkAuthentication();
+                this.loadUserData();
+                this.updateStats();
+                this.setupEventListeners();
+            }
+            
+            checkAuthentication() {
+                const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+                const adminSession = localStorage.getItem('adminSession');
+                
+                if (!isLoggedIn || !adminSession) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                // Verificar se a sessão não expirou (24 horas)
+                const session = JSON.parse(adminSession);
+                const loginTime = new Date(session.loginTime);
+                const now = new Date();
+                const hoursPassed = (now - loginTime) / (1000 * 60 * 60);
+                
+                if (hoursPassed > 24) {
+                    this.logout();
+                    return;
+                }
+            }
+            
+            loadUserData() {
+                const adminSession = localStorage.getItem('adminSession');
+                if (adminSession) {
+                    const session = JSON.parse(adminSession);
+                    const username = session.username;
+                    
+                    // Atualizar dados do usuário baseado no username
+                    const userAvatar = document.getElementById('userAvatar');
+                    const userName = document.getElementById('userName');
+                    const userRole = document.getElementById('userRole');
+                    const userEmail = document.getElementById('userEmail');
+                    const lastLogin = document.getElementById('lastLogin');
+                    
+                    if (userAvatar) userAvatar.textContent = username.charAt(0).toUpperCase();
+                    
+                    // Dados específicos por usuário
+                    const userData = this.getUserData(username);
+                    if (userName) userName.textContent = userData.name;
+                    if (userRole) userRole.textContent = userData.role;
+                    if (userEmail) userEmail.textContent = userData.email;
+                    if (lastLogin) lastLogin.textContent = this.formatLastLogin(session.loginTime);
+                }
+            }
+            
+            getUserData(username) {
+                const users = {
+                    'admin': {
+                        name: 'Administrador',
+                        role: 'Administrador do Sistema',
+                        email: 'admin@barbearia.com'
+                    },
+                    'samuel': {
+                        name: 'Samuel Abreu',
+                        role: 'Proprietário & Barbeiro Master',
+                        email: 'samuel@barbearia.com'
+                    },
+                    'kaio': {
+                        name: 'Kaio',
+                        role: 'Barbeiro Profissional',
+                        email: 'kaio@barbearia.com'
+                    }
+                };
+                
+                return users[username] || users['admin'];
+            }
+            
+            formatLastLogin(loginTime) {
+                const date = new Date(loginTime);
+                const now = new Date();
+                const diffMinutes = Math.floor((now - date) / (1000 * 60));
+                
+                if (diffMinutes < 60) {
+                    return `${diffMinutes} minutos atrás`;
+                } else if (diffMinutes < 1440) {
+                    const hours = Math.floor(diffMinutes / 60);
+                    return `${hours} hora${hours > 1 ? 's' : ''} atrás`;
+                } else {
+                    return date.toLocaleDateString('pt-BR') + ' às ' + date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+                }
+            }
+            
+            updateStats() {
+                // Simular dados dinâmicos
+                const stats = {
+                    totalClientes: Math.floor(Math.random() * 50) + 100,
+                    agendamentosHoje: Math.floor(Math.random() * 10) + 5,
+                    receitaMes: 'R$ ' + (Math.floor(Math.random() * 2000) + 2000).toLocaleString('pt-BR'),
+                    avaliacaoMedia: (4.5 + Math.random() * 0.5).toFixed(1)
+                };
+                
+                Object.keys(stats).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.textContent = stats[key];
+                    }
+                });
+            }
+            
+            setupEventListeners() {
+                // Scroll suave para âncoras
+                document.querySelectorAll('a[href^="#"]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+            }
+            
+            logout() {
+                sessionStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('adminSession');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // Funções globais para ações rápidas
+        function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                new AdminDashboard().logout();
+            }
+        }
+        
+        function newAppointment() {
+            alert('Funcionalidade em desenvolvimento: Novo Agendamento');
+        }
+        
+        function addClient() {
+            alert('Funcionalidade em desenvolvimento: Cadastrar Cliente');
+        }
+        
+        function viewReports() {
+            alert('Funcionalidade em desenvolvimento: Relatórios');
+        }
+        
+        function manageServices() {
+            alert('Funcionalidade em desenvolvimento: Gerenciar Serviços');
+        }
+        
+        // Inicializar dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdminDashboard();
+        });
+    </script>
+</body>
+</html>

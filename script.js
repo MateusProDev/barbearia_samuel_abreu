@@ -14,6 +14,7 @@ class BarberShop {
         this.setupHeaderScroll();
         this.setupFormHandler();
         this.setupWelcomeAnimation();
+        this.setupCarousel();
     }
 
     // Menu Mobile
@@ -170,6 +171,174 @@ class BarberShop {
                 }
             });
         });
+    }
+
+    // Carrossel Moderno
+    setupCarousel() {
+        const track = document.getElementById('carouselTrack');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        if (!track || slides.length === 0) return;
+        
+        let currentSlide = 0;
+        let isAutoPlaying = true;
+        let autoPlayInterval;
+        
+        // Função para ir para um slide específico
+        const goToSlide = (slideIndex, direction = 'next') => {
+            if (slideIndex < 0) slideIndex = slides.length - 1;
+            if (slideIndex >= slides.length) slideIndex = 0;
+            
+            currentSlide = slideIndex;
+            
+            // Atualizar posição do track
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Atualizar indicadores
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Adicionar animação
+            slides.forEach((slide, index) => {
+                slide.classList.remove('slide-in-left', 'slide-in-right');
+                if (index === currentSlide) {
+                    slide.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
+                }
+            });
+            
+            // Analytics tracking
+            if (typeof BarberShop !== 'undefined') {
+                BarberShop.trackClick('carousel_slide_view', `slide_${currentSlide + 1}`);
+            }
+        };
+        
+        // Próximo slide
+        const nextSlide = () => {
+            goToSlide(currentSlide + 1, 'next');
+        };
+        
+        // Slide anterior
+        const prevSlide = () => {
+            goToSlide(currentSlide - 1, 'prev');
+        };
+        
+        // Auto-play
+        const startAutoPlay = () => {
+            if (autoPlayInterval) clearInterval(autoPlayInterval);
+            autoPlayInterval = setInterval(() => {
+                if (isAutoPlaying) {
+                    nextSlide();
+                }
+            }, 5000);
+        };
+        
+        const stopAutoPlay = () => {
+            isAutoPlaying = false;
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+            }
+        };
+        
+        const resumeAutoPlay = () => {
+            isAutoPlaying = true;
+            startAutoPlay();
+        };
+        
+        // Event listeners
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoPlay();
+                setTimeout(resumeAutoPlay, 8000);
+            });
+        }
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoPlay();
+                setTimeout(resumeAutoPlay, 8000);
+            });
+        }
+        
+        // Indicadores
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                const direction = index > currentSlide ? 'next' : 'prev';
+                goToSlide(index, direction);
+                stopAutoPlay();
+                setTimeout(resumeAutoPlay, 8000);
+            });
+        });
+        
+        // Controle por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                stopAutoPlay();
+                setTimeout(resumeAutoPlay, 8000);
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                stopAutoPlay();
+                setTimeout(resumeAutoPlay, 8000);
+            }
+        });
+        
+        // Touch/Swipe support
+        let startX = 0;
+        let startY = 0;
+        let endX = 0;
+        let endY = 0;
+        
+        track.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+        
+        track.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            endY = e.changedTouches[0].clientY;
+            
+            const deltaX = startX - endX;
+            const deltaY = startY - endY;
+            
+            // Verificar se é um swipe horizontal
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+                stopAutoPlay();
+                setTimeout(resumeAutoPlay, 8000);
+            }
+        });
+        
+        // Pausar auto-play quando o mouse está sobre o carrossel
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+            carouselContainer.addEventListener('mouseleave', resumeAutoPlay);
+        }
+        
+        // Pausar auto-play quando a aba não está ativa
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAutoPlay();
+            } else {
+                resumeAutoPlay();
+            }
+        });
+        
+        // Iniciar auto-play
+        startAutoPlay();
+        
+        // Mostrar primeiro slide
+        goToSlide(0);
     }
 
     // Sistema de Notificações
