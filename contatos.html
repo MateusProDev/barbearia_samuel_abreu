@@ -215,15 +215,19 @@
                 margin: 0 !important;
             }
             
-            div[style*="text-align: center"] {
-                flex-direction: column !important;
-                align-items: stretch !important;
+            .map-buttons {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
             }
             
-            div[style*="text-align: center"] .btn {
+            .map-btn {
                 width: 100% !important;
                 max-width: 100% !important;
-                margin-bottom: 10px !important;
+                min-width: auto !important;
+                flex: none;
+                font-size: 0.85rem !important;
+                padding: 12px 16px !important;
             }
         }
         
@@ -239,6 +243,52 @@
         .container {
             max-width: 100%;
             overflow-x: hidden;
+        }
+        
+        /* Map buttons styling */
+        .map-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(8px, 2vw, 12px);
+            justify-content: center;
+            align-items: center;
+            margin-top: clamp(15px, 3vw, 20px);
+            padding: 0 clamp(10px, 2vw, 15px);
+        }
+        
+        .map-btn {
+            flex: 1 1 auto;
+            min-width: clamp(140px, 35vw, 180px);
+            max-width: 220px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: clamp(0.8rem, 1.8vw, 0.95rem) !important;
+            padding: clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 16px) !important;
+        }
+        
+        .map-btn span {
+            margin-right: 6px;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+        }
+        
+        @media (max-width: 360px) {
+            .map-buttons {
+                gap: 8px;
+                padding: 0 5px;
+            }
+            
+            .map-btn {
+                font-size: 0.75rem !important;
+                padding: 10px 12px !important;
+                letter-spacing: 0.3px;
+            }
+            
+            .map-btn span {
+                font-size: 0.85rem;
+                margin-right: 4px;
+            }
         }
     </style>
 </head>
@@ -389,12 +439,12 @@
                     </iframe>
                 </div>
                 
-                <div style="text-align: center; margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                    <a href="https://goo.gl/maps/63dDmPkUGqpym9S97" class="btn" target="_blank" style="flex: 1; min-width: 150px; max-width: 200px;">
-                        Abrir no Google Maps
+                <div class="map-buttons">
+                    <a href="https://goo.gl/maps/63dDmPkUGqpym9S97" class="btn map-btn" target="_blank">
+                        <span>📍</span> Abrir no Google Maps
                     </a>
-                    <button onclick="BarberShop.shareLocation()" class="btn" style="flex: 1; min-width: 150px; max-width: 200px;">
-                        Compartilhar Localização
+                    <button onclick="BarberShop.shareLocation()" class="btn map-btn">
+                        <span>📤</span> Compartilhar Local
                     </button>
                 </div>
             </div>
