@@ -497,6 +497,25 @@ footer {
   filter: brightness(0);
 }
 
+.payment-icons {
+  display: flex;
+  gap: clamp(6px, 1.5vw, 10px);
+  flex-wrap: wrap;
+  margin-top: clamp(8px, 2vw, 12px);
+  align-items: center;
+}
+
+.payment-icons img {
+  width: clamp(25px, 5vw, 32px);
+  height: auto;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.payment-icons img:hover {
+  transform: scale(1.1);
+}
+
 .footer-bottom {
   text-align: center;
   margin-top: clamp(25px, 5vw, 45px);
@@ -716,6 +735,14 @@ footer {
   
   .footer-container {
     text-align: center;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+  
+  .payment-icons {
+    justify-content: center;
   }
 }
 
