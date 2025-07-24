@@ -25,19 +25,23 @@
         
         .contacts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin: 60px 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(20px, 4vw, 40px);
+            margin: clamp(30px, 6vw, 60px) 0;
+            padding: 0 clamp(10px, 3vw, 20px);
+            max-width: 100%;
         }
         
         .contact-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 40px 30px;
+            padding: clamp(20px, 5vw, 40px) clamp(15px, 4vw, 30px);
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
             border: 1px solid rgba(212, 175, 55, 0.1);
+            width: 100%;
+            max-width: 100%;
         }
         
         .contact-card:hover {
@@ -46,27 +50,29 @@
         }
         
         .contact-icon {
-            width: 60px;
-            height: 60px;
+            width: clamp(50px, 10vw, 60px);
+            height: clamp(50px, 10vw, 60px);
             background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 24px;
+            margin: 0 auto clamp(15px, 3vw, 20px);
+            font-size: clamp(20px, 4vw, 24px);
         }
         
         .contact-form {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             box-shadow: var(--shadow);
-            margin: 60px 0;
+            margin: clamp(30px, 6vw, 60px) 0;
+            max-width: 100%;
+            width: 100%;
         }
         
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: clamp(16px, 4vw, 24px);
         }
         
         .form-group label {
@@ -79,13 +85,15 @@
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 16px;
+            max-width: 100%;
+            padding: clamp(12px, 3vw, 16px);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-color);
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2vw, 1rem);
             transition: var(--transition);
+            box-sizing: border-box;
         }
         
         .form-group input:focus,
@@ -98,9 +106,11 @@
         .map-section {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             box-shadow: var(--shadow);
-            margin: 60px 0;
+            margin: clamp(30px, 6vw, 60px) 0;
+            max-width: 100%;
+            overflow: hidden;
         }
         
         .map-container {
@@ -111,25 +121,30 @@
         
         .map-container iframe {
             width: 100%;
-            height: 400px;
+            max-width: 100%;
+            height: clamp(250px, 50vw, 400px);
             border: none;
         }
         
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+            gap: clamp(15px, 4vw, 30px);
+            margin: clamp(20px, 5vw, 40px) 0;
+            padding: 0 clamp(10px, 3vw, 20px);
+            max-width: 100%;
         }
         
         .social-card {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 30px 20px;
+            padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 20px);
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
             border: 1px solid rgba(212, 175, 55, 0.1);
+            width: 100%;
+            max-width: 100%;
         }
         
         .social-card:hover {
@@ -138,9 +153,9 @@
         }
         
         .social-card img {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 16px;
+            width: clamp(40px, 8vw, 50px);
+            height: clamp(40px, 8vw, 50px);
+            margin-bottom: clamp(12px, 3vw, 16px);
         }
         
         @media (max-width: 768px) {
@@ -148,10 +163,82 @@
                 padding: 100px 20px 40px;
             }
             
+            .contacts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 15px;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 15px;
+            }
+            
             .contact-form,
             .map-section {
-                padding: 30px 20px;
+                margin: 30px 0;
+                padding: 20px;
             }
+        }
+        
+        @media (max-width: 480px) {
+            .contacts-hero {
+                padding: 80px 10px 30px;
+            }
+            
+            .contacts-grid,
+            .social-grid {
+                padding: 0 10px;
+                gap: 15px;
+            }
+            
+            .contact-card,
+            .social-card {
+                padding: 20px 15px;
+            }
+            
+            .contact-form,
+            .map-section {
+                padding: 15px;
+                margin: 20px 0;
+            }
+            
+            .map-container iframe {
+                height: 200px;
+            }
+            
+            /* Button responsiveness on mobile */
+            .btn {
+                padding: 12px 16px !important;
+                font-size: 0.9rem !important;
+                margin: 0 !important;
+            }
+            
+            div[style*="text-align: center"] {
+                flex-direction: column !important;
+                align-items: stretch !important;
+            }
+            
+            div[style*="text-align: center"] .btn {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 10px !important;
+            }
+        }
+        
+        /* Prevent any horizontal overflow */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -302,11 +389,11 @@
                     </iframe>
                 </div>
                 
-                <div style="text-align: center; margin-top: 20px;">
-                    <a href="https://goo.gl/maps/63dDmPkUGqpym9S97" class="btn" target="_blank">
+                <div style="text-align: center; margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                    <a href="https://goo.gl/maps/63dDmPkUGqpym9S97" class="btn" target="_blank" style="flex: 1; min-width: 150px; max-width: 200px;">
                         Abrir no Google Maps
                     </a>
-                    <button onclick="BarberShop.shareLocation()" class="btn" style="margin-left: 10px;">
+                    <button onclick="BarberShop.shareLocation()" class="btn" style="flex: 1; min-width: 150px; max-width: 200px;">
                         Compartilhar Localização
                     </button>
                 </div>
