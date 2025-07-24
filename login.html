@@ -1,270 +1,227 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Área administrativa da Barbearia Samuel Abreu">
-    <link rel="stylesheet" href="style.css">
-    <title>Admin - Barbearia Samuel Abreu</title>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    
+    <title>Login - Barbearia Samuel Abreu</title>
     <style>
-        /* Estilos específicos para a página de admin */
-        .admin-container {
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a1a;
+            --accent-color: #f4d03f;
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --card-bg: #1a1a1a;
+            --border-radius: 12px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: var(--text-color);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2a1810 100%);
             padding: 20px;
         }
-        
-        .admin-card {
+
+        .login-container {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 60px 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            max-width: 450px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-color);
             width: 100%;
+            max-width: 400px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .admin-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-        }
-        
-        .admin-logo {
+
+        .logo {
             width: 80px;
             height: 80px;
             margin: 0 auto 30px;
-            filter: drop-shadow(0 4px 8px rgba(212, 175, 55, 0.3));
-        }
-        
-        .admin-title {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 2rem;
-            font-weight: 700;
+        }
+
+        .login-title {
             color: var(--primary-color);
             margin-bottom: 10px;
+            font-size: 1.8rem;
         }
-        
-        .admin-subtitle {
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 40px;
-            font-size: 1.1rem;
+
+        .login-subtitle {
+            color: #aaa;
+            margin-bottom: 30px;
         }
-        
+
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: left;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             color: var(--primary-color);
-            font-weight: 500;
-            font-size: 0.95rem;
+            font-weight: 600;
         }
-        
-        .form-input {
+
+        .form-group input {
             width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 26, 0.8);
             color: var(--text-color);
             font-size: 1rem;
             transition: var(--transition);
-            font-family: 'Poppins', sans-serif;
         }
-        
-        .form-input:focus {
+
+        .form-group input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
-        
-        .form-input::placeholder {
-            color: rgba(245, 245, 245, 0.5);
-        }
-        
+
         .login-btn {
             width: 100%;
-            padding: 16px;
+            padding: 15px;
             background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             color: var(--bg-color);
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 20px;
         }
-        
-        .login-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .login-btn:hover::before {
-            left: 100%;
-        }
-        
+
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
         }
-        
+
         .login-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-        
+
         .back-link {
-            margin-top: 30px;
-            text-align: center;
-        }
-        
-        .back-link a {
             color: var(--primary-color);
             text-decoration: none;
-            font-weight: 500;
             transition: var(--transition);
         }
-        
-        .back-link a:hover {
+
+        .back-link:hover {
             color: var(--accent-color);
         }
-        
+
         .error-message {
             background: rgba(255, 68, 68, 0.1);
-            border: 1px solid rgba(255, 68, 68, 0.3);
-            color: #ff4444;
-            padding: 12px 16px;
-            border-radius: 8px;
+            border: 1px solid #ff4444;
+            color: #ff6b6b;
+            padding: 15px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            font-size: 0.9rem;
             display: none;
+            text-align: left;
         }
-        
+
         .success-message {
-            background: rgba(37, 211, 102, 0.1);
-            border: 1px solid rgba(37, 211, 102, 0.3);
-            color: #25D366;
-            padding: 12px 16px;
-            border-radius: 8px;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #66bb6a;
+            padding: 15px;
+            border-radius: 5px;
             margin-bottom: 20px;
-            font-size: 0.9rem;
             display: none;
+            text-align: left;
         }
-        
+
         .loading {
             display: none;
-            margin: 20px auto;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(212, 175, 55, 0.3);
-            border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            color: var(--primary-color);
         }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .debug-info {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 0.9rem;
         }
-        
+
         @media (max-width: 480px) {
-            .admin-card {
-                padding: 40px 30px;
-                margin: 0 10px;
-            }
-            
-            .admin-title {
-                font-size: 1.8rem;
+            .login-container {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="admin-container">
-        <div class="admin-card">
-            <img src="img/logo_barber.png" alt="Logo Barbearia" class="admin-logo">
-            
-            <h1 class="admin-title">Área Administrativa</h1>
-            <p class="admin-subtitle">Acesso restrito aos administradores</p>
-            
-            <div class="error-message" id="errorMessage"></div>
-            <div class="success-message" id="successMessage"></div>
-            <div class="loading" id="loadingSpinner"></div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Usuário</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        class="form-input" 
-                        placeholder="Digite seu usuário"
-                        required
-                        autocomplete="username"
-                    >
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        class="form-input" 
-                        placeholder="Digite sua senha"
-                        required
-                        autocomplete="current-password"
-                    >
-                </div>
-                
-                <button type="submit" class="login-btn" id="loginBtn">
-                    Entrar
-                </button>
-            </form>
-            
-            <div class="back-link">
-                <a href="index.html">← Voltar ao site</a>
-            </div>
+    <div class="login-container">
+        <div class="logo">👑</div>
+        <h1 class="login-title">Admin Login</h1>
+        <p class="login-subtitle">Barbearia Samuel Abreu</p>
+        
+        <div class="debug-info">
+            <strong>📧 Para Testar:</strong><br>
+            Email: admin@barbeariasamuelabreu.com<br>
+            Senha: (a que você definiu no Firebase)
         </div>
+        
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required 
+                       value="admin@barbeariasamuelabreu.com"
+                       placeholder="admin@barbeariasamuelabreu.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required
+                       placeholder="Digite sua senha">
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn">
+                <span id="loginText">🔐 Entrar</span>
+                <span id="loadingText" class="loading">🔄 Entrando...</span>
+            </button>
+        </form>
+        
+        <a href="index.html" class="back-link">← Voltar ao site</a>
     </div>
-    
+
+    <!-- Firebase Scripts - Versão Compat para compatibilidade -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
     <script>
-        // Configuração do Firebase
+        // 🔥 Configuração Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCTcvqfii2TE08vqolCgqv0jI9VWTfarOA",
             authDomain: "barbeariasamuelabreu.firebaseapp.com",
@@ -279,205 +236,190 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        class AdminLogin {
+        class FirebaseLogin {
             constructor() {
-                this.init();
+                this.form = document.getElementById('loginForm');
+                this.errorDiv = document.getElementById('error-message');
+                this.successDiv = document.getElementById('success-message');
+                this.loginBtn = document.getElementById('loginBtn');
+                this.loginText = document.getElementById('loginText');
+                this.loadingText = document.getElementById('loadingText');
+                
+                this.setupEventListeners();
+                this.checkExistingAuth();
             }
-            
-            init() {
-                this.setupFormHandler();
-                this.setupKeyboardShortcuts();
-                this.checkAuthState();
-            }
-            
-            checkAuthState() {
-                // Verificar se o usuário já está logado
+
+            setupEventListeners() {
+                this.form.addEventListener('submit', (e) => this.handleLogin(e));
+                
+                // Monitor estado de autenticação
                 auth.onAuthStateChanged((user) => {
                     if (user) {
-                        // Usuário logado, redirecionar para dashboard
-                        window.location.href = 'admin-dashboard.html';
+                        console.log('✅ Usuário autenticado:', user.email);
+                        this.verifyAdminAccess(user);
                     }
                 });
             }
-            
-            setupFormHandler() {
-                const form = document.getElementById('loginForm');
-                const loginBtn = document.getElementById('loginBtn');
-                const loadingSpinner = document.getElementById('loadingSpinner');
-                const errorMessage = document.getElementById('errorMessage');
-                const successMessage = document.getElementById('successMessage');
+
+            checkExistingAuth() {
+                const user = auth.currentUser;
+                if (user) {
+                    console.log('👤 Usuário já logado:', user.email);
+                    this.verifyAdminAccess(user);
+                }
+            }
+
+            async handleLogin(e) {
+                e.preventDefault();
                 
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                console.log('🔍 Tentativa de login:');
+                console.log('Email digitado:', email);
+                console.log('Senha:', password ? '***' : 'vazia');
+
+                // Validação básica
+                if (!email || !password) {
+                    this.showError('❌ Por favor, preencha todos os campos.');
+                    return;
+                }
+
+                // Validação de email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    this.showError('❌ Formato de email inválido. Use: admin@barbeariasamuelabreu.com');
+                    return;
+                }
+
+                this.setLoading(true);
+                this.hideMessages();
+
+                try {
+                    console.log('🔐 Fazendo login no Firebase Auth...');
                     
-                    const username = document.getElementById('username').value.trim();
-                    const password = document.getElementById('password').value;
+                    // Fazer login no Firebase Auth
+                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    const user = userCredential.user;
+
+                    console.log('✅ Login Firebase realizado:', user.email);
+                    console.log('UID:', user.uid);
                     
-                    // Validação básica
-                    if (!username || !password) {
-                        this.showError('Por favor, preencha todos os campos.');
-                        return;
-                    }
+                    // Verificar se é admin
+                    await this.verifyAdminAccess(user);
+
+                } catch (error) {
+                    console.error('❌ Erro no login:', error);
+                    this.handleLoginError(error);
+                } finally {
+                    this.setLoading(false);
+                }
+            }
+
+            async verifyAdminAccess(user) {
+                try {
+                    console.log('🔍 Verificando permissões no Firestore...');
+                    console.log('Buscando usuário com email:', user.email);
                     
-                    // Loading state
-                    loginBtn.disabled = true;
-                    loginBtn.textContent = 'Verificando...';
-                    loadingSpinner.style.display = 'block';
-                    this.hideMessages();
-                    
-                    try {
-                        // Converter username para email (para Firebase Auth)
-                        const email = this.usernameToEmail(username);
+                    // Buscar dados do usuário no Firestore
+                    const usersSnapshot = await db.collection('users')
+                        .where('email', '==', user.email)
+                        .where('isAdmin', '==', true)
+                        .get();
+
+                    console.log('📄 Resultado da busca:', usersSnapshot.size, 'documentos encontrados');
+
+                    if (!usersSnapshot.empty) {
+                        const adminData = usersSnapshot.docs[0].data();
+                        console.log('✅ Admin verificado:', adminData);
                         
-                        // Fazer login com Firebase
-                        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                        const user = userCredential.user;
+                        // Atualizar último login
+                        await usersSnapshot.docs[0].ref.update({
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
+                        this.showSuccess('✅ Login realizado com sucesso! Redirecionando...');
                         
-                        // Verificar se o usuário tem permissões de admin
-                        const userDoc = await db.collection('users').doc(user.uid).get();
-                        
-                        if (!userDoc.exists || !userDoc.data().isAdmin) {
-                            await auth.signOut();
-                            throw new Error('Usuário não tem permissões de administrador.');
-                        }
-                        
-                        // Login bem-sucedido
-                        this.showSuccess('Login realizado com sucesso!');
-                        
-                        // Armazenar sessão local (para compatibilidade)
-                        this.storeSession(username, user);
-                        
-                        // Redirecionar após 1 segundo
+                        // Redirecionar para dashboard
                         setTimeout(() => {
-                            window.location.href = 'admin-dashboard.html';
-                        }, 1000);
+                            window.location.href = 'firebase-dashboard.html';
+                        }, 1500);
+
+                    } else {
+                        console.warn('❌ Nenhum admin encontrado para:', user.email);
+                        this.showError('❌ Acesso negado. Este email não tem permissões de administrador.');
                         
-                    } catch (error) {
-                        console.error('Erro no login:', error);
+                        // Mostrar informações de debug
+                        console.log('🔍 Debug - Verificando coleção users...');
+                        const allUsers = await db.collection('users').get();
+                        console.log('👥 Total de usuários na coleção:', allUsers.size);
+                        allUsers.forEach(doc => {
+                            console.log('👤 Usuário encontrado:', doc.data());
+                        });
                         
-                        // Fallback para autenticação local
-                        try {
-                            await this.fallbackLogin(username, password);
-                            this.showSuccess('Login realizado com sucesso!');
-                            this.storeSession(username);
-                            
-                            setTimeout(() => {
-                                window.location.href = 'admin-dashboard.html';
-                            }, 1000);
-                        } catch (fallbackError) {
-                            this.showError(this.getErrorMessage(error.code || fallbackError.message));
-                        }
-                    } finally {
-                        loginBtn.disabled = false;
-                        loginBtn.textContent = 'Entrar';
-                        loadingSpinner.style.display = 'none';
+                        await auth.signOut();
                     }
-                });
+
+                } catch (error) {
+                    console.error('❌ Erro ao verificar permissões:', error);
+                    this.showError('❌ Erro ao verificar permissões: ' + error.message);
+                    await auth.signOut();
+                }
             }
-            
-            usernameToEmail(username) {
-                // Converter usernames para emails válidos
-                const emailMap = {
-                    'admin': 'admin@barbeariasamuelabreu.com',
-                    'samuel': 'samuel@barbeariasamuelabreu.com',
-                    'kaio': 'kaio@barbeariasamuelabreu.com'
-                };
+
+            handleLoginError(error) {
+                console.error('Código do erro:', error.code);
+                console.error('Mensagem:', error.message);
                 
-                return emailMap[username] || `${username}@barbeariasamuelabreu.com`;
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        this.showError('❌ Email não encontrado. Verifique se o usuário foi criado no Firebase Authentication.');
+                        break;
+                    case 'auth/wrong-password':
+                        this.showError('❌ Senha incorreta. Tente novamente.');
+                        break;
+                    case 'auth/invalid-email':
+                        this.showError('❌ Email inválido. Use: admin@barbeariasamuelabreu.com');
+                        break;
+                    case 'auth/too-many-requests':
+                        this.showError('❌ Muitas tentativas. Aguarde alguns minutos.');
+                        break;
+                    case 'auth/network-request-failed':
+                        this.showError('❌ Erro de conexão. Verifique sua internet.');
+                        break;
+                    default:
+                        this.showError(`❌ Erro: ${error.message}`);
+                }
             }
-            
-            async fallbackLogin(username, password) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        // Credenciais para demonstração (fallback)
-                        const validCredentials = [
-                            { username: 'admin', password: 'barbearia2024' },
-                            { username: 'samuel', password: 'samuel123' },
-                            { username: 'kaio', password: 'kaio123' }
-                        ];
-                        
-                        const isValid = validCredentials.some(
-                            cred => cred.username === username && cred.password === password
-                        );
-                        
-                        if (isValid) {
-                            resolve();
-                        } else {
-                            reject(new Error('Usuário ou senha incorretos.'));
-                        }
-                    }, 1000);
-                });
+
+            setLoading(isLoading) {
+                this.loginBtn.disabled = isLoading;
+                this.loginText.style.display = isLoading ? 'none' : 'inline';
+                this.loadingText.style.display = isLoading ? 'inline' : 'none';
             }
-            
-            getErrorMessage(errorCode) {
-                const errorMessages = {
-                    'auth/user-not-found': 'Usuário não encontrado.',
-                    'auth/wrong-password': 'Senha incorreta.',
-                    'auth/invalid-email': 'Email inválido.',
-                    'auth/user-disabled': 'Usuário desabilitado.',
-                    'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.',
-                    'auth/network-request-failed': 'Erro de conexão. Verifique sua internet.'
-                };
-                
-                return errorMessages[errorCode] || 'Usuário ou senha incorretos.';
-            }
-            
-            storeSession(username, firebaseUser = null) {
-                const sessionData = {
-                    username: username,
-                    loginTime: new Date().toISOString(),
-                    isAdmin: true,
-                    firebaseUid: firebaseUser ? firebaseUser.uid : null
-                };
-                
-                localStorage.setItem('adminSession', JSON.stringify(sessionData));
-                sessionStorage.setItem('isLoggedIn', 'true');
-            }
-            
+
             showError(message) {
-                const errorElement = document.getElementById('errorMessage');
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
-                
-                // Auto-hide após 5 segundos
-                setTimeout(() => {
-                    errorElement.style.display = 'none';
-                }, 5000);
+                this.errorDiv.innerHTML = message;
+                this.errorDiv.style.display = 'block';
+                this.successDiv.style.display = 'none';
             }
-            
+
             showSuccess(message) {
-                const successElement = document.getElementById('successMessage');
-                successElement.textContent = message;
-                successElement.style.display = 'block';
+                this.successDiv.innerHTML = message;
+                this.successDiv.style.display = 'block';
+                this.errorDiv.style.display = 'none';
             }
-            
+
             hideMessages() {
-                document.getElementById('errorMessage').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'none';
-            }
-            
-            setupKeyboardShortcuts() {
-                document.addEventListener('keydown', (e) => {
-                    // Esc para limpar campos
-                    if (e.key === 'Escape') {
-                        document.getElementById('username').value = '';
-                        document.getElementById('password').value = '';
-                        this.hideMessages();
-                    }
-                });
+                this.errorDiv.style.display = 'none';
+                this.successDiv.style.display = 'none';
             }
         }
-        
-        // Verificar se já está logado
+
+        // 🚀 Inicializar sistema de login
         document.addEventListener('DOMContentLoaded', () => {
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-            if (isLoggedIn === 'true') {
-                window.location.href = 'admin-dashboard.html';
-                return;
-            }
-            
-            // Inicializar sistema de login
-            new AdminLogin();
+            console.log('🎯 Página de login carregada');
+            new FirebaseLogin();
         });
     </script>
 </body>

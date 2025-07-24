@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Dashboard - Modais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+        }
+        
+        .test-btn {
+            background: #d4af37;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            font-weight: bold;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-content {
+            background: #333;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            color: white;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #d4af37;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #555;
+            color: white;
+            border: 1px solid #777;
+            border-radius: 4px;
+        }
+        
+        .save-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Modais</h1>
+    
+    <p>Clique nos botões para testar se os modais abrem:</p>
+    
+    <button class="test-btn" onclick="testModal1()">Teste Modal 1</button>
+    <button class="test-btn" onclick="testModal2()">Teste Modal 2</button>
+    <button class="test-btn" onclick="testModal3()">Teste Modal 3</button>
+    
+    <hr>
+    
+    <h2>📊 Status dos Testes:</h2>
+    <div id="status"></div>
+
+    <!-- Modal 1 -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <h2>Modal 1 - Funcionando!</h2>
+            <input type="text" placeholder="Teste de input">
+            <button class="save-btn" onclick="closeModal('modal1')">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <h2>Modal 2 - Funcionando!</h2>
+            <textarea placeholder="Teste de textarea"></textarea>
+            <button class="save-btn" onclick="closeModal('modal2')">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <h2>Modal 3 - Funcionando!</h2>
+            <input type="text" placeholder="Outro teste">
+            <button class="save-btn" onclick="closeModal('modal3')">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        let testResults = {
+            modal1: false,
+            modal2: false,
+            modal3: false
+        };
+
+        function testModal1() {
+            console.log('🧪 Testando Modal 1');
+            document.getElementById('modal1').style.display = 'block';
+            testResults.modal1 = true;
+            updateStatus();
+        }
+
+        function testModal2() {
+            console.log('🧪 Testando Modal 2');
+            document.getElementById('modal2').style.display = 'block';
+            testResults.modal2 = true;
+            updateStatus();
+        }
+
+        function testModal3() {
+            console.log('🧪 Testando Modal 3');
+            document.getElementById('modal3').style.display = 'block';
+            testResults.modal3 = true;
+            updateStatus();
+        }
+
+        function closeModal(modalId) {
+            console.log('❌ Fechando modal:', modalId);
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function updateStatus() {
+            const statusDiv = document.getElementById('status');
+            let html = '';
+            
+            for (let modal in testResults) {
+                const status = testResults[modal] ? '✅' : '❌';
+                html += `<p>${status} ${modal}: ${testResults[modal] ? 'Funcionando' : 'Não testado'}</p>`;
+            }
+            
+            statusDiv.innerHTML = html;
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+
+        // Atualizar status inicial
+        updateStatus();
+
+        console.log('🎯 Página de teste carregada');
+    </script>
+</body>
+</html>

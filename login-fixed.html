@@ -136,25 +136,38 @@
             background: rgba(255, 68, 68, 0.1);
             border: 1px solid #ff4444;
             color: #ff6b6b;
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             display: none;
+            text-align: left;
         }
 
         .success-message {
             background: rgba(76, 175, 80, 0.1);
             border: 1px solid #4CAF50;
             color: #66bb6a;
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
             display: none;
+            text-align: left;
         }
 
         .loading {
             display: none;
             color: var(--primary-color);
+        }
+
+        .debug-info {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 480px) {
@@ -170,6 +183,12 @@
         <h1 class="login-title">Admin Login</h1>
         <p class="login-subtitle">Barbearia Samuel Abreu</p>
         
+        <div class="debug-info">
+            <strong>📧 Para Testar:</strong><br>
+            Email: admin@barbeariasamuelabreu.com<br>
+            Senha: (a que você definiu no Firebase)
+        </div>
+        
         <div id="error-message" class="error-message"></div>
         <div id="success-message" class="success-message"></div>
         
@@ -177,6 +196,7 @@
             <div class="form-group">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" required 
+                       value="admin@barbeariasamuelabreu.com"
                        placeholder="admin@barbeariasamuelabreu.com">
             </div>
             
@@ -195,10 +215,10 @@
         <a href="index.html" class="back-link">← Voltar ao site</a>
     </div>
 
-    <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <!-- Firebase Scripts - Versão Compat para compatibilidade -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <script>
         // 🔥 Configuração Firebase
@@ -255,8 +275,20 @@
                 const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
 
+                console.log('🔍 Tentativa de login:');
+                console.log('Email digitado:', email);
+                console.log('Senha:', password ? '***' : 'vazia');
+
+                // Validação básica
                 if (!email || !password) {
-                    this.showError('Por favor, preencha todos os campos.');
+                    this.showError('❌ Por favor, preencha todos os campos.');
+                    return;
+                }
+
+                // Validação de email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    this.showError('❌ Formato de email inválido. Use: admin@barbeariasamuelabreu.com');
                     return;
                 }
 
@@ -264,13 +296,14 @@
                 this.hideMessages();
 
                 try {
-                    console.log('🔐 Tentando fazer login com:', email);
+                    console.log('🔐 Fazendo login no Firebase Auth...');
                     
                     // Fazer login no Firebase Auth
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     const user = userCredential.user;
 
-                    console.log('✅ Login realizado com sucesso:', user.email);
+                    console.log('✅ Login Firebase realizado:', user.email);
+                    console.log('UID:', user.uid);
                     
                     // Verificar se é admin
                     await this.verifyAdminAccess(user);
@@ -285,13 +318,16 @@
 
             async verifyAdminAccess(user) {
                 try {
-                    console.log('🔍 Verificando permissões de admin para:', user.email);
+                    console.log('🔍 Verificando permissões no Firestore...');
+                    console.log('Buscando usuário com email:', user.email);
                     
                     // Buscar dados do usuário no Firestore
                     const usersSnapshot = await db.collection('users')
                         .where('email', '==', user.email)
                         .where('isAdmin', '==', true)
                         .get();
+
+                    console.log('📄 Resultado da busca:', usersSnapshot.size, 'documentos encontrados');
 
                     if (!usersSnapshot.empty) {
                         const adminData = usersSnapshot.docs[0].data();
@@ -302,47 +338,57 @@
                             lastLogin: firebase.firestore.FieldValue.serverTimestamp()
                         });
 
-                        this.showSuccess('Login realizado com sucesso! Redirecionando...');
+                        this.showSuccess('✅ Login realizado com sucesso! Redirecionando...');
                         
-                        // Redirecionar para dashboard (sem salvar sessionStorage)
+                        // Redirecionar para dashboard
                         setTimeout(() => {
                             window.location.href = 'firebase-dashboard.html';
                         }, 1500);
 
                     } else {
-                        console.warn('❌ Usuário não é administrador');
-                        this.showError('Acesso negado. Este usuário não tem permissões de administrador.');
+                        console.warn('❌ Nenhum admin encontrado para:', user.email);
+                        this.showError('❌ Acesso negado. Este email não tem permissões de administrador.');
+                        
+                        // Mostrar informações de debug
+                        console.log('🔍 Debug - Verificando coleção users...');
+                        const allUsers = await db.collection('users').get();
+                        console.log('👥 Total de usuários na coleção:', allUsers.size);
+                        allUsers.forEach(doc => {
+                            console.log('👤 Usuário encontrado:', doc.data());
+                        });
+                        
                         await auth.signOut();
                     }
 
                 } catch (error) {
                     console.error('❌ Erro ao verificar permissões:', error);
-                    this.showError('Erro ao verificar permissões. Tente novamente.');
+                    this.showError('❌ Erro ao verificar permissões: ' + error.message);
                     await auth.signOut();
                 }
             }
 
             handleLoginError(error) {
                 console.error('Código do erro:', error.code);
+                console.error('Mensagem:', error.message);
                 
                 switch (error.code) {
                     case 'auth/user-not-found':
-                        this.showError('Usuário não encontrado. Verifique o e-mail.');
+                        this.showError('❌ Email não encontrado. Verifique se o usuário foi criado no Firebase Authentication.');
                         break;
                     case 'auth/wrong-password':
-                        this.showError('Senha incorreta. Tente novamente.');
+                        this.showError('❌ Senha incorreta. Tente novamente.');
                         break;
                     case 'auth/invalid-email':
-                        this.showError('E-mail inválido.');
+                        this.showError('❌ Email inválido. Use: admin@barbeariasamuelabreu.com');
                         break;
                     case 'auth/too-many-requests':
-                        this.showError('Muitas tentativas. Tente novamente mais tarde.');
+                        this.showError('❌ Muitas tentativas. Aguarde alguns minutos.');
                         break;
                     case 'auth/network-request-failed':
-                        this.showError('Erro de conexão. Verifique sua internet.');
+                        this.showError('❌ Erro de conexão. Verifique sua internet.');
                         break;
                     default:
-                        this.showError(`Erro no login: ${error.message}`);
+                        this.showError(`❌ Erro: ${error.message}`);
                 }
             }
 
@@ -353,13 +399,13 @@
             }
 
             showError(message) {
-                this.errorDiv.textContent = message;
+                this.errorDiv.innerHTML = message;
                 this.errorDiv.style.display = 'block';
                 this.successDiv.style.display = 'none';
             }
 
             showSuccess(message) {
-                this.successDiv.textContent = message;
+                this.successDiv.innerHTML = message;
                 this.successDiv.style.display = 'block';
                 this.errorDiv.style.display = 'none';
             }
@@ -372,6 +418,7 @@
 
         // 🚀 Inicializar sistema de login
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('🎯 Página de login carregada');
             new FirebaseLogin();
         });
     </script>

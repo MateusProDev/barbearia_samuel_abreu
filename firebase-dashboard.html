@@ -47,6 +47,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .admin-title {
@@ -101,12 +103,16 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
+            width: 100%;
+            max-width: 100%;
         }
 
         .dashboard-card {
@@ -116,6 +122,10 @@
             box-shadow: var(--shadow);
             border: 1px solid rgba(212, 175, 55, 0.1);
             transition: var(--transition);
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
         }
 
         .dashboard-card:hover {
@@ -316,22 +326,195 @@
             background: linear-gradient(45deg, #ff4444, #cc3333);
         }
 
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                padding: 30px 15px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+            
+            .modal-content {
+                width: 90%;
+                margin: 5% auto;
+                padding: 25px;
+            }
+        }
+
         @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            
+            .admin-header {
+                padding: 15px 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 15px;
+            }
+            
+            .admin-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+            
+            .dashboard-container {
+                padding: 20px 10px;
+                max-width: 100%;
+            }
+            
             .dashboard-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            
+            .dashboard-card {
+                padding: 20px;
+                margin: 0 5px;
+            }
+            
+            .card-icon {
+                font-size: 1.8rem;
+                margin-right: 10px;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+            
+            .action-btn {
+                padding: 12px;
+                font-size: 0.95rem;
             }
             
             .modal-content {
                 width: 95%;
                 margin: 10% auto;
                 padding: 20px;
+                max-height: 80vh;
+                overflow-y: auto;
             }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 12px;
+                font-size: 16px; /* Previne zoom no iOS */
+            }
+            
+            .btn-primary {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+            
+            .notification {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                transform: translateY(-100px);
+                border-radius: 8px;
+            }
+            
+            .notification.show {
+                transform: translateY(0);
+            }
+        }
 
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
+        @media (max-width: 480px) {
+            .admin-title {
+                font-size: 1.5rem;
             }
+            
+            .dashboard-container {
+                padding: 15px 5px;
+            }
+            
+            .dashboard-card {
+                padding: 15px;
+                margin: 0;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .modal-content {
+                width: 98%;
+                margin: 5% auto;
+                padding: 15px;
+                border-radius: 8px;
+            }
+            
+            .modal-header {
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .modal-title {
+                font-size: 1.3rem;
+            }
+            
+            .close {
+                font-size: 24px;
+                top: 10px;
+                right: 15px;
+            }
+            
+            .form-group label {
+                font-size: 0.9rem;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                padding: 10px;
+                border-radius: 6px;
+            }
+            
+            .btn-primary {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Correções adicionais para overflow */
+        * {
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+        
+        .dashboard-grid {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .dashboard-card {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0; /* Permite que flexbox quebre o conteúdo */
+        }
+        
+        .card-content {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
     </style>
 </head>
@@ -365,7 +548,7 @@
                     </div>
                     <div class="status-indicator"></div>
                     <span>Sistema online e sincronizado</span>
-                    <button class="action-btn" onclick="openContentEditor()">
+                    <button class="action-btn" onclick="console.log('🖱️ Botão conteúdo clicado'); openContentEditor();">
                         ✏️ Editar Conteúdo
                     </button>
                 </div>
@@ -383,7 +566,7 @@
                     </div>
                     <div class="status-indicator"></div>
                     <span>Horários atualizados</span>
-                    <button class="action-btn" onclick="openScheduleEditor()">
+                    <button class="action-btn" onclick="console.log('🖱️ Botão horários clicado'); openScheduleEditor();">
                         🕒 Editar Horários
                     </button>
                 </div>
@@ -401,7 +584,7 @@
                     </div>
                     <div class="status-indicator"></div>
                     <span>Informações sincronizadas</span>
-                    <button class="action-btn" onclick="openContactEditor()">
+                    <button class="action-btn" onclick="console.log('🖱️ Botão contato clicado'); openContactEditor();">
                         📍 Editar Contato
                     </button>
                 </div>
@@ -500,10 +683,10 @@
         </div>
     </div>
 
-    <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <!-- Firebase Scripts - Versão Compat para compatibilidade -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <script>
         // 🔥 Configuração Firebase
@@ -523,35 +706,17 @@
         class FirebaseDashboard {
             constructor() {
                 this.currentUser = null;
-                this.checkAuthentication();
                 this.setupAuthListener();
             }
 
-            checkAuthentication() {
-                const sessionData = sessionStorage.getItem('adminUser');
-                const firebaseUser = auth.currentUser;
-
-                if (!sessionData && !firebaseUser) {
-                    console.log('❌ Usuário não autenticado - redirecionando');
-                    window.location.href = 'firebase-login.html';
-                    return;
-                }
-
-                if (sessionData) {
-                    this.currentUser = JSON.parse(sessionData);
-                    this.updateUserInterface();
-                    this.loadDashboardData();
-                }
-            }
-
             setupAuthListener() {
+                // Listener principal de autenticação Firebase
                 auth.onAuthStateChanged((user) => {
                     if (user) {
-                        console.log('✅ Usuário autenticado:', user.email);
+                        console.log('✅ Usuário autenticado Firebase:', user.email);
                         this.verifyUserAndLoad(user);
                     } else {
-                        console.log('❌ Usuário não autenticado');
-                        sessionStorage.removeItem('adminUser');
+                        console.log('❌ Usuário não autenticado - redirecionando');
                         window.location.href = 'firebase-login.html';
                     }
                 });
@@ -559,6 +724,8 @@
 
             async verifyUserAndLoad(user) {
                 try {
+                    console.log('🔍 Verificando permissões no Firestore para:', user.email);
+                    
                     const usersSnapshot = await db.collection('users')
                         .where('email', '==', user.email)
                         .where('isAdmin', '==', true)
@@ -566,7 +733,14 @@
 
                     if (!usersSnapshot.empty) {
                         const adminData = usersSnapshot.docs[0].data();
+                        console.log('✅ Admin verificado no Firestore:', adminData);
                         
+                        // Atualizar último login
+                        await usersSnapshot.docs[0].ref.update({
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
+                        // Definir dados do usuário atual (apenas na memória)
                         this.currentUser = {
                             uid: user.uid,
                             email: user.email,
@@ -574,14 +748,18 @@
                             name: adminData.name || 'Administrador'
                         };
 
-                        sessionStorage.setItem('adminUser', JSON.stringify(this.currentUser));
                         this.updateUserInterface();
                         this.loadDashboardData();
                     } else {
-                        throw new Error('Usuário não é administrador');
+                        console.warn('❌ Usuário não é administrador no Firestore');
+                        alert('Acesso negado. Este usuário não tem permissões de administrador.');
+                        await auth.signOut();
+                        window.location.href = 'firebase-login.html';
                     }
+
                 } catch (error) {
-                    console.error('❌ Erro ao verificar usuário:', error);
+                    console.error('❌ Erro ao verificar permissões:', error);
+                    alert('Erro ao verificar permissões: ' + error.message);
                     await auth.signOut();
                     window.location.href = 'firebase-login.html';
                 }
@@ -596,10 +774,15 @@
 
             async loadDashboardData() {
                 try {
+                    console.log('🔄 Iniciando carregamento dos dados do dashboard...');
+                    console.log('📡 Configurando listeners em tempo real...');
                     this.setupRealtimeListeners();
+                    console.log('📊 Carregando dados iniciais...');
                     await this.loadInitialData();
+                    console.log('✅ Dados do dashboard carregados com sucesso!');
                 } catch (error) {
                     console.error('❌ Erro ao carregar dados:', error);
+                    console.error('❌ Stack trace:', error.stack);
                 }
             }
 
@@ -637,21 +820,37 @@
 
             async loadInitialData() {
                 try {
+                    console.log('📋 Buscando documentos no Firestore...');
                     const [mainDoc, scheduleDoc, contactDoc] = await Promise.all([
                         db.collection('siteContent').doc('main').get(),
                         db.collection('siteContent').doc('schedule').get(),
                         db.collection('siteContent').doc('contact').get()
                     ]);
 
+                    console.log('📄 Documentos obtidos:', {
+                        main: mainDoc.exists,
+                        schedule: scheduleDoc.exists,
+                        contact: contactDoc.exists
+                    });
+
                     if (mainDoc.exists) {
+                        console.log('📝 Atualizando preview do conteúdo principal...');
                         this.updateContentPreview(mainDoc.data());
+                    } else {
+                        console.log('⚠️ Documento main não existe, criando dados padrão...');
+                        await this.createDefaultContent();
                     }
 
                     if (scheduleDoc.exists) {
+                        console.log('📅 Atualizando preview dos horários...');
                         this.updateSchedulePreview(scheduleDoc.data());
+                    } else {
+                        console.log('⚠️ Documento schedule não existe, criando dados padrão...');
+                        await this.createDefaultSchedule();
                     }
 
                     if (contactDoc.exists) {
+                        console.log('📞 Atualizando preview dos contatos...');
                         this.updateContactPreview(contactDoc.data());
                     }
 
@@ -690,39 +889,48 @@
             }
 
             async saveMainContent(data) {
-                if (!this.currentUser) {
-                    throw new Error('Usuário não autenticado');
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error('Usuário não autenticado no Firebase');
                 }
 
+                console.log('💾 Salvando conteúdo principal...');
                 await db.collection('siteContent').doc('main').set({
                     ...data,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    updatedBy: this.currentUser.email
+                    updatedBy: user.email
                 });
+                console.log('✅ Conteúdo principal salvo');
             }
 
             async saveSchedule(data) {
-                if (!this.currentUser) {
-                    throw new Error('Usuário não autenticado');
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error('Usuário não autenticado no Firebase');
                 }
 
+                console.log('💾 Salvando horários...');
                 await db.collection('siteContent').doc('schedule').set({
                     ...data,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    updatedBy: this.currentUser.email
+                    updatedBy: user.email
                 });
+                console.log('✅ Horários salvos');
             }
 
             async saveContact(data) {
-                if (!this.currentUser) {
-                    throw new Error('Usuário não autenticado');
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error('Usuário não autenticado no Firebase');
                 }
 
+                console.log('💾 Salvando contato...');
                 await db.collection('siteContent').doc('contact').set({
                     ...data,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    updatedBy: this.currentUser.email
+                    updatedBy: user.email
                 });
+                console.log('✅ Contato salvo');
             }
 
             showNotification(message, type = 'success') {
@@ -748,48 +956,174 @@
         // 🚀 Inicializar Dashboard
         let dashboard;
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('🎯 DOM carregado - inicializando dashboard...');
             dashboard = new FirebaseDashboard();
+            
+            // Verificar se os botões existem
+            setTimeout(() => {
+                const buttons = [
+                    { id: 'btn-content', selector: 'button[onclick="openContentEditor()"]' },
+                    { id: 'btn-schedule', selector: 'button[onclick="openScheduleEditor()"]' },
+                    { id: 'btn-contact', selector: 'button[onclick="openContactEditor()"]' }
+                ];
+                
+                buttons.forEach(btn => {
+                    const element = document.querySelector(btn.selector);
+                    if (element) {
+                        console.log('✅ Botão encontrado:', btn.id);
+                        
+                        // Adicionar listener adicional para debug
+                        element.addEventListener('click', () => {
+                            console.log('🖱️ Clique detectado no botão:', btn.id);
+                        });
+                    } else {
+                        console.warn('⚠️ Botão não encontrado:', btn.id);
+                    }
+                });
+                
+                // Verificar se modais existem
+                const modals = ['contentModal', 'scheduleModal', 'contactModal'];
+                modals.forEach(modalId => {
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        console.log('✅ Modal encontrado:', modalId);
+                    } else {
+                        console.warn('⚠️ Modal não encontrado:', modalId);
+                    }
+                });
+            }, 2000);
         });
 
         // 📝 Funções para modais
         function openContentEditor() {
-            db.collection('siteContent').doc('main').get().then((doc) => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    document.getElementById('site-title').value = data.title || '';
-                    document.getElementById('site-description').value = data.description || '';
-                    document.getElementById('site-mission').value = data.mission || '';
-                    document.getElementById('site-keywords').value = data.keywords || '';
-                }
-            });
-            document.getElementById('contentModal').style.display = 'block';
+            console.log('🔄 Abrindo editor de conteúdo...');
+            
+            // Verificar autenticação
+            const user = auth.currentUser;
+            if (!user) {
+                alert('❌ Usuário não autenticado. Faça login novamente.');
+                window.location.href = 'firebase-login.html';
+                return;
+            }
+            
+            console.log('👤 Usuário autenticado:', user.email);
+            
+            // Carregar dados do Firestore
+            db.collection('siteContent').doc('main').get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        console.log('📄 Dados carregados:', data);
+                        
+                        document.getElementById('site-title').value = data.title || '';
+                        document.getElementById('site-description').value = data.description || '';
+                        document.getElementById('site-mission').value = data.mission || '';
+                        document.getElementById('site-keywords').value = data.keywords || '';
+                    } else {
+                        console.warn('⚠️ Documento main não encontrado');
+                    }
+                    
+                    // Abrir modal
+                    const modal = document.getElementById('contentModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                        console.log('✅ Modal de conteúdo aberto');
+                    } else {
+                        console.error('❌ Modal contentModal não encontrado');
+                    }
+                })
+                .catch((error) => {
+                    console.error('❌ Erro ao carregar dados:', error);
+                    alert('Erro ao carregar dados: ' + error.message);
+                });
         }
 
         function openScheduleEditor() {
-            db.collection('siteContent').doc('schedule').get().then((doc) => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    document.getElementById('weekday-morning').value = data.weekdayMorning || '';
-                    document.getElementById('weekday-afternoon').value = data.weekdayAfternoon || '';
-                    document.getElementById('saturday-morning').value = data.saturdayMorning || '';
-                    document.getElementById('saturday-afternoon').value = data.saturdayAfternoon || '';
-                    document.getElementById('sunday').value = data.sunday || '';
-                }
-            });
-            document.getElementById('scheduleModal').style.display = 'block';
+            console.log('🔄 Abrindo editor de horários...');
+            
+            // Verificar autenticação
+            const user = auth.currentUser;
+            if (!user) {
+                alert('❌ Usuário não autenticado. Faça login novamente.');
+                window.location.href = 'firebase-login.html';
+                return;
+            }
+            
+            // Carregar dados do Firestore
+            db.collection('siteContent').doc('schedule').get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        console.log('📄 Horários carregados:', data);
+                        
+                        document.getElementById('weekday-morning').value = data.weekdayMorning || '';
+                        document.getElementById('weekday-afternoon').value = data.weekdayAfternoon || '';
+                        document.getElementById('saturday-morning').value = data.saturdayMorning || '';
+                        document.getElementById('saturday-afternoon').value = data.saturdayAfternoon || '';
+                        document.getElementById('sunday').value = data.sunday || '';
+                    } else {
+                        console.warn('⚠️ Documento schedule não encontrado');
+                    }
+                    
+                    // Abrir modal
+                    const modal = document.getElementById('scheduleModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                        console.log('✅ Modal de horários aberto');
+                    } else {
+                        console.error('❌ Modal scheduleModal não encontrado');
+                    }
+                })
+                .catch((error) => {
+                    console.error('❌ Erro ao carregar horários:', error);
+                    alert('Erro ao carregar horários: ' + error.message);
+                });
         }
 
         function openContactEditor() {
-            db.collection('siteContent').doc('contact').get().then((doc) => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    document.getElementById('contact-address').value = data.address || '';
-                    document.getElementById('contact-phone').value = data.phone || '';
-                    document.getElementById('contact-email').value = data.email || '';
-                    document.getElementById('contact-instagram').value = data.instagram || '';
-                }
-            });
-            document.getElementById('contactModal').style.display = 'block';
+            console.log('🔄 Abrindo editor de contato...');
+            
+            // Verificar autenticação
+            const user = auth.currentUser;
+            if (!user) {
+                alert('❌ Usuário não autenticado. Faça login novamente.');
+                window.location.href = 'firebase-login.html';
+                return;
+            }
+            
+            // Carregar dados do Firestore
+            db.collection('siteContent').doc('contact').get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        console.log('📄 Contato carregado:', data);
+                        
+                        document.getElementById('contact-address').value = data.address || '';
+                        document.getElementById('contact-phone').value = data.phone || '';
+                        document.getElementById('contact-email').value = data.email || '';
+                        document.getElementById('contact-instagram').value = data.instagram || '';
+                    } else {
+                        console.warn('⚠️ Documento contact não encontrado');
+                        // Criar campos vazios se documento não existir
+                        document.getElementById('contact-address').value = '';
+                        document.getElementById('contact-phone').value = '';
+                        document.getElementById('contact-email').value = '';
+                        document.getElementById('contact-instagram').value = '';
+                    }
+                    
+                    // Abrir modal
+                    const modal = document.getElementById('contactModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                        console.log('✅ Modal de contato aberto');
+                    } else {
+                        console.error('❌ Modal contactModal não encontrado');
+                    }
+                })
+                .catch((error) => {
+                    console.error('❌ Erro ao carregar contato:', error);
+                    alert('Erro ao carregar contato: ' + error.message);
+                });
         }
 
         // 💾 Funções de salvamento
@@ -843,8 +1177,9 @@
         async function logout() {
             if (confirm('Tem certeza que deseja sair?')) {
                 try {
+                    console.log('🚪 Fazendo logout...');
                     await auth.signOut();
-                    sessionStorage.removeItem('adminUser');
+                    console.log('✅ Logout realizado');
                     window.location.href = 'firebase-login.html';
                 } catch (error) {
                     console.error('❌ Erro ao fazer logout:', error);
