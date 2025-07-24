@@ -290,28 +290,47 @@
                     // Buscar dados do usuário no Firestore
                     const usersSnapshot = await db.collection('users')
                         .where('email', '==', user.email)
-                        .where('isAdmin', '==', true)
                         .get();
 
-                    if (!usersSnapshot.empty) {
-                        const adminData = usersSnapshot.docs[0].data();
-                        console.log('✅ Admin verificado:', adminData);
-                        
-                        // Atualizar último login
-                        await usersSnapshot.docs[0].ref.update({
-                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-                        });
+                    console.log('📊 Documentos encontrados:', usersSnapshot.size);
 
-                        this.showSuccess('Login realizado com sucesso! Redirecionando...');
+                    if (!usersSnapshot.empty) {
+                        const userData = usersSnapshot.docs[0].data();
+                        console.log('👤 Dados do usuário encontrados:', userData);
                         
-                        // Redirecionar para dashboard (sem salvar sessionStorage)
-                        setTimeout(() => {
-                            window.location.href = 'firebase-dashboard.html';
-                        }, 1500);
+                        // Verificar se é admin
+                        if (userData.isAdmin === true) {
+                            console.log('✅ Usuário confirmado como admin');
+                            
+                            // Atualizar último login
+                            await usersSnapshot.docs[0].ref.update({
+                                lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+
+                            this.showSuccess('Login realizado com sucesso! Redirecionando...');
+                            
+                            // Salvar dados do usuário no sessionStorage
+                            sessionStorage.setItem('adminUser', JSON.stringify({
+                                uid: user.uid,
+                                email: user.email,
+                                name: userData.name || 'Admin',
+                                role: userData.role || 'Administrador'
+                            }));
+                            
+                            // Redirecionar para dashboard
+                            setTimeout(() => {
+                                window.location.href = 'firebase-dashboard.html';
+                            }, 1500);
+
+                        } else {
+                            console.warn('❌ Usuário não tem permissão de admin');
+                            this.showError('Acesso negado. Este usuário não tem permissões de administrador.');
+                            await auth.signOut();
+                        }
 
                     } else {
-                        console.warn('❌ Usuário não é administrador');
-                        this.showError('Acesso negado. Este usuário não tem permissões de administrador.');
+                        console.warn('❌ Usuário não encontrado no banco de dados');
+                        this.showError('Usuário não encontrado no sistema. Entre em contato com o administrador.');
                         await auth.signOut();
                     }
 

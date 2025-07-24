@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Usuários Admin - Barbearia Samuel Abreu</title>
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a1a;
+            --accent-color: #f4d03f;
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --card-bg: #1a1a1a;
+            --border-radius: 12px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .admin-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-color);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 26, 0.8);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .users-list {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-color);
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-email {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .user-role {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .user-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-admin {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--primary-color);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .success {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+
+        .error {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .admin-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Gerenciar Usuários Administrativos</h1>
+            <p>Sistema para adicionar e gerenciar usuários com acesso ao painel admin</p>
+        </div>
+
+        <div class="admin-panel">
+            <!-- Criar Usuário -->
+            <div class="card">
+                <h2>➕ Criar Novo Admin</h2>
+                <form id="createUserForm">
+                    <div class="form-group">
+                        <label for="newEmail">E-mail</label>
+                        <input type="email" id="newEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">Senha</label>
+                        <input type="password" id="newPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="newName">Nome</label>
+                        <input type="text" id="newName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newRole">Cargo</label>
+                        <input type="text" id="newRole" placeholder="Ex: Barbeiro, Administrador" required>
+                    </div>
+                    <button type="submit" class="btn">Criar Usuário Admin</button>
+                </form>
+                <div id="createMessage"></div>
+            </div>
+
+            <!-- Autenticar Admin Existente -->
+            <div class="card">
+                <h2>✅ Adicionar Admin Existente</h2>
+                <p style="color: #aaa; margin-bottom: 20px; font-size: 0.9rem;">
+                    Para usuários que já têm conta no Firebase Auth mas precisam de permissão admin
+                </p>
+                <form id="addAdminForm">
+                    <div class="form-group">
+                        <label for="adminEmail">E-mail do Usuário</label>
+                        <input type="email" id="adminEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminName">Nome</label>
+                        <input type="text" id="adminName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminRole">Cargo</label>
+                        <input type="text" id="adminRole" placeholder="Ex: Barbeiro, Administrador" required>
+                    </div>
+                    <button type="submit" class="btn">Adicionar Permissão Admin</button>
+                </form>
+                <div id="addMessage"></div>
+            </div>
+        </div>
+
+        <!-- Lista de Usuários -->
+        <div class="users-list">
+            <h2 style="color: var(--primary-color); margin-bottom: 25px; text-align: center;">👥 Usuários Administrativos</h2>
+            <div id="usersList">
+                <p style="text-align: center; color: #aaa;">Carregando usuários...</p>
+            </div>
+            <button class="btn" onclick="loadUsers()">🔄 Atualizar Lista</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // 🔥 Configuração Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTcvqfii2TE08vqolCgqv0jI9VWTfarOA",
+            authDomain: "barbeariasamuelabreu.firebaseapp.com",
+            projectId: "barbeariasamuelabreu",
+            storageBucket: "barbeariasamuelabreu.firebasestorage.app",
+            messagingSenderId: "690733163957",
+            appId: "1:690733163957:web:c3f77d1219a81eeeb6e5fc"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        class UserManager {
+            constructor() {
+                this.setupEventListeners();
+                this.loadUsers();
+            }
+
+            setupEventListeners() {
+                document.getElementById('createUserForm').addEventListener('submit', (e) => this.createUser(e));
+                document.getElementById('addAdminForm').addEventListener('submit', (e) => this.addAdminPermission(e));
+            }
+
+            async createUser(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('newEmail').value;
+                const password = document.getElementById('newPassword').value;
+                const name = document.getElementById('newName').value;
+                const role = document.getElementById('newRole').value;
+
+                try {
+                    this.showMessage('createMessage', 'Criando usuário...', 'info');
+
+                    // Criar usuário no Firebase Auth
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    const user = userCredential.user;
+
+                    // Adicionar dados no Firestore
+                    await db.collection('users').doc(user.uid).set({
+                        email: email,
+                        name: name,
+                        role: role,
+                        isAdmin: true,
+                        active: true,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        lastLogin: null
+                    });
+
+                    this.showMessage('createMessage', `✅ Usuário ${email} criado com sucesso!`, 'success');
+                    document.getElementById('createUserForm').reset();
+                    
+                    // Fazer logout do usuário recém-criado para não interferir na sessão atual
+                    await auth.signOut();
+                    
+                    this.loadUsers();
+
+                } catch (error) {
+                    console.error('Erro ao criar usuário:', error);
+                    this.showMessage('createMessage', `❌ Erro: ${error.message}`, 'error');
+                }
+            }
+
+            async addAdminPermission(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('adminEmail').value;
+                const name = document.getElementById('adminName').value;
+                const role = document.getElementById('adminRole').value;
+
+                try {
+                    this.showMessage('addMessage', 'Adicionando permissão admin...', 'info');
+
+                    // Buscar se o usuário já existe
+                    const existingUser = await db.collection('users').where('email', '==', email).get();
+                    
+                    if (!existingUser.empty) {
+                        // Atualizar usuário existente
+                        await existingUser.docs[0].ref.update({
+                            name: name,
+                            role: role,
+                            isAdmin: true,
+                            active: true,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        this.showMessage('addMessage', `✅ Permissão admin atualizada para ${email}!`, 'success');
+                    } else {
+                        // Criar novo documento (usuário deve existir no Auth)
+                        // Gerar um ID temporário - o ideal seria ter o UID real
+                        const docRef = await db.collection('users').add({
+                            email: email,
+                            name: name,
+                            role: role,
+                            isAdmin: true,
+                            active: true,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                            lastLogin: null,
+                            note: 'Usuário adicionado manualmente - UID pode precisar ser ajustado'
+                        });
+                        this.showMessage('addMessage', `✅ Permissão admin adicionada para ${email}!`, 'success');
+                    }
+
+                    document.getElementById('addAdminForm').reset();
+                    this.loadUsers();
+
+                } catch (error) {
+                    console.error('Erro ao adicionar admin:', error);
+                    this.showMessage('addMessage', `❌ Erro: ${error.message}`, 'error');
+                }
+            }
+
+            async loadUsers() {
+                try {
+                    const usersSnapshot = await db.collection('users').where('isAdmin', '==', true).get();
+                    const usersList = document.getElementById('usersList');
+                    
+                    if (usersSnapshot.empty) {
+                        usersList.innerHTML = '<p style="text-align: center; color: #aaa;">Nenhum usuário admin encontrado.</p>';
+                        return;
+                    }
+
+                    let html = '';
+                    usersSnapshot.forEach(doc => {
+                        const userData = doc.data();
+                        const lastLogin = userData.lastLogin ? 
+                            new Date(userData.lastLogin.toDate()).toLocaleString('pt-BR') : 
+                            'Nunca';
+
+                        html += `
+                            <div class="user-item">
+                                <div class="user-info">
+                                    <div class="user-email">${userData.email}</div>
+                                    <div class="user-role">${userData.name} - ${userData.role}</div>
+                                    <div style="font-size: 0.8rem; color: #666;">Último login: ${lastLogin}</div>
+                                </div>
+                                <div class="user-status status-admin">ADMIN</div>
+                            </div>
+                        `;
+                    });
+
+                    usersList.innerHTML = html;
+
+                } catch (error) {
+                    console.error('Erro ao carregar usuários:', error);
+                    document.getElementById('usersList').innerHTML = 
+                        '<p style="text-align: center; color: #e74c3c;">Erro ao carregar usuários.</p>';
+                }
+            }
+
+            showMessage(elementId, message, type) {
+                const element = document.getElementById(elementId);
+                element.innerHTML = `<div class="message ${type}">${message}</div>`;
+                
+                if (type === 'success') {
+                    setTimeout(() => {
+                        element.innerHTML = '';
+                    }, 5000);
+                }
+            }
+        }
+
+        // Inicializar sistema quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            new UserManager();
+        });
+
+        // Função global para recarregar usuários
+        function loadUsers() {
+            if (window.userManager) {
+                window.userManager.loadUsers();
+            } else {
+                window.userManager = new UserManager();
+            }
+        }
+    </script>
+</body>
+</html>
