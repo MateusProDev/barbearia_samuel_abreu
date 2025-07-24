@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre em contato com a Barbearia Samuel Abreu. Agendamentos, informações e localização em Fortaleza - CE.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Contatos - Barbearia Samuel Abreu</title>
+    
+    <style>
+        /* Estilos específicos para a página de contatos */
+        .contacts-hero {
+            min-height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('img/barbearia.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+        
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+        
+        .contact-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin: 60px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        .map-section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin: 60px 0;
+        }
+        
+        .map-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .social-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .social-card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .contacts-hero {
+                padding: 100px 20px 40px;
+            }
+            
+            .contact-form,
+            .map-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html"><img src="img/logo_baber_branco.png" alt="Logo Barbearia Samuel Abreu"></a>
+            </div>
+            <nav>
+                <div class="barbearia">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">INÍCIO</a></li>
+                    <li><a href="index.html#servicos">SERVIÇOS</a></li>
+                    <li><a href="index.html#cortes">CORTES</a></li>
+                    <li><a href="index.html#sobre">SOBRE</a></li>
+                    <li><a href="#contatos">CONTATOS</a></li>
+                    <li><a href="login.html">ADMIN</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contacts-hero">
+        <div class="hero-content">
+            <h1>Entre em Contato</h1>
+            <p>Estamos aqui para atender você da melhor forma. Agende seu horário ou tire suas dúvidas conosco.</p>
+        </div>
+    </section>
+
+    <!-- Página Principal -->
+    <main class="section">
+        <!-- Informações de Contato -->
+        <div class="contacts-grid">
+            <div class="contact-card fade-in">
+                <div class="contact-icon">📱</div>
+                <h3>WhatsApp</h3>
+                <p>Agende seu horário pelo WhatsApp</p>
+                <a href="https://wa.link/19u2v4" class="btn" target="_blank">Enviar Mensagem</a>
+            </div>
+            
+            <div class="contact-card fade-in">
+                <div class="contact-icon">📍</div>
+                <h3>Localização</h3>
+                <p>R. Marieta Barreira, 810<br>Sabiaguaba, Fortaleza - CE</p>
+                <a href="https://goo.gl/maps/63dDmPkUGqpym9S97" class="btn" target="_blank">Ver no Mapa</a>
+            </div>
+            
+            <div class="contact-card fade-in">
+                <div class="contact-icon">⏰</div>
+                <h3>Horário</h3>
+                <p>Segunda à Sexta: 08:00 - 18:50<br>Sábado: 08:00 - 17:30</p>
+                <a href="#horarios" class="btn">Ver Horários</a>
+            </div>
+            
+            <div class="contact-card fade-in">
+                <div class="contact-icon">✉️</div>
+                <h3>E-mail</h3>
+                <p>samueldomingos63@gmail.com</p>
+                <a href="mailto:samueldomingos63@gmail.com" class="btn">Enviar E-mail</a>
+            </div>
+        </div>
+
+        <!-- Redes Sociais -->
+        <section>
+            <h2 class="section-title">Redes Sociais</h2>
+            <p class="section-subtitle">Siga-nos nas redes sociais para acompanhar nosso trabalho e novidades</p>
+            
+            <div class="social-grid">
+                <div class="social-card fade-in">
+                    <img src="img/insta.png" alt="Instagram">
+                    <h3>Instagram</h3>
+                    <p>@barbearia_samuel_abreu</p>
+                    <a href="https://www.instagram.com/barbearia_samuel_abreu/" class="btn" target="_blank">Seguir</a>
+                </div>
+                
+                <div class="social-card fade-in">
+                    <img src="img/face (1).png" alt="Facebook">
+                    <h3>Facebook</h3>
+                    <p>Barbearia Samuel Abreu</p>
+                    <a href="https://www.facebook.com/profile.php?id=100009466104944" class="btn" target="_blank">Curtir</a>
+                </div>
+                
+                <div class="social-card fade-in">
+                    <img src="img/icon_whatssap.png" alt="WhatsApp">
+                    <h3>WhatsApp</h3>
+                    <p>Agendamentos Rápidos</p>
+                    <a href="https://wa.link/19u2v4" class="btn" target="_blank">Conversar</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulário de Contato -->
+        <section>
+            <h2 class="section-title">Envie uma Mensagem</h2>
+            <div class="contact-form fade-in">
+                <form action="https://getform.io/f/c205ae9b-7265-4d0f-8edd-1c7e6c8f1336" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefone (opcional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Mapa -->
+        <section>
+            <div class="map-section fade-in">
+                <h2 class="section-title">Nossa Localização</h2>
+                <p style="text-align: center; margin-bottom: 30px;">
+                    📍 R. Marieta Barreira, 810 - Sabiaguaba, Fortaleza - CE, 60835-295
+                </p>
+                
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29564.41414720302!2d-38.43289293955082!3d-3.8076762710800426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c7450cf41e81a1%3A0x399ad29ec7766ee7!2sBARBEARIA%20SAMUEL%20ABREU!5e0!3m2!1spt-BR!2sbr!4v1689297394356!5m2!1spt-BR!2sbr"
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="https://goo.gl/maps/63dDmPkUGqpym9S97" class="btn" target="_blank">
+                        Abrir no Google Maps
+                    </a>
+                    <button onclick="BarberShop.shareLocation()" class="btn" style="margin-left: 10px;">
+                        Compartilhar Localização
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horários -->
+        <section id="horarios">
+            <div class="horarios-container fade-in">
+                <h2 class="section-title">Horário de Funcionamento</h2>
+                <table class="modern-horario-table">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Segunda-feira</td>
+                            <td>08:00 - 12:00 | 14:00 - 18:50</td>
+                        </tr>
+                        <tr>
+                            <td>Terça-feira</td>
+                            <td>08:00 - 12:00 | 14:00 - 18:50</td>
+                        </tr>
+                        <tr>
+                            <td>Quarta-feira</td>
+                            <td>08:00 - 12:00 | 14:00 - 18:50</td>
+                        </tr>
+                        <tr>
+                            <td>Quinta-feira</td>
+                            <td>08:00 - 12:00 | 14:00 - 18:50</td>
+                        </tr>
+                        <tr>
+                            <td>Sexta-feira</td>
+                            <td>08:00 - 12:00 | 14:00 - 18:50</td>
+                        </tr>
+                        <tr>
+                            <td>Sábado</td>
+                            <td>08:00 - 12:00 | 14:00 - 17:30</td>
+                        </tr>
+                        <tr>
+                            <td>Domingo</td>
+                            <td>Fechado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.link/19u2v4" target="_blank" class="whatsapp-float">
+        <img src="img/icon_whatssap.png" alt="WhatsApp">
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Navegação</h3>
+                <p><a href="index.html">Início</a></p>
+                <p><a href="index.html#servicos">Serviços</a></p>
+                <p><a href="index.html#cortes">Galeria</a></p>
+                <p><a href="#contatos">Contatos</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>📍 R. Marieta Barreira, 810<br>Sabiaguaba, Fortaleza - CE</p>
+                <p>📞 WhatsApp: Agendamentos</p>
+                <p>📧 samueldomingos63@gmail.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Horário</h3>
+                <p>Segunda à Sexta<br>08:00 - 12:00 | 14:00 - 18:50</p>
+                <p>Sábado<br>08:00 - 12:00 | 14:00 - 17:30</p>
+                <p>Domingo: Fechado</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Redes Sociais</h3>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/barbearia_samuel_abreu/" target="_blank">
+                        <img src="img/insta.png" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100009466104944" target="_blank">
+                        <img src="img/face (1).png" alt="Facebook">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Barbearia Samuel Abreu. Todos os direitos reservados.</p>
+            <p><i>Site criado por: <a href="https://mateusprodev.github.io/portifolio_master/" target="_blank">Mateus Ferreira</a></i></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
