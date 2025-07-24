@@ -1,0 +1,189 @@
+{
+  "siteContent": {
+    "main": {
+      "title": "Barbearia Samuel Abreu",
+      "description": "11 anos renovando autoestimas com profissionais qualificados e produtos de qualidade. Venha viver essa experiência conosco.",
+      "mission": "Oferecer a nossos clientes através de um ambiente agradável, um bom atendimento com um serviço de qualidade, a fim de proporcionar o aumento da autoestima, em uma experiência única e pessoal. Trabalhamos com profissionais qualificados e bons produtos para os cuidados da barba e cabelo, sempre priorizando a satisfação e bem-estar de nossos clientes.",
+      "metaDescription": "Barbearia Samuel Abreu - 11 anos renovando autoestimas com profissionais qualificados. Cortes modernos, barba, pigmentação e muito mais em Fortaleza, CE.",
+      "updatedAt": "2024-07-24T00:00:00.000Z"
+    },
+    "schedule": {
+      "weekdayMorning": "08:00 às 12:00",
+      "weekdayAfternoon": "14:00 às 18:50",
+      "saturdayMorning": "08:00 às 12:00",
+      "saturdayAfternoon": "14:00 às 17:30",
+      "sunday": "Fechado",
+      "updatedAt": "2024-07-24T00:00:00.000Z"
+    },
+    "contact": {
+      "address": "R. Marieta Barreira, 810",
+      "neighborhood": "Sabiaguaba",
+      "city": "Fortaleza - CE",
+      "whatsappLink": "https://wa.link/19u2v4",
+      "instagram": "https://www.instagram.com/barbearia_samuel_abreu/",
+      "facebook": "https://www.facebook.com/profile.php?id=100009466104944",
+      "updatedAt": "2024-07-24T00:00:00.000Z"
+    }
+  },
+  "users": {
+    "admin_uid": {
+      "email": "admin@barbearia-samuel-abreu.com",
+      "name": "Administrador",
+      "role": "Administrador do Sistema",
+      "isAdmin": true,
+      "createdAt": "2024-07-24T00:00:00.000Z"
+    },
+    "samuel_uid": {
+      "email": "samuel@barbearia-samuel-abreu.com",
+      "name": "Samuel Abreu",
+      "role": "Proprietário & Barbeiro Master",
+      "isAdmin": true,
+      "createdAt": "2024-07-24T00:00:00.000Z"
+    },
+    "kaio_uid": {
+      "email": "kaio@barbearia-samuel-abreu.com",
+      "name": "Kaio",
+      "role": "Barbeiro Profissional",
+      "isAdmin": true,
+      "createdAt": "2024-07-24T00:00:00.000Z"
+    }
+  },
+  "services": {
+    "cabelo_barba": {
+      "name": "CABELO E BARBA",
+      "description": "Corte completo com acabamento perfeito da barba, deixando você com visual impecável",
+      "price": 35,
+      "duration": 60,
+      "active": true,
+      "image": "img/cabelo e barba.jpeg"
+    },
+    "corte_infantil": {
+      "name": "CORTE INFANTIL",
+      "description": "Atendimento especializado para crianças com ambiente acolhedor e profissionais experientes",
+      "price": 25,
+      "duration": 45,
+      "active": true,
+      "image": "img/Corte infantil.jpeg"
+    },
+    "pigmentacao": {
+      "name": "PIGMENTAÇÃO",
+      "description": "Técnica avançada para cobertura de fios brancos e realce da cor natural",
+      "price": 40,
+      "duration": 90,
+      "active": true,
+      "image": "img/pigmentacao.jpeg"
+    },
+    "sobrancelha": {
+      "name": "SOBRANCELHA",
+      "description": "Design e modelagem de sobrancelhas para valorizar o olhar masculino",
+      "price": 15,
+      "duration": 30,
+      "active": true,
+      "image": "img/sombracelha.jpeg"
+    },
+    "corte_tesoura": {
+      "name": "CORTE NA TESOURA",
+      "description": "Técnica clássica com acabamento refinado para um visual sofisticado",
+      "price": 30,
+      "duration": 50,
+      "active": true,
+      "image": "img/classico na tesoura.jpeg"
+    },
+    "luzes": {
+      "name": "LUZES",
+      "description": "Mechas e luzes para criar um visual moderno e diferenciado",
+      "price": 80,
+      "duration": 120,
+      "active": true,
+      "image": "img/luzes.jpeg"
+    },
+    "platinado": {
+      "name": "PLATINADO",
+      "description": "Coloração platinada para um visual arrojado e contemporâneo",
+      "price": 100,
+      "duration": 150,
+      "active": true,
+      "image": "img/platinado.jpeg"
+    }
+  },
+  "gallery": {
+    "taper_fade": {
+      "name": "Taper Fade Americano",
+      "description": "Estilo americano moderno com degradê apenas no início da parte de trás",
+      "image": "img/Corte taper fade Americano.jpeg",
+      "category": "fade",
+      "active": true
+    },
+    "mid_fade": {
+      "name": "Mid Fade",
+      "description": "Sombreado gradual visível e marcado a partir da metade da cabeça",
+      "image": "img/Mid fade.jpeg",
+      "category": "fade",
+      "active": true
+    },
+    "high_fade": {
+      "name": "High Fade",
+      "description": "Acabamentos versáteis: régua, freestyle, disfarçado, com listra e waves",
+      "image": "img/High fadeDegradê alto.jpeg",
+      "category": "fade",
+      "active": true
+    },
+    "social_classico": {
+      "name": "Social Clássico",
+      "description": "Elegância atemporal com linhas limpas e contornos precisos",
+      "image": "img/Social Clássico..jpeg",
+      "category": "classico",
+      "active": true
+    },
+    "corte_social": {
+      "name": "Corte Social",
+      "description": "Modelo tradicional perfeito para todas as ocasiões",
+      "image": "img/corte_social.jpeg",
+      "category": "classico",
+      "active": true
+    },
+    "corte_infantil_gallery": {
+      "name": "Corte Infantil",
+      "description": "Atenção especial para aumentar a autoestima dos pequenos",
+      "image": "img/Corte infantil.jpeg",
+      "category": "infantil",
+      "active": true
+    }
+  },
+  "team": {
+    "samuel": {
+      "name": "Samuel Abreu",
+      "role": "Proprietário e Barbeiro Master",
+      "description": "11 anos de experiência renovando autoestimas",
+      "image": "img/proprietario.jpeg",
+      "images": [
+        "img/proprietario.jpeg",
+        "img/proprietario 2.jpeg",
+        "img/samu.jpeg"
+      ],
+      "active": true
+    },
+    "kaio": {
+      "name": "Kaio",
+      "role": "Barbeiro Profissional",
+      "description": "Especialista em cortes modernos e técnicas avançadas",
+      "image": "img/kaioUm.jpeg",
+      "images": [
+        "img/kaioUm.jpeg",
+        "img/kaioDois.jpeg"
+      ],
+      "active": true
+    }
+  },
+  "settings": {
+    "site": {
+      "name": "Barbearia Samuel Abreu",
+      "theme": "gold-dark",
+      "logo": "img/logo_barber.png",
+      "favicon": "img/logo_barber.png",
+      "analytics": "G-150XXE438D",
+      "maintenance": false,
+      "updatedAt": "2024-07-24T00:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração Inicial Firebase - Barbearia Samuel Abreu</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2a1810 100%);
+            color: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        h1 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .step h3 {
+            color: #d4af37;
+            margin-top: 0;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #d4af37, #f1c40f);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .status.success {
+            background: rgba(37, 211, 102, 0.2);
+            border: 1px solid #25D366;
+            color: #25D366;
+        }
+        
+        .status.error {
+            background: rgba(255, 68, 68, 0.2);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+        
+        .status.info {
+            background: rgba(52, 152, 219, 0.2);
+            border: 1px solid #3498db;
+            color: #3498db;
+        }
+        
+        .code {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(45deg, #d4af37, #f1c40f);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Configuração Inicial do Firebase</h1>
+        <p style="text-align: center; opacity: 0.8;">Configure automaticamente os dados iniciais do Firestore</p>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="step">
+            <h3>📋 Passo 1: Verificar Conexão</h3>
+            <p>Primeiro, vamos verificar se a conexão com o Firebase está funcionando.</p>
+            <button onclick="checkConnection()">Verificar Conexão</button>
+            <div id="connectionStatus"></div>
+        </div>
+        
+        <div class="step">
+            <h3>👥 Passo 2: Criar Usuários Administrativos</h3>
+            <p>Criar os usuários admin no Firebase Authentication.</p>
+            <div class="code">
+Usuários que serão criados:
+• admin@barbeariasamuelabreu.com / barbearia2024
+• samuel@barbeariasamuelabreu.com / samuel123
+• kaio@barbeariasamuelabreu.com / kaio123
+            </div>
+            <button onclick="createUsers()" id="createUsersBtn">Criar Usuários</button>
+            <div id="usersStatus"></div>
+        </div>
+        
+        <div class="step">
+            <h3>📄 Passo 3: Configurar Dados do Site</h3>
+            <p>Importar o conteúdo inicial do site para o Firestore.</p>
+            <button onclick="setupSiteContent()" id="setupContentBtn">Configurar Conteúdo</button>
+            <div id="contentStatus"></div>
+        </div>
+        
+        <div class="step">
+            <h3>🔒 Passo 4: Configurar Regras de Segurança</h3>
+            <p>As regras de segurança do Firestore devem ser configuradas manualmente no Console do Firebase.</p>
+            <div class="code">
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /siteContent/{document} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+                   get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+            </div>
+            <button onclick="openFirebaseConsole()">Abrir Console Firebase</button>
+        </div>
+        
+        <div class="step">
+            <h3>✅ Passo 5: Testar Sistema</h3>
+            <p>Após a configuração, teste o sistema de login e administração.</p>
+            <button onclick="testSystem()">Testar Login</button>
+            <button onclick="openDashboard()">Abrir Dashboard</button>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTcvqfii2TE08vqolCgqv0jI9VWTfarOA",
+            authDomain: "barbeariasamuelabreu.firebaseapp.com",
+            projectId: "barbeariasamuelabreu",
+            storageBucket: "barbeariasamuelabreu.firebasestorage.app",
+            messagingSenderId: "690733163957",
+            appId: "1:690733163957:web:c3f77d1219a81eeeb6e5fc"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        function updateProgress(percent) {
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
+
+        function showStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        async function checkConnection() {
+            try {
+                showStatus('connectionStatus', '🔄 Verificando conexão...', 'info');
+                
+                // Tentar ler/escrever um documento de teste
+                const testDoc = db.collection('test').doc('connection');
+                await testDoc.set({ timestamp: new Date(), test: true });
+                await testDoc.delete();
+                
+                showStatus('connectionStatus', '✅ Conexão com Firebase estabelecida com sucesso!', 'success');
+                updateProgress(20);
+            } catch (error) {
+                console.error('Erro de conexão:', error);
+                showStatus('connectionStatus', `❌ Erro de conexão: ${error.message}`, 'error');
+            }
+        }
+
+        async function createUsers() {
+            const btn = document.getElementById('createUsersBtn');
+            btn.disabled = true;
+            
+            try {
+                showStatus('usersStatus', '🔄 Criando usuários administrativos...', 'info');
+                
+                const users = [
+                    { email: 'admin@barbeariasamuelabreu.com', password: 'barbearia2024', name: 'Administrador', role: 'Administrador do Sistema' },
+                    { email: 'samuel@barbeariasamuelabreu.com', password: 'samuel123', name: 'Samuel Abreu', role: 'Proprietário & Barbeiro Master' },
+                    { email: 'kaio@barbeariasamuelabreu.com', password: 'kaio123', name: 'Kaio', role: 'Barbeiro Profissional' }
+                ];
+
+                let successCount = 0;
+                let errorCount = 0;
+
+                for (const userData of users) {
+                    try {
+                        // Criar usuário no Authentication
+                        const userCredential = await auth.createUserWithEmailAndPassword(userData.email, userData.password);
+                        const user = userCredential.user;
+
+                        // Adicionar dados do usuário no Firestore
+                        await db.collection('users').doc(user.uid).set({
+                            email: userData.email,
+                            name: userData.name,
+                            role: userData.role,
+                            isAdmin: true,
+                            createdAt: new Date()
+                        });
+
+                        successCount++;
+                        showStatus('usersStatus', `✅ ${successCount}/${users.length} usuários criados...`, 'info');
+                    } catch (error) {
+                        if (error.code === 'auth/email-already-in-use') {
+                            successCount++; // Considerar como sucesso se já existir
+                        } else {
+                            errorCount++;
+                            console.error(`Erro ao criar usuário ${userData.email}:`, error);
+                        }
+                    }
+                }
+
+                if (errorCount === 0) {
+                    showStatus('usersStatus', `✅ Todos os ${successCount} usuários configurados com sucesso!`, 'success');
+                    updateProgress(50);
+                } else {
+                    showStatus('usersStatus', `⚠️ ${successCount} usuários configurados, ${errorCount} com erro.`, 'error');
+                }
+
+                // Fazer logout para permitir login normal
+                await auth.signOut();
+                
+            } catch (error) {
+                console.error('Erro geral na criação de usuários:', error);
+                showStatus('usersStatus', `❌ Erro: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        async function setupSiteContent() {
+            const btn = document.getElementById('setupContentBtn');
+            btn.disabled = true;
+            
+            try {
+                showStatus('contentStatus', '🔄 Configurando conteúdo do site...', 'info');
+                
+                // Dados iniciais
+                const siteData = {
+                    main: {
+                        title: "Barbearia Samuel Abreu",
+                        description: "11 anos renovando autoestimas com profissionais qualificados e produtos de qualidade. Venha viver essa experiência conosco.",
+                        mission: "Oferecer a nossos clientes através de um ambiente agradável, um bom atendimento com um serviço de qualidade, a fim de proporcionar o aumento da autoestima, em uma experiência única e pessoal.",
+                        metaDescription: "Barbearia Samuel Abreu - 11 anos renovando autoestimas com profissionais qualificados. Cortes modernos, barba, pigmentação e muito mais.",
+                        updatedAt: new Date()
+                    },
+                    schedule: {
+                        weekdayMorning: "08:00 às 12:00",
+                        weekdayAfternoon: "14:00 às 18:50",
+                        saturdayMorning: "08:00 às 12:00",
+                        saturdayAfternoon: "14:00 às 17:30",
+                        sunday: "Fechado",
+                        updatedAt: new Date()
+                    },
+                    contact: {
+                        address: "R. Marieta Barreira, 810",
+                        neighborhood: "Sabiaguaba",
+                        city: "Fortaleza - CE",
+                        whatsappLink: "https://wa.link/19u2v4",
+                        instagram: "https://www.instagram.com/barbearia_samuel_abreu/",
+                        facebook: "https://www.facebook.com/profile.php?id=100009466104944",
+                        updatedAt: new Date()
+                    }
+                };
+
+                // Salvar cada documento
+                for (const [docId, data] of Object.entries(siteData)) {
+                    await db.collection('siteContent').doc(docId).set(data);
+                }
+
+                showStatus('contentStatus', '✅ Conteúdo do site configurado com sucesso!', 'success');
+                updateProgress(80);
+                
+            } catch (error) {
+                console.error('Erro ao configurar conteúdo:', error);
+                showStatus('contentStatus', `❌ Erro: ${error.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function openFirebaseConsole() {
+            window.open('https://console.firebase.google.com/project/barbeariasamuelabreu/firestore/rules', '_blank');
+        }
+
+        function testSystem() {
+            window.open('login.html', '_blank');
+        }
+
+        function openDashboard() {
+            window.open('admin-dashboard.html', '_blank');
+        }
+
+        // Auto-verificar conexão ao carregar
+        window.addEventListener('load', () => {
+            setTimeout(checkConnection, 1000);
+        });
+    </script>
+</body>
+</html>

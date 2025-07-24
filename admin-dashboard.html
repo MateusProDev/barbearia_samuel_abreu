@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="style.css">
     <title>Dashboard Admin - Barbearia Samuel Abreu</title>
     
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
     <style>
         /* Estilos específicos para o dashboard */
         .dashboard-container {
@@ -241,6 +246,183 @@
             color: var(--primary-color);
         }
         
+        /* Estilos para Modais */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 30px 40px 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .close-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .modal-body {
+            padding: 20px 40px 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(245, 245, 245, 0.5);
+        }
+        
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .save-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-color);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .loading-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .loading-text {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
         @media (max-width: 768px) {
             .dashboard-container {
                 padding-top: 120px;
@@ -381,37 +563,43 @@
             <div class="dashboard-grid">
                 <div class="dashboard-card">
                     <div class="card-header">
-                        <div class="card-icon">📅</div>
-                        <h3 class="card-title">Agendamentos</h3>
+                        <div class="card-icon">📝</div>
+                        <h3 class="card-title">Editar Conteúdo</h3>
                     </div>
                     <div class="card-content">
-                        <p><strong>Próximos:</strong> 3 agendamentos hoje</p>
-                        <p><strong>Semana:</strong> 24 agendamentos</p>
-                        <p><strong>Status:</strong> 2 confirmados, 1 pendente</p>
+                        <p><strong>Site:</strong> Título, descrição, textos</p>
+                        <p><strong>Sobre:</strong> Missão e informações</p>
+                        <button class="action-btn" onclick="openContentEditor()">
+                            ✏️ Editar Conteúdo
+                        </button>
                     </div>
                 </div>
                 
                 <div class="dashboard-card">
                     <div class="card-header">
-                        <div class="card-icon">👥</div>
-                        <h3 class="card-title">Clientes</h3>
+                        <div class="card-icon">🕒</div>
+                        <h3 class="card-title">Horários</h3>
                     </div>
                     <div class="card-content">
-                        <p><strong>Total:</strong> 127 clientes cadastrados</p>
-                        <p><strong>Novos:</strong> 5 este mês</p>
-                        <p><strong>Ativos:</strong> 89 clientes ativos</p>
+                        <p><strong>Funcionamento:</strong> Seg-Sáb</p>
+                        <p><strong>Status:</strong> Atualizado</p>
+                        <button class="action-btn" onclick="openScheduleEditor()">
+                            🕒 Editar Horários
+                        </button>
                     </div>
                 </div>
                 
                 <div class="dashboard-card">
                     <div class="card-header">
-                        <div class="card-icon">💰</div>
-                        <h3 class="card-title">Financeiro</h3>
+                        <div class="card-icon">📍</div>
+                        <h3 class="card-title">Endereço & Contato</h3>
                     </div>
                     <div class="card-content">
-                        <p><strong>Hoje:</strong> R$ 240,00</p>
-                        <p><strong>Semana:</strong> R$ 1.680,00</p>
-                        <p><strong>Mês:</strong> R$ 3.240,00</p>
+                        <p><strong>Local:</strong> Sabiaguaba, Fortaleza</p>
+                        <p><strong>WhatsApp:</strong> Configurado</p>
+                        <button class="action-btn" onclick="openContactEditor()">
+                            📍 Editar Contato
+                        </button>
                     </div>
                 </div>
                 
@@ -424,6 +612,128 @@
                         <p><strong>Média:</strong> 4.9/5.0 estrelas</p>
                         <p><strong>Total:</strong> 89 avaliações</p>
                         <p><strong>Recentes:</strong> 5 estrelas (último)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para Edição de Conteúdo -->
+            <div class="modal" id="contentModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>📝 Editar Conteúdo do Site</h2>
+                        <button class="close-btn" onclick="closeModal('contentModal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="contentForm">
+                            <div class="form-group">
+                                <label>Título Principal</label>
+                                <input type="text" id="siteTitle" class="form-input" placeholder="Barbearia Samuel Abreu">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Descrição Principal</label>
+                                <textarea id="siteDescription" class="form-input" rows="3" placeholder="11 anos renovando autoestimas..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Missão da Empresa</label>
+                                <textarea id="siteMission" class="form-input" rows="4" placeholder="Oferecer a nossos clientes..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Meta Description (SEO)</label>
+                                <textarea id="siteMetaDescription" class="form-input" rows="2" placeholder="Meta description para SEO"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="save-btn">💾 Salvar Alterações</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para Edição de Horários -->
+            <div class="modal" id="scheduleModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>🕒 Editar Horários de Funcionamento</h2>
+                        <button class="close-btn" onclick="closeModal('scheduleModal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="scheduleForm">
+                            <div class="schedule-grid">
+                                <div class="form-group">
+                                    <label>Segunda à Sexta - Manhã</label>
+                                    <input type="text" id="weekdayMorning" class="form-input" placeholder="08:00 às 12:00">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Segunda à Sexta - Tarde</label>
+                                    <input type="text" id="weekdayAfternoon" class="form-input" placeholder="14:00 às 18:50">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Sábado - Manhã</label>
+                                    <input type="text" id="saturdayMorning" class="form-input" placeholder="08:00 às 12:00">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Sábado - Tarde</label>
+                                    <input type="text" id="saturdayAfternoon" class="form-input" placeholder="14:00 às 17:30">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Domingo</label>
+                                    <input type="text" id="sunday" class="form-input" placeholder="Fechado">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="save-btn">💾 Salvar Horários</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para Edição de Contato -->
+            <div class="modal" id="contactModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>📍 Editar Informações de Contato</h2>
+                        <button class="close-btn" onclick="closeModal('contactModal')">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label>Endereço Completo</label>
+                                <input type="text" id="address" class="form-input" placeholder="R. Marieta Barreira, 810">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Bairro</label>
+                                <input type="text" id="neighborhood" class="form-input" placeholder="Sabiaguaba">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Cidade - Estado</label>
+                                <input type="text" id="city" class="form-input" placeholder="Fortaleza - CE">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Link do WhatsApp</label>
+                                <input type="url" id="whatsappLink" class="form-input" placeholder="https://wa.link/19u2v4">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Instagram</label>
+                                <input type="url" id="instagram" class="form-input" placeholder="https://www.instagram.com/barbearia_samuel_abreu/">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Facebook</label>
+                                <input type="url" id="facebook" class="form-input" placeholder="https://www.facebook.com/profile.php?id=100009466104944">
+                            </div>
+                            
+                            <button type="submit" class="save-btn">💾 Salvar Contato</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -456,7 +766,30 @@
         </div>
     </div>
 
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Salvando alterações...</div>
+        </div>
+    </div>
+
     <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTcvqfii2TE08vqolCgqv0jI9VWTfarOA",
+            authDomain: "barbeariasamuelabreu.firebaseapp.com",
+            projectId: "barbeariasamuelabreu",
+            storageBucket: "barbeariasamuelabreu.firebasestorage.app",
+            messagingSenderId: "690733163957",
+            appId: "1:690733163957:web:c3f77d1219a81eeeb6e5fc"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
         class AdminDashboard {
             constructor() {
                 this.init();
@@ -467,6 +800,7 @@
                 this.loadUserData();
                 this.updateStats();
                 this.setupEventListeners();
+                this.loadContent();
             }
             
             checkAuthentication() {
@@ -488,6 +822,112 @@
                     this.logout();
                     return;
                 }
+            }
+            
+            async loadContent() {
+                try {
+                    // Carregar dados do Firebase
+                    const contentDoc = await db.collection('siteContent').doc('main').get();
+                    const scheduleDoc = await db.collection('siteContent').doc('schedule').get();
+                    const contactDoc = await db.collection('siteContent').doc('contact').get();
+                    
+                    if (contentDoc.exists) {
+                        const data = contentDoc.data();
+                        document.getElementById('siteTitle').value = data.title || '';
+                        document.getElementById('siteDescription').value = data.description || '';
+                        document.getElementById('siteMission').value = data.mission || '';
+                        document.getElementById('siteMetaDescription').value = data.metaDescription || '';
+                    }
+                    
+                    if (scheduleDoc.exists) {
+                        const data = scheduleDoc.data();
+                        document.getElementById('weekdayMorning').value = data.weekdayMorning || '';
+                        document.getElementById('weekdayAfternoon').value = data.weekdayAfternoon || '';
+                        document.getElementById('saturdayMorning').value = data.saturdayMorning || '';
+                        document.getElementById('saturdayAfternoon').value = data.saturdayAfternoon || '';
+                        document.getElementById('sunday').value = data.sunday || '';
+                    }
+                    
+                    if (contactDoc.exists) {
+                        const data = contactDoc.data();
+                        document.getElementById('address').value = data.address || '';
+                        document.getElementById('neighborhood').value = data.neighborhood || '';
+                        document.getElementById('city').value = data.city || '';
+                        document.getElementById('whatsappLink').value = data.whatsappLink || '';
+                        document.getElementById('instagram').value = data.instagram || '';
+                        document.getElementById('facebook').value = data.facebook || '';
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar dados:', error);
+                    this.showNotification('Erro ao carregar dados do servidor', 'error');
+                }
+            }
+            
+            async saveContent(formData, docId) {
+                this.showLoading();
+                try {
+                    await db.collection('siteContent').doc(docId).set(formData, { merge: true });
+                    this.showNotification('Dados salvos com sucesso!', 'success');
+                    
+                    // Atualizar o site em tempo real (se implementado)
+                    this.updateSiteContent(docId, formData);
+                } catch (error) {
+                    console.error('Erro ao salvar:', error);
+                    this.showNotification('Erro ao salvar dados', 'error');
+                } finally {
+                    this.hideLoading();
+                }
+            }
+            
+            updateSiteContent(docId, data) {
+                // Esta função seria usada para atualizar o conteúdo do site em tempo real
+                // Por enquanto, apenas salvamos no Firebase
+                console.log(`Conteúdo ${docId} atualizado:`, data);
+            }
+            
+            showLoading() {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+            }
+            
+            hideLoading() {
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }
+            
+            showNotification(message, type) {
+                // Criar notificação toast
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.remove()">&times;</button>
+                `;
+                
+                // Adicionar estilos inline
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#25D366' : '#ff4444'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: 600;
+                    animation: slideIn 0.3s ease-out;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Remover após 5 segundos
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 5000);
             }
             
             loadUserData() {
@@ -569,6 +1009,51 @@
             }
             
             setupEventListeners() {
+                // Formulário de conteúdo
+                document.getElementById('contentForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = {
+                        title: document.getElementById('siteTitle').value,
+                        description: document.getElementById('siteDescription').value,
+                        mission: document.getElementById('siteMission').value,
+                        metaDescription: document.getElementById('siteMetaDescription').value,
+                        updatedAt: new Date()
+                    };
+                    await this.saveContent(formData, 'main');
+                    closeModal('contentModal');
+                });
+                
+                // Formulário de horários
+                document.getElementById('scheduleForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = {
+                        weekdayMorning: document.getElementById('weekdayMorning').value,
+                        weekdayAfternoon: document.getElementById('weekdayAfternoon').value,
+                        saturdayMorning: document.getElementById('saturdayMorning').value,
+                        saturdayAfternoon: document.getElementById('saturdayAfternoon').value,
+                        sunday: document.getElementById('sunday').value,
+                        updatedAt: new Date()
+                    };
+                    await this.saveContent(formData, 'schedule');
+                    closeModal('scheduleModal');
+                });
+                
+                // Formulário de contato
+                document.getElementById('contactForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = {
+                        address: document.getElementById('address').value,
+                        neighborhood: document.getElementById('neighborhood').value,
+                        city: document.getElementById('city').value,
+                        whatsappLink: document.getElementById('whatsappLink').value,
+                        instagram: document.getElementById('instagram').value,
+                        facebook: document.getElementById('facebook').value,
+                        updatedAt: new Date()
+                    };
+                    await this.saveContent(formData, 'contact');
+                    closeModal('contactModal');
+                });
+                
                 // Scroll suave para âncoras
                 document.querySelectorAll('a[href^="#"]').forEach(link => {
                     link.addEventListener('click', (e) => {
@@ -586,6 +1071,30 @@
                 sessionStorage.removeItem('isLoggedIn');
                 localStorage.removeItem('adminSession');
                 window.location.href = 'login.html';
+            }
+        }
+        
+        // Funções globais para modais
+        function openContentEditor() {
+            document.getElementById('contentModal').style.display = 'block';
+        }
+        
+        function openScheduleEditor() {
+            document.getElementById('scheduleModal').style.display = 'block';
+        }
+        
+        function openContactEditor() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
         }
         

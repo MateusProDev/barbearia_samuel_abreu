@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Barbearia Samuel Abreu</title>
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a1a;
+            --accent-color: #f4d03f;
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --card-bg: #1a1a1a;
+            --border-radius: 12px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-color);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .login-title {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .login-subtitle {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 26, 0.8);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+        }
+
+        .error-message {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ff4444;
+            color: #ff6b6b;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #66bb6a;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">👑</div>
+        <h1 class="login-title">Admin Login</h1>
+        <p class="login-subtitle">Barbearia Samuel Abreu</p>
+        
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="admin@barbeariasamuelabreu.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required
+                       placeholder="Digite sua senha">
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn">
+                <span id="loginText">🔐 Entrar</span>
+                <span id="loadingText" class="loading">🔄 Entrando...</span>
+            </button>
+        </form>
+        
+        <a href="index.html" class="back-link">← Voltar ao site</a>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+    <script>
+        // 🔥 Configuração Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTcvqfii2TE08vqolCgqv0jI9VWTfarOA",
+            authDomain: "barbeariasamuelabreu.firebaseapp.com",
+            projectId: "barbeariasamuelabreu",
+            storageBucket: "barbeariasamuelabreu.firebasestorage.app",
+            messagingSenderId: "690733163957",
+            appId: "1:690733163957:web:c3f77d1219a81eeeb6e5fc"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        class FirebaseLogin {
+            constructor() {
+                this.form = document.getElementById('loginForm');
+                this.errorDiv = document.getElementById('error-message');
+                this.successDiv = document.getElementById('success-message');
+                this.loginBtn = document.getElementById('loginBtn');
+                this.loginText = document.getElementById('loginText');
+                this.loadingText = document.getElementById('loadingText');
+                
+                this.setupEventListeners();
+                this.checkExistingAuth();
+            }
+
+            setupEventListeners() {
+                this.form.addEventListener('submit', (e) => this.handleLogin(e));
+                
+                // Monitor estado de autenticação
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        console.log('✅ Usuário autenticado:', user.email);
+                        this.verifyAdminAccess(user);
+                    }
+                });
+            }
+
+            checkExistingAuth() {
+                const user = auth.currentUser;
+                if (user) {
+                    console.log('👤 Usuário já logado:', user.email);
+                    this.verifyAdminAccess(user);
+                }
+            }
+
+            async handleLogin(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!email || !password) {
+                    this.showError('Por favor, preencha todos os campos.');
+                    return;
+                }
+
+                this.setLoading(true);
+                this.hideMessages();
+
+                try {
+                    console.log('🔐 Tentando fazer login com:', email);
+                    
+                    // Fazer login no Firebase Auth
+                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    const user = userCredential.user;
+
+                    console.log('✅ Login realizado com sucesso:', user.email);
+                    
+                    // Verificar se é admin
+                    await this.verifyAdminAccess(user);
+
+                } catch (error) {
+                    console.error('❌ Erro no login:', error);
+                    this.handleLoginError(error);
+                } finally {
+                    this.setLoading(false);
+                }
+            }
+
+            async verifyAdminAccess(user) {
+                try {
+                    console.log('🔍 Verificando permissões de admin para:', user.email);
+                    
+                    // Buscar dados do usuário no Firestore
+                    const usersSnapshot = await db.collection('users')
+                        .where('email', '==', user.email)
+                        .where('isAdmin', '==', true)
+                        .get();
+
+                    if (!usersSnapshot.empty) {
+                        const adminData = usersSnapshot.docs[0].data();
+                        console.log('✅ Admin verificado:', adminData);
+                        
+                        // Atualizar último login
+                        await usersSnapshot.docs[0].ref.update({
+                            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
+                        this.showSuccess('Login realizado com sucesso! Redirecionando...');
+                        
+                        // Salvar dados da sessão
+                        sessionStorage.setItem('adminUser', JSON.stringify({
+                            uid: user.uid,
+                            email: user.email,
+                            isAdmin: true,
+                            name: adminData.name || 'Administrador'
+                        }));
+
+                        // Redirecionar para dashboard
+                        setTimeout(() => {
+                            window.location.href = 'admin-dashboard.html';
+                        }, 1500);
+
+                    } else {
+                        console.warn('❌ Usuário não é administrador');
+                        this.showError('Acesso negado. Este usuário não tem permissões de administrador.');
+                        await auth.signOut();
+                    }
+
+                } catch (error) {
+                    console.error('❌ Erro ao verificar permissões:', error);
+                    this.showError('Erro ao verificar permissões. Tente novamente.');
+                    await auth.signOut();
+                }
+            }
+
+            handleLoginError(error) {
+                console.error('Código do erro:', error.code);
+                
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        this.showError('Usuário não encontrado. Verifique o e-mail.');
+                        break;
+                    case 'auth/wrong-password':
+                        this.showError('Senha incorreta. Tente novamente.');
+                        break;
+                    case 'auth/invalid-email':
+                        this.showError('E-mail inválido.');
+                        break;
+                    case 'auth/too-many-requests':
+                        this.showError('Muitas tentativas. Tente novamente mais tarde.');
+                        break;
+                    case 'auth/network-request-failed':
+                        this.showError('Erro de conexão. Verifique sua internet.');
+                        break;
+                    default:
+                        this.showError(`Erro no login: ${error.message}`);
+                }
+            }
+
+            setLoading(isLoading) {
+                this.loginBtn.disabled = isLoading;
+                this.loginText.style.display = isLoading ? 'none' : 'inline';
+                this.loadingText.style.display = isLoading ? 'inline' : 'none';
+            }
+
+            showError(message) {
+                this.errorDiv.textContent = message;
+                this.errorDiv.style.display = 'block';
+                this.successDiv.style.display = 'none';
+            }
+
+            showSuccess(message) {
+                this.successDiv.textContent = message;
+                this.successDiv.style.display = 'block';
+                this.errorDiv.style.display = 'none';
+            }
+
+            hideMessages() {
+                this.errorDiv.style.display = 'none';
+                this.successDiv.style.display = 'none';
+            }
+        }
+
+        // 🚀 Inicializar sistema de login
+        document.addEventListener('DOMContentLoaded', () => {
+            new FirebaseLogin();
+        });
+    </script>
+</body>
+</html>

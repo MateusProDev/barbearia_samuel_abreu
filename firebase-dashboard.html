@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Barbearia Samuel Abreu</title>
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #1a1a1a;
+            --accent-color: #f4d03f;
+            --bg-color: #0f0f0f;
+            --text-color: #ffffff;
+            --card-bg: #1a1a1a;
+            --border-radius: 12px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .admin-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .user-role {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-btn.logout {
+            background: linear-gradient(45deg, #ff4444, #cc3333);
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: var(--transition);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+
+        .card-content {
+            line-height: 1.6;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+        }
+
+        .preview-section {
+            background: rgba(15, 15, 15, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background-color: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close:hover {
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            background: rgba(26, 26, 26, 0.8);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-save {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--primary-color);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            z-index: 9999;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        .notification.error {
+            background: linear-gradient(45deg, #ff4444, #cc3333);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <div class="header-content">
+            <h1 class="admin-title">🔧 Dashboard Administrativo</h1>
+            <div class="header-user">
+                <div class="user-info">
+                    <div class="user-name" id="userName">Carregando...</div>
+                    <div class="user-role" id="userRole">Administrador</div>
+                </div>
+                <a href="index.html" class="nav-btn">Ver Site</a>
+                <button onclick="logout()" class="nav-btn logout">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="dashboard-grid">
+            <!-- Conteúdo Principal -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">📝</div>
+                    <h3 class="card-title">Conteúdo Principal</h3>
+                </div>
+                <div class="card-content">
+                    <div class="preview-section">
+                        <p><strong>Título:</strong> <span id="preview-title">Carregando...</span></p>
+                        <p><strong>Descrição:</strong> <span id="preview-description">Carregando...</span></p>
+                    </div>
+                    <div class="status-indicator"></div>
+                    <span>Sistema online e sincronizado</span>
+                    <button class="action-btn" onclick="openContentEditor()">
+                        ✏️ Editar Conteúdo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horários -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">🕒</div>
+                    <h3 class="card-title">Horários</h3>
+                </div>
+                <div class="card-content">
+                    <div class="preview-section" id="schedule-preview">
+                        <p>Carregando horários...</p>
+                    </div>
+                    <div class="status-indicator"></div>
+                    <span>Horários atualizados</span>
+                    <button class="action-btn" onclick="openScheduleEditor()">
+                        🕒 Editar Horários
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contato -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <div class="card-icon">📞</div>
+                    <h3 class="card-title">Contato</h3>
+                </div>
+                <div class="card-content">
+                    <div class="preview-section" id="contact-preview">
+                        <p>Carregando informações de contato...</p>
+                    </div>
+                    <div class="status-indicator"></div>
+                    <span>Informações sincronizadas</span>
+                    <button class="action-btn" onclick="openContactEditor()">
+                        📍 Editar Contato
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Conteúdo -->
+    <div id="contentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📝 Editar Conteúdo Principal</h2>
+                <span class="close" onclick="closeModal('contentModal')">&times;</span>
+            </div>
+            <form onsubmit="saveMainContent(event)">
+                <div class="form-group">
+                    <label for="site-title">Título do Site:</label>
+                    <input type="text" id="site-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="site-description">Descrição:</label>
+                    <textarea id="site-description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="site-mission">Missão:</label>
+                    <textarea id="site-mission" name="mission" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="site-keywords">Palavras-chave (SEO):</label>
+                    <input type="text" id="site-keywords" name="keywords" placeholder="barbearia, cortes, barba...">
+                </div>
+                <button type="submit" class="btn-save">💾 Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Horários -->
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🕒 Editar Horários</h2>
+                <span class="close" onclick="closeModal('scheduleModal')">&times;</span>
+            </div>
+            <form onsubmit="saveSchedule(event)">
+                <div class="form-group">
+                    <label for="weekday-morning">Segunda a Sexta (Manhã):</label>
+                    <input type="text" id="weekday-morning" name="weekdayMorning" placeholder="08:00 às 12:00">
+                </div>
+                <div class="form-group">
+                    <label for="weekday-afternoon">Segunda a Sexta (Tarde):</label>
+                    <input type="text" id="weekday-afternoon" name="weekdayAfternoon" placeholder="14:00 às 18:00">
+                </div>
+                <div class="form-group">
+                    <label for="saturday-morning">Sábado (Manhã):</label>
+                    <input type="text" id="saturday-morning" name="saturdayMorning" placeholder="08:00 às 12:00">
+                </div>
+                <div class="form-group">
+                    <label for="saturday-afternoon">Sábado (Tarde):</label>
+                    <input type="text" id="saturday-afternoon" name="saturdayAfternoon" placeholder="14:00 às 18:00">
+                </div>
+                <div class="form-group">
+                    <label for="sunday">Domingo:</label>
+                    <input type="text" id="sunday" name="sunday" placeholder="08:00 às 12:00 ou Fechado">
+                </div>
+                <button type="submit" class="btn-save">💾 Salvar Horários</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Contato -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📞 Editar Contato</h2>
+                <span class="close" onclick="closeModal('contactModal')">&times;</span>
+            </div>
+            <form onsubmit="saveContact(event)">
+                <div class="form-group">
+                    <label for="contact-address">Endereço:</label>
+                    <textarea id="contact-address" name="address" placeholder="Rua, número, bairro, cidade..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Telefone/WhatsApp:</label>
+                    <input type="text" id="contact-phone" name="phone" placeholder="(85) 99999-9999">
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">E-mail:</label>
+                    <input type="email" id="contact-email" name="email" placeholder="contato@barbeariasamuelabreu.com">
+                </div>
+                <div class="form-group">
+                    <label for="contact-instagram">Instagram:</label>
+                    <input type="text" id="contact-instagram" name="instagram" placeholder="@barbeariasamuelabreu">
+                </div>
+                <button type="submit" class="btn-save">💾 Salvar Contato</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+    <script>
+        // 🔥 Configuração Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCTcvqfii2TE08vqolCgqv0jI9VWTfarOA",
+            authDomain: "barbeariasamuelabreu.firebaseapp.com",
+            projectId: "barbeariasamuelabreu",
+            storageBucket: "barbeariasamuelabreu.firebasestorage.app",
+            messagingSenderId: "690733163957",
+            appId: "1:690733163957:web:c3f77d1219a81eeeb6e5fc"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        class FirebaseDashboard {
+            constructor() {
+                this.currentUser = null;
+                this.checkAuthentication();
+                this.setupAuthListener();
+            }
+
+            checkAuthentication() {
+                const sessionData = sessionStorage.getItem('adminUser');
+                const firebaseUser = auth.currentUser;
+
+                if (!sessionData && !firebaseUser) {
+                    console.log('❌ Usuário não autenticado - redirecionando');
+                    window.location.href = 'firebase-login.html';
+                    return;
+                }
+
+                if (sessionData) {
+                    this.currentUser = JSON.parse(sessionData);
+                    this.updateUserInterface();
+                    this.loadDashboardData();
+                }
+            }
+
+            setupAuthListener() {
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        console.log('✅ Usuário autenticado:', user.email);
+                        this.verifyUserAndLoad(user);
+                    } else {
+                        console.log('❌ Usuário não autenticado');
+                        sessionStorage.removeItem('adminUser');
+                        window.location.href = 'firebase-login.html';
+                    }
+                });
+            }
+
+            async verifyUserAndLoad(user) {
+                try {
+                    const usersSnapshot = await db.collection('users')
+                        .where('email', '==', user.email)
+                        .where('isAdmin', '==', true)
+                        .get();
+
+                    if (!usersSnapshot.empty) {
+                        const adminData = usersSnapshot.docs[0].data();
+                        
+                        this.currentUser = {
+                            uid: user.uid,
+                            email: user.email,
+                            isAdmin: true,
+                            name: adminData.name || 'Administrador'
+                        };
+
+                        sessionStorage.setItem('adminUser', JSON.stringify(this.currentUser));
+                        this.updateUserInterface();
+                        this.loadDashboardData();
+                    } else {
+                        throw new Error('Usuário não é administrador');
+                    }
+                } catch (error) {
+                    console.error('❌ Erro ao verificar usuário:', error);
+                    await auth.signOut();
+                    window.location.href = 'firebase-login.html';
+                }
+            }
+
+            updateUserInterface() {
+                if (this.currentUser) {
+                    document.getElementById('userName').textContent = this.currentUser.name;
+                    document.getElementById('userRole').textContent = 'Administrador do Sistema';
+                }
+            }
+
+            async loadDashboardData() {
+                try {
+                    this.setupRealtimeListeners();
+                    await this.loadInitialData();
+                } catch (error) {
+                    console.error('❌ Erro ao carregar dados:', error);
+                }
+            }
+
+            setupRealtimeListeners() {
+                // Listener para conteúdo principal
+                db.collection('siteContent').doc('main')
+                    .onSnapshot((doc) => {
+                        if (doc.exists) {
+                            this.updateContentPreview(doc.data());
+                        }
+                    }, (error) => {
+                        console.error('❌ Erro no listener de conteúdo:', error);
+                    });
+
+                // Listener para horários
+                db.collection('siteContent').doc('schedule')
+                    .onSnapshot((doc) => {
+                        if (doc.exists) {
+                            this.updateSchedulePreview(doc.data());
+                        }
+                    }, (error) => {
+                        console.error('❌ Erro no listener de horários:', error);
+                    });
+
+                // Listener para contato
+                db.collection('siteContent').doc('contact')
+                    .onSnapshot((doc) => {
+                        if (doc.exists) {
+                            this.updateContactPreview(doc.data());
+                        }
+                    }, (error) => {
+                        console.error('❌ Erro no listener de contato:', error);
+                    });
+            }
+
+            async loadInitialData() {
+                try {
+                    const [mainDoc, scheduleDoc, contactDoc] = await Promise.all([
+                        db.collection('siteContent').doc('main').get(),
+                        db.collection('siteContent').doc('schedule').get(),
+                        db.collection('siteContent').doc('contact').get()
+                    ]);
+
+                    if (mainDoc.exists) {
+                        this.updateContentPreview(mainDoc.data());
+                    }
+
+                    if (scheduleDoc.exists) {
+                        this.updateSchedulePreview(scheduleDoc.data());
+                    }
+
+                    if (contactDoc.exists) {
+                        this.updateContactPreview(contactDoc.data());
+                    }
+
+                    console.log('✅ Dados iniciais carregados');
+                } catch (error) {
+                    console.error('❌ Erro ao carregar dados iniciais:', error);
+                }
+            }
+
+            updateContentPreview(data) {
+                document.getElementById('preview-title').textContent = data.title || 'Sem título';
+                document.getElementById('preview-description').textContent = data.description || 'Sem descrição';
+            }
+
+            updateSchedulePreview(data) {
+                const preview = document.getElementById('schedule-preview');
+                preview.innerHTML = `
+                    <p><strong>Segunda a Sexta:</strong></p>
+                    <p>Manhã: ${data.weekdayMorning || 'Não definido'}</p>
+                    <p>Tarde: ${data.weekdayAfternoon || 'Não definido'}</p>
+                    <p><strong>Sábado:</strong></p>
+                    <p>Manhã: ${data.saturdayMorning || 'Não definido'}</p>
+                    <p>Tarde: ${data.saturdayAfternoon || 'Não definido'}</p>
+                    <p><strong>Domingo:</strong> ${data.sunday || 'Não definido'}</p>
+                `;
+            }
+
+            updateContactPreview(data) {
+                const preview = document.getElementById('contact-preview');
+                preview.innerHTML = `
+                    <p><strong>Endereço:</strong> ${data.address || 'Não definido'}</p>
+                    <p><strong>Telefone:</strong> ${data.phone || 'Não definido'}</p>
+                    <p><strong>E-mail:</strong> ${data.email || 'Não definido'}</p>
+                    <p><strong>Instagram:</strong> ${data.instagram || 'Não definido'}</p>
+                `;
+            }
+
+            async saveMainContent(data) {
+                if (!this.currentUser) {
+                    throw new Error('Usuário não autenticado');
+                }
+
+                await db.collection('siteContent').doc('main').set({
+                    ...data,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedBy: this.currentUser.email
+                });
+            }
+
+            async saveSchedule(data) {
+                if (!this.currentUser) {
+                    throw new Error('Usuário não autenticado');
+                }
+
+                await db.collection('siteContent').doc('schedule').set({
+                    ...data,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedBy: this.currentUser.email
+                });
+            }
+
+            async saveContact(data) {
+                if (!this.currentUser) {
+                    throw new Error('Usuário não autenticado');
+                }
+
+                await db.collection('siteContent').doc('contact').set({
+                    ...data,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedBy: this.currentUser.email
+                });
+            }
+
+            showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.classList.add('show'), 100);
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+        }
+
+        // 🚀 Inicializar Dashboard
+        let dashboard;
+        document.addEventListener('DOMContentLoaded', () => {
+            dashboard = new FirebaseDashboard();
+        });
+
+        // 📝 Funções para modais
+        function openContentEditor() {
+            db.collection('siteContent').doc('main').get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById('site-title').value = data.title || '';
+                    document.getElementById('site-description').value = data.description || '';
+                    document.getElementById('site-mission').value = data.mission || '';
+                    document.getElementById('site-keywords').value = data.keywords || '';
+                }
+            });
+            document.getElementById('contentModal').style.display = 'block';
+        }
+
+        function openScheduleEditor() {
+            db.collection('siteContent').doc('schedule').get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById('weekday-morning').value = data.weekdayMorning || '';
+                    document.getElementById('weekday-afternoon').value = data.weekdayAfternoon || '';
+                    document.getElementById('saturday-morning').value = data.saturdayMorning || '';
+                    document.getElementById('saturday-afternoon').value = data.saturdayAfternoon || '';
+                    document.getElementById('sunday').value = data.sunday || '';
+                }
+            });
+            document.getElementById('scheduleModal').style.display = 'block';
+        }
+
+        function openContactEditor() {
+            db.collection('siteContent').doc('contact').get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById('contact-address').value = data.address || '';
+                    document.getElementById('contact-phone').value = data.phone || '';
+                    document.getElementById('contact-email').value = data.email || '';
+                    document.getElementById('contact-instagram').value = data.instagram || '';
+                }
+            });
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        // 💾 Funções de salvamento
+        async function saveMainContent(event) {
+            event.preventDefault();
+            try {
+                const formData = new FormData(event.target);
+                const data = Object.fromEntries(formData);
+                await dashboard.saveMainContent(data);
+                dashboard.showNotification('✅ Conteúdo atualizado com sucesso!');
+                closeModal('contentModal');
+            } catch (error) {
+                console.error('❌ Erro ao salvar conteúdo:', error);
+                dashboard.showNotification('❌ Erro ao salvar conteúdo: ' + error.message, 'error');
+            }
+        }
+
+        async function saveSchedule(event) {
+            event.preventDefault();
+            try {
+                const formData = new FormData(event.target);
+                const data = Object.fromEntries(formData);
+                await dashboard.saveSchedule(data);
+                dashboard.showNotification('✅ Horários atualizados com sucesso!');
+                closeModal('scheduleModal');
+            } catch (error) {
+                console.error('❌ Erro ao salvar horários:', error);
+                dashboard.showNotification('❌ Erro ao salvar horários: ' + error.message, 'error');
+            }
+        }
+
+        async function saveContact(event) {
+            event.preventDefault();
+            try {
+                const formData = new FormData(event.target);
+                const data = Object.fromEntries(formData);
+                await dashboard.saveContact(data);
+                dashboard.showNotification('✅ Contato atualizado com sucesso!');
+                closeModal('contactModal');
+            } catch (error) {
+                console.error('❌ Erro ao salvar contato:', error);
+                dashboard.showNotification('❌ Erro ao salvar contato: ' + error.message, 'error');
+            }
+        }
+
+        // 🔄 Funções utilitárias
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function logout() {
+            if (confirm('Tem certeza que deseja sair?')) {
+                try {
+                    await auth.signOut();
+                    sessionStorage.removeItem('adminUser');
+                    window.location.href = 'firebase-login.html';
+                } catch (error) {
+                    console.error('❌ Erro ao fazer logout:', error);
+                    dashboard.showNotification('❌ Erro ao sair do sistema', 'error');
+                }
+            }
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

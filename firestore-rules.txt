@@ -1,0 +1,57 @@
+// 🔐 Regras de Segurança do Firestore
+// Copie este código e cole no Firebase Console > Firestore > Regras
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 👥 Coleção de usuários
+    match /users/{userId} {
+      // Permitir leitura para usuários autenticados
+      allow read: if request.auth != null;
+      // Permitir escrita apenas para admins ou o próprio usuário
+      allow write: if request.auth != null && 
+        (resource.data.isAdmin == true || request.auth.uid == userId);
+    }
+    
+    // 📝 Conteúdo do site (siteContent)
+    match /siteContent/{document} {
+      // Permitir leitura para todos (site público)
+      allow read: if true;
+      // Permitir escrita apenas para usuários autenticados
+      allow write: if request.auth != null;
+    }
+    
+    // 📞 Informações de contato
+    match /contact/{document} {
+      // Permitir leitura para todos
+      allow read: if true;
+      // Permitir escrita apenas para usuários autenticados
+      allow write: if request.auth != null;
+    }
+    
+    // ✂️ Serviços (futuro)
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // 📸 Galeria (futuro)
+    match /gallery/{imageId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // 👥 Equipe (futuro)
+    match /team/{memberId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // ⚙️ Configurações gerais
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
